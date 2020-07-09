@@ -191,6 +191,6 @@ let g:lightline = {
       \ }
 
 nnoremap <leader>rg :Rg<SPACE>
-nnoremap <leader>f :tabnew<CR>
+nnoremap <leader>f :tabnew<CR><bar>:Files<CR>
 nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
 nnoremap <leader>u :UndotreeShow<CR>
