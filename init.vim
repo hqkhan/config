@@ -45,6 +45,7 @@ Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-commentary'
 Plug 'joshdick/onedark.vim'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 " Close the current buffer
@@ -55,14 +56,6 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 " Returns true if paste mode is enabled
 function! HasPaste()
@@ -91,6 +84,11 @@ set background=dark
 if executable('rg')
     let g:rg_derive_root='true'
 endif
+
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+let &t_SI = "\<esc>[6 q"
+let &t_SR = "\<esc>[2 q"
+let &t_EI = "\<esc>[2 q"
 
 " GoTo code navigation.
 nmap <leader>gd <Plug>(coc-definition)
@@ -151,12 +149,32 @@ map <leader>nf :NERDTreeFind<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => lightline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return "File path: ".path[len(root)+1:]
+  endif
+  return "File path: ". expand('%')
+endfunction
+
+function! Get_cwd()
+    return "CWD: ".getcwd()
+endfunction
+
 let g:lightline = {
       \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
-      \             ['fugitive', 'readonly', 'filename', 'modified'] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'] ]
+      \             ['fugitive'],
+      \             ['readonly', 'filename', 'modified']],
+      \   'right': [ ['lineinfo' ], ['percent'], ['cwd'] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'cwd': 'Get_cwd'
       \ },
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
@@ -173,6 +191,6 @@ let g:lightline = {
       \ }
 
 nnoremap <leader>rg :Rg<SPACE>
-nnoremap <leader>f :Files
+nnoremap <leader>f :tabnew<CR>
 nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
 nnoremap <leader>u :UndotreeShow<CR>

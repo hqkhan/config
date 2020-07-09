@@ -118,7 +118,7 @@ fi
 
 eval "`dircolors -b ~/.dircolors`"
 alias ls='ls --color=auto'
-
+export TERM=xterm-256color
 export work="/mnt/c/Users/hkhan/Documents/Work"
 export downloads="/mnt/c/Users/hkhan/Downloads"
 alias container="ssh membership-inference@orwell.mitre.org -L 8080:localhost:8080 -L 3000:localhost:3000 -L 27017:localhost:27017 -L 6379:localhost:6379 -L 8088:localhost:8088"
