@@ -194,3 +194,9 @@ nnoremap <leader>rg :Rg<SPACE>
 nnoremap <leader>f :tabnew<CR><bar>:Files<CR>
 nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
 nnoremap <leader>u :UndotreeShow<CR>
+
+let g:undotree_HighlightChangedText = 1
+let g:undotree_DiffAutoOpen = 0 
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_HighlightSyntaxAdd = "DiffAdd"
+let g:undotree_DiffpanelHeight = 0
