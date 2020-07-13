@@ -1,6 +1,7 @@
 let mapleader = ","
-syntax on
+syntax enable
 
+set showtabline=2
 set wildmenu
 set termguicolors
 set guicursor=

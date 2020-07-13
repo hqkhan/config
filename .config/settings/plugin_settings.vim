@@ -1,15 +1,3 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colorscheme -- Gruvbox
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gruvbox_contrast_dark = 'hard'
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-let g:gruvbox_invert_selection='0'
-
-colorscheme gruvbox
-set background=dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ripgrep
@@ -55,13 +43,9 @@ function! LightlineFilename()
   let root = fnamemodify(get(b:, 'git_dir'), ':h')
   let path = expand('%:p')
   if path[:len(root)-1] ==# root
-    return "File path: ".path[len(root)+1:]
+    return path[len(root)+1:]
   endif
-  return "File path: ". expand('%')
-endfunction
-
-function! Get_cwd()
-    return "CWD: ".getcwd()
+  return expand('%')
 endfunction
 
 let g:lightline = {
@@ -70,11 +54,10 @@ let g:lightline = {
       \   'left': [ ['mode', 'paste'],
       \             ['fugitive'],
       \             ['readonly', 'filename', 'modified']],
-      \   'right': [ ['lineinfo' ], ['percent'], ['cwd'] ]
+      \   'right': [ ['lineinfo' ], ['percent']]
       \ },
       \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \   'cwd': 'Get_cwd'
+      \   'filename': 'LightlineFilename'
       \ },
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
@@ -104,3 +87,13 @@ let g:undotree_DiffpanelHeight = 0
 " => FZF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>f :tabnew<CR><bar>:Files<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => QuickScope
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Trigger a highlight in the appropriate direction when pressing these keys:
+augroup qs_colors
+  autocmd!
+  autocmd ColorScheme * highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
+  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#ff0000' gui=underline ctermfg=81 cterm=underline
+augroup ENDf

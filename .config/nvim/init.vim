@@ -1,19 +1,36 @@
 source $HOME/.config/settings/settings.vim
 source $HOME/.config/settings/plugin_settings.vim
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-surround'
+Plug 'unblevable/quick-scope'
 call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colorscheme -- Gruvbox
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+let g:gruvbox_invert_selection='0'
+
+set t_Co=256
+set background=dark
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 augroup numbertoggle
   autocmd!
@@ -32,6 +49,5 @@ end"
 
 map <silent> "=p :r !powershell.exe -Command Get-Clipboard<CR>
 
-" Quick sourcing of init.vim
 nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
 
