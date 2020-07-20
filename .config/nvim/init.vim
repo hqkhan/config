@@ -1,6 +1,6 @@
 source $HOME/.config/settings/settings.vim
 source $HOME/.config/settings/plugin_settings.vim
-
+set lazyredraw
 call plug#begin('~/.config/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
@@ -13,7 +13,6 @@ Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-surround'
-Plug 'unblevable/quick-scope'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

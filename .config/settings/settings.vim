@@ -23,6 +23,7 @@ set undofile
 set incsearch
 set scrolloff=8
 set noshowmode
+set lazyredraw
 
 " Show matching brackets when text indicator is over them
 set showmatch 
