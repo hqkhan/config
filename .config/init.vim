@@ -1,7 +1,7 @@
-source $HOME/.config/settings/settings.vim
-source $HOME/.config/settings/plugin_settings.vim
-set lazyredraw
-call plug#begin('~/.config/plugged')
+source $HOME/.config/nvim/settings/settings.vim
+source $HOME/.config/nvim/settings/plugin_settings.vim
+
+call plug#begin('~/.config/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
@@ -37,16 +37,15 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-" WSL yank support
-let s:clip = '/mnt/c/Windows/System32/clip.exe'  " default location
-if executable(s:clip)
-    augroup WSLYank
-        autocmd!
-        autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
-    augroup END
-end"
+" " WSL yank support
+" let s:clip = '/mnt/c/Windows/System32/clip.exe'  " default location
+" if executable(s:clip)
+"     augroup WSLYank
+"         autocmd!
+"         autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
+"     augroup END
+" end"
 
-map <silent> "=p :r !powershell.exe -Command Get-Clipboard<CR>
+" map <silent> "=p :r !powershell.exe -Command Get-Clipboard<CR>
 
-nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
 

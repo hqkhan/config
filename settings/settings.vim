@@ -3,6 +3,7 @@ syntax enable
 
 set showtabline=2
 set wildmenu
+set nowrap
 set termguicolors
 set guicursor=
 set noshowmatch
@@ -23,12 +24,13 @@ set undofile
 set incsearch
 set scrolloff=8
 set noshowmode
-set lazyredraw
 
 " Show matching brackets when text indicator is over them
 set showmatch 
+
 " How many tenths of a second to blink when matching brackets
 set mat=2
+
 " Give more space for displaying messages.
 set cmdheight=2
 
@@ -56,12 +58,19 @@ function! HasPaste()
     return ''
 endfunction
 
+" Edit init.vim quickly
+nnoremap <Leader><CR> :tabnew<CR><bar>:e ~/.config/nvim/init.vim<CR>
+
+" source init.vim file
+nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
+
+
 " Sets how many lines of history VIM has to remember
 set history=500
 
 nnoremap <PageUp> <S-Up> " Shift Up for page shifts
 nnoremap <PageDown> <S-Down> " Shift down for page shifts
-nnoremap <C-L><C-L> :set invrelativenumber<CR> " 
+nnoremap <leader>ll :set invrelativenumber<CR> <bar> :set nonu<CR>
 nnoremap <leader>pp :set invpaste paste?<CR>
 
 " Vim tabs hotkeys
@@ -73,3 +82,7 @@ nnoremap g<Right> :tabnext<cr>
 nnoremap <S-Left> 5<C-w>>
 nnoremap <S-Right> 5<C-w><
 
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 50)
+augroup END
