@@ -8,13 +8,15 @@
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id autotiling
 set $term --no-startup-id st
 smart_gaps on
 smart_borders on
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 for_window [class="^.*"] border pixel 1
+
+exec nitrogen --restore &
 
 set $mod Mod1
 
@@ -48,7 +50,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec st 
 
 # kill focused window
 bindsym $mod+q kill

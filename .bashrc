@@ -73,9 +73,16 @@ alias l='ls -CF'
 # Start all VBoxClient tools such as shared clipboard
 VBoxClient-all
 
+# Add all ssh-keys 
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+  eval `ssh-agent -s`
+  ssh-add
+fi
+
 alias ls='ls --color=auto'
 export TERM=st-256color
+export COLORTERM="truecolor"
 export work="/home/hkhan/Work"
 export downloads="/mnt/Downloads"
 alias container="ssh membership-inference@orwell.mitre.org -L 8080:localhost:8080 -L 3000:localhost:3000 -L 27017:localhost:27017 -L 6379:localhost:6379 -L 8088:localhost:8088"
-alias ww="source $work/work_env/bin/activate"
+alias ww="source $work/SAILS/work_env/bin/activate"

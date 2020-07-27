@@ -6,3 +6,5 @@ cp ~/.config/i3/config ./.config/
 cp ~/.tmux.conf .
 cp ~/.bashrc .
 cp ~/.dircolors .
+
+cp ~/st/config.h .
