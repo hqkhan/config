@@ -16,9 +16,10 @@ smart_borders on
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 for_window [class="^.*"] border pixel 1
 
-exec nitrogen --restore &
-
 set $mod Mod1
+
+# Wallpaper
+exec feh --bg-scale --no-fehbg wallpaper/thumb-1920-1068972.jpg
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.

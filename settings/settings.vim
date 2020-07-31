@@ -59,7 +59,7 @@ function! HasPaste()
 endfunction
 
 " Edit init.vim quickly
-nnoremap <Leader><CR> :tabnew<CR><bar>:e ~/.config/nvim/init.vim<CR>
+nnoremap <leader><CR> :tabnew<CR><bar>:e ~/.config/nvim/init.vim<CR>
 
 " source init.vim file
 nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
@@ -68,21 +68,31 @@ nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
 " Sets how many lines of history VIM has to remember
 set history=500
 
-nnoremap <PageUp> <S-Up> " Shift Up for page shifts
-nnoremap <PageDown> <S-Down> " Shift down for page shifts
+nnoremap <silent> <S-k> <PageUp>
+nnoremap <silent> <S-j> <PageDown>
 nnoremap <leader>ll :set invrelativenumber<CR> <bar> :set nonu<CR>
 nnoremap <leader>pp :set invpaste paste?<CR>
 
-" Vim tabs hotkeys
+" Vim tabs hotkey
 nnoremap <leader>tn :tabnew <bar> BufExplorer<CR>
-nnoremap g<Left> :tabprev<cr>
-nnoremap g<Right> :tabnext<cr>
+nnoremap gh :tabprev<cr>
+nnoremap gl :tabnext<cr>
 
 " Quick resizing of windows
-nnoremap <S-Left> 5<C-w>>
-nnoremap <S-Right> 5<C-w><
+nnoremap <S-h> 5<C-w>>
+nnoremap <S-l> 5<C-w><
 
-augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 50)
-augroup END
+" augroup highlight_yank
+"     autocmd!
+"     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 50)
+" augroup END
+"
+" if has('nvim-0.43')
+"     augroup LuaHighlight
+"         autocmd!
+"         autocmd TextYankPost *
+"                     \ lua if not vim.b.visual_multi then
+"                     \ vim.highlight.on_yank({higroup='IncSearch', timeout=800})
+"                     \ end
+"     augroup END
+" endif
