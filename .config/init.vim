@@ -15,6 +15,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
 Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
+Plug 'vimoxide/vim-cinnabar'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -38,17 +39,6 @@ augroup numbertoggle
   autocmd BufWinEnter,BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
-
-" " WSL yank support
-" let s:clip = '/mnt/c/Windows/System32/clip.exe'  " default location
-" if executable(s:clip)
-"     augroup WSLYank
-"         autocmd!
-"         autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
-"     augroup END
-" end"
-
-" map <silent> "=p :r !powershell.exe -Command Get-Clipboard<CR>
 
 set colorcolumn=90
 highlight ColorColumn ctermbg=0 guibg=grey

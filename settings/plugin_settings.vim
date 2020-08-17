@@ -89,7 +89,7 @@ let g:undotree_DiffpanelHeight = 0
 " => FZF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>f :tabnew<CR><bar>:Files<CR>
-nnoremap <C-G> :tabnew<CR><bar>:GFiles<CR>
+nnoremap <C-G> :GFiles<CR>
 
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }

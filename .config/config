@@ -8,8 +8,8 @@
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id autotiling
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# exec_always --no-startup-id autotiling
 set $term --no-startup-id st
 smart_gaps on
 smart_borders on
