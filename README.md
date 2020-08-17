@@ -1,5 +1,5 @@
 # config
-My own config
+My own config.
 
 ### Install `neovim`
 sudo apt-get install neovim
@@ -9,5 +9,9 @@ sudo apt-get install neovim
 
 Then in your ~/.bashrc file add the lines:
 
-
 `eval "\`dircolors -b ~/.dircolors\`"`
+
+### Fonts
+Using [JetBrainsMono](https://www.jetbrains.com/lp/mono/) font.
+
+Use `fc-cache` after placing font in `~/.local/share/fonts/`
