@@ -15,7 +15,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
 Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
-Plug 'vimoxide/vim-cinnabar'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

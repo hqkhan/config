@@ -77,6 +77,7 @@ nnoremap <leader>pp :set invpaste paste?<CR>
 nnoremap <leader>tn :tabnew <bar> BufExplorer<CR>
 nnoremap gh :tabprev<cr>
 nnoremap gl :tabnext<cr>
+nnoremap <leader>bd: :tabclose<CR>
 
 " Quick resizing of windows
 nnoremap <S-h> 5<C-w>>

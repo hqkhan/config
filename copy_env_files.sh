@@ -10,3 +10,5 @@ cp ~/.inputrc .
 
 cp ~/st/config.h .
 
+cp ~/.config/nvim/plugged/gruvbox/colors/gruvbox.vim .
+
