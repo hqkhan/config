@@ -20,9 +20,9 @@ nmap <leader>g[ <Plug>(coc-diagnostic-prev)
 nmap <leader>g] <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
 nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
-nnoremap <leader>cr :CocRestart
+nnoremap <leader>cr :CocRestart<CR>
 
-let g:coc_global_extensions = ['coc-snippets', 'coc-python']
+let g:coc_global_extensions = ['coc-snippets', 'coc-python', 'coc-go', 'coc-jedi']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
@@ -89,7 +89,8 @@ let g:undotree_DiffpanelHeight = 0
 " => FZF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>f :tabnew<CR><bar>:Files<CR>
-nnoremap <C-G> :GFiles<CR>
+nnoremap <C-G> :tabnew<CR><bar>:GFiles<CR>
+nnoremap <C-F> :tabnew<CR><bar>:Files<CR>
 
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
@@ -146,6 +147,8 @@ command! -bang -nargs=* GGrep
 nmap <leader>gs :G<CR>
 nmap <leader>gc :Git commit<CR>
 nmap <leader>gp :Git push<CR>
+nmap <leader>gl :diffget //3<CR>
+nmap <leader>gh :diffget //2<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => QuickScope

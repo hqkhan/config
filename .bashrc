@@ -84,5 +84,10 @@ export TERM=st-256color
 export COLORTERM="truecolor"
 export work="/home/hkhan/Work"
 export downloads="/mnt/Downloads"
-alias container="ssh membership-inference@orwell.mitre.org -L 8080:localhost:8080 -L 3000:localhost:3000 -L 27017:localhost:27017 -L 6379:localhost:6379 -L 8088:localhost:8088"
+alias container="ssh membership-inference@orwell.mitre.org -L 8080:localhost:8080 -L 3000:localhost:3000 -L 27017:localhost:27017 -L 6379:localhost:6379 -L 8088:localhost:8088 -L 8888:localhost:8888"
 alias ww="source $work/SAILS/work_env/bin/activate"
+
+alias fix="xrandr -s 1920x1200"
+
+alias goivas="sudo ssh -i /home/hkhan/Work/ONI/ivas-shared-key-2.pem ec2-user@34.239.37.234"
+
