@@ -3,6 +3,7 @@
 " => Ripgrep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>rg :Rg<SPACE>
+
 if executable('rg')
     let g:rg_derive_root='true'
 endif
@@ -23,6 +24,20 @@ nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart<CR>
 
 let g:coc_global_extensions = ['coc-snippets', 'coc-python', 'coc-go', 'coc-jedi']
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
@@ -51,7 +66,7 @@ function! LightlineFilename()
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
       \             ['fugitive'],
@@ -88,15 +103,15 @@ let g:undotree_DiffpanelHeight = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => FZF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>f :tabnew<CR><bar>:Files<CR>
-nnoremap <C-G> :tabnew<CR><bar>:GFiles<CR>
-nnoremap <C-F> :tabnew<CR><bar>:Files<CR>
+nnoremap <C-G> :GFiles<CR>
+nnoremap <C-F> :Files<CR>
+nnoremap <leader>b :Buffers<CR>
 
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
-let $FZF_DEFAULT_COMMAND="rg --files --hidden"
+let $FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden -g "!.git" -g "!venv"'
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -147,15 +162,7 @@ command! -bang -nargs=* GGrep
 nmap <leader>gs :G<CR>
 nmap <leader>gc :Git commit<CR>
 nmap <leader>gp :Git push<CR>
+nmap <leader>co :G branch --all<CR><bar>:Git checkout 
+
 nmap <leader>gl :diffget //3<CR>
 nmap <leader>gh :diffget //2<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => QuickScope
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Trigger a highlight in the appropriate direction when pressing these keys:
-" augroup qs_colors
-"   autocmd!
-"   autocmd ColorScheme * highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
-"   autocmd ColorScheme * highlight QuickScopeSecondary guifg='#ff0000' gui=underline ctermfg=81 cterm=underline
-" augroup ENDf

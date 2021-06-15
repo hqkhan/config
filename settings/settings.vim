@@ -1,5 +1,5 @@
 let mapleader = ","
-syntax enable
+syntax on
 
 set showtabline=2
 set wildmenu
@@ -24,6 +24,11 @@ set undofile
 set incsearch
 set scrolloff=8
 set noshowmode
+set clipboard+=unnamedplus
+
+au BufRead,BufNewFile *.py set expandtab
+set autoindent
+filetype plugin indent on
 
 " Show matching brackets when text indicator is over them
 set showmatch 
@@ -60,7 +65,7 @@ function! HasPaste()
 endfunction
 
 " Edit init.vim quickly
-nnoremap <leader><CR> :tabnew<CR><bar>:e ~/.config/nvim/init.vim<CR>
+nnoremap <leader><CR> :tabnew<CR><bar>:e ~/.config/nvim/init.vim<CR>:cd %:p:h<cr>:pwd<cr>
 
 " source init.vim file
 nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
@@ -83,3 +88,5 @@ nnoremap <leader>bd :tabclose<CR>
 nnoremap <S-h> 5<C-w>>
 nnoremap <S-l> 5<C-w><
 
+" Remap ctrl carrot
+nnoremap <C-e> <C-^>

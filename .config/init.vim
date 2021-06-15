@@ -11,10 +11,8 @@ Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
-Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
-Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -42,7 +40,4 @@ augroup END
 set colorcolumn=90
 highlight ColorColumn ctermbg=0 guibg=grey
 
-nnoremap <Up> <Nop>
-nnoremap <Down> <Nop>
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
+nnoremap <leader>yy "+y
