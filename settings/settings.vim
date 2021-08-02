@@ -73,8 +73,8 @@ nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
 " Sets how many lines of history VIM has to remember
 set history=500
 
-nnoremap <silent> <S-k> <PageUp>
-nnoremap <silent> <S-j> <PageDown>
+nnoremap <silent> <S-k> <PageUp>zz
+nnoremap <silent> <S-j> <PageDown>zz
 nnoremap <leader>ll :set invrelativenumber<CR> 
 nnoremap <leader>pp :set invpaste paste?<CR>
 
@@ -90,3 +90,23 @@ nnoremap <S-l> 5<C-w><
 
 " Remap ctrl carrot
 nnoremap <C-e> <C-^>
+
+" Copy whole line
+nnoremap Y y$
+
+" Keeping things centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Undo break points
+inoremap , ,<c-g>u
+inoremap ( (<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+inoremap [ [<c-g>u
+inoremap ] ]<c-g>u
+inoremap ) )<c-g>u
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
