@@ -1,4 +1,3 @@
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ripgrep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -7,37 +6,6 @@ nnoremap <leader>rg :Rg<SPACE>
 if executable('rg')
     let g:rg_derive_root='true'
 endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => CoC
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GoTo code navigation.
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rr <Plug>(coc-rename)
-nmap <leader>g[ <Plug>(coc-diagnostic-prev)
-nmap <leader>g] <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
-nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
-nnoremap <leader>cr :CocRestart<CR>
-
-let g:coc_global_extensions = ['coc-snippets', 'coc-python', 'coc-go', 'coc-jedi']
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
@@ -155,14 +123,3 @@ command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Fugitive
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>gs :G<CR>
-nmap <leader>gc :Git commit<CR>
-nmap <leader>gp :Git push<CR>
-nmap <leader>co :G branch --all<CR><bar>:Git checkout 
-
-nmap <leader>gl :diffget //3<CR>
-nmap <leader>gh :diffget //2<CR>

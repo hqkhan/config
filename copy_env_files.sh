@@ -1,7 +1,7 @@
-cp ~/.config/nvim/init.vim ./.config
-cp -r ~/.config/nvim/settings .
+cp -r ~/.config/nvim/ ./.config/
+cp -r ~/.config/i3/ ./.config/
 
-cp ~/.config/i3/config ./.config/
+rm -rf ./.config/nvim/plugged/
 
 cp ~/.tmux.conf .
 cp ~/.bashrc .

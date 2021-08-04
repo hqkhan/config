@@ -1,8 +1,22 @@
-source $HOME/.config/nvim/settings/settings.vim
-source $HOME/.config/nvim/settings/plugin_settings.vim
+" General settings import
+source ~/.config/nvim/settings.vim
+
+# LSP 
+source ~/.config/nvim/plug-config/lsp-config.vim
+luafile ~/.config/nvim/lua/plugins/compe-config.lua
+
+luafile ~/.config/nvim/lsp/dockerls.lua
+luafile ~/.config/nvim/lsp/python-ls.lua
+
+" Plugin config imports
+source ~/.config/nvim/plug-config/fugitive.vim
+source ~/.config/nvim/plug-config/fzf.vim
+source ~/.config/nvim/plug-config/nerd-tree.vim
+source ~/.config/nvim/plug-config/lightline.vim
+source ~/.config/nvim/plug-config/undotree.vim
+source ~/.config/nvim/plug-config/ripgrep.vim
 
 call plug#begin('~/.config/nvim/plugged')
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -13,6 +27,8 @@ Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
