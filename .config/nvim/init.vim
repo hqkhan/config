@@ -1,13 +1,6 @@
 " General settings import
 source ~/.config/nvim/settings.vim
 
-# LSP 
-source ~/.config/nvim/plug-config/lsp-config.vim
-luafile ~/.config/nvim/lua/plugins/compe-config.lua
-
-luafile ~/.config/nvim/lsp/dockerls.lua
-luafile ~/.config/nvim/lsp/python-ls.lua
-
 " Plugin config imports
 source ~/.config/nvim/plug-config/fugitive.vim
 source ~/.config/nvim/plug-config/fzf.vim
@@ -15,6 +8,15 @@ source ~/.config/nvim/plug-config/nerd-tree.vim
 source ~/.config/nvim/plug-config/lightline.vim
 source ~/.config/nvim/plug-config/undotree.vim
 source ~/.config/nvim/plug-config/ripgrep.vim
+
+" LSP 
+lua require ("lsp-config")
+lua require ("compe-config")
+" luafile ~/.config/nvim/lua/plugins/lsp-config.lua
+" luafile ~/.config/nvim/lua/plugins/compe-config.lua
+
+luafile ~/.config/nvim/lsp/dockerls.lua
+luafile ~/.config/nvim/lsp/python-ls.lua
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-fugitive'
