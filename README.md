@@ -15,3 +15,14 @@ Then in your ~/.bashrc file add the lines:
 Using [JetBrainsMono](https://www.jetbrains.com/lp/mono/) font.
 
 Use `fc-cache` after placing font in `~/.local/share/fonts/`
+
+### LSP
+#### Compile Lua
+https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
+
+```
+cd 3rd/luamake
+compile/install.sh
+cd ../..
+./3rd/luamake/luamake rebuild
+```

@@ -90,3 +90,5 @@ alias ww="source ./venv/bin/activate"
 alias fix="xrandr -s 1920x1200"
 
 #export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+
+alias luamake=/home/hkhan/.config/nvim/lua-language-server/3rd/luamake/compile/luamake

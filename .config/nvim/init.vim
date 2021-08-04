@@ -16,8 +16,6 @@ call plug#end()
 " General settings import
 source ~/.config/nvim/settings.vim
 
-luafile ~/.config/nvim/lsp/python-ls.lua
-
 " Plugin config imports
 source ~/.config/nvim/plug-config/fugitive.vim
 source ~/.config/nvim/plug-config/fzf.vim
@@ -31,6 +29,8 @@ lua require ("lsp-config")
 lua require ("compe-config")
 
 luafile ~/.config/nvim/lsp/dockerls.lua
+luafile ~/.config/nvim/lsp/python-ls.lua
+luafile ~/.config/nvim/lua/lua-ls.lua
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme -- Gruvbox

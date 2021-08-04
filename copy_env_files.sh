@@ -2,6 +2,7 @@ cp -r ~/.config/nvim/ ./.config/
 cp -r ~/.config/i3/ ./.config/
 
 rm -rf ./.config/nvim/plugged/
+sudo rm -rf ./.config/nvim/lua-language-server/
 
 cp ~/.tmux.conf .
 cp ~/.bashrc .
