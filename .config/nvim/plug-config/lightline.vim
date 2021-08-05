@@ -13,12 +13,12 @@ function! LightlineFilename()
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'evening',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
       \             ['fugitive'],
       \             ['readonly', 'filename', 'modified']],
-      \   'right': [ ['lineinfo' ], ['percent']]
+      \   'right': []
       \ },
       \ 'component_function': {
       \   'filename': 'LightlineFilename'

@@ -13,6 +13,7 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
 Plug 'rktjmp/lush.nvim'
 Plug 'npxbr/gruvbox.nvim'
+Plug 'folke/lsp-colors.nvim'
 call plug#end()
 
 " General settings import
@@ -28,15 +29,15 @@ source ~/.config/nvim/plug-config/ripgrep.vim
 luafile ~/.config/nvim/lua/treesitter.lua
 
 " LSP 
-lua require ("lsp-config")
-lua require ("compe-config")
-
+source ~/.config/nvim/lua/lsp-config.vim
+luafile ~/.config/nvim/lua/compe-config.lua
 luafile ~/.config/nvim/lsp/dockerls.lua
+luafile ~/.config/nvim/lsp/lsp-colors.lua
 luafile ~/.config/nvim/lsp/python-ls.lua
 luafile ~/.config/nvim/lua/lua-ls.lua
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colorscheme -- Gruvbox
+" => Colorscheme 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists('+termguicolors')
     let &t_8f="/<Esc>[38;2;%lu;%lu;%lum"
@@ -61,4 +62,6 @@ augroup END
 nnoremap <leader>yy "+y
 
 set background=dark
+let g:gruvbox_bold=0
+let g:gruvbox_contrast_dark='medium'
 colorscheme gruvbox 
