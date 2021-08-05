@@ -13,7 +13,7 @@ function! LightlineFilename()
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'evening',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
       \             ['fugitive'],

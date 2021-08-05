@@ -5,12 +5,14 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
+Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
+Plug 'rktjmp/lush.nvim'
+Plug 'npxbr/gruvbox.nvim'
 call plug#end()
 
 " General settings import
@@ -23,6 +25,7 @@ source ~/.config/nvim/plug-config/nerd-tree.vim
 source ~/.config/nvim/plug-config/lightline.vim
 source ~/.config/nvim/plug-config/undotree.vim
 source ~/.config/nvim/plug-config/ripgrep.vim
+luafile ~/.config/nvim/lua/treesitter.lua
 
 " LSP 
 lua require ("lsp-config")
@@ -35,16 +38,14 @@ luafile ~/.config/nvim/lua/lua-ls.lua
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme -- Gruvbox
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = 'hard'
 if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    let &t_8f="/<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b="/<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 endif
-let g:gruvbox_invert_selection='0'
-
+let g:nvcode_termcolors=256
 set t_Co=256
-set background=dark
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -54,7 +55,10 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-set colorcolumn=90
-highlight ColorColumn ctermbg=0 guibg=grey
+" set colorcolumn=90
+" highlight ColorColumn ctermbg=0 guibg=grey
 
 nnoremap <leader>yy "+y
+
+set background=dark
+colorscheme gruvbox 

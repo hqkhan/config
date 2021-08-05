@@ -1,10 +1,10 @@
 let mapleader = ","
 syntax on
 
+set termguicolors
 set showtabline=2
 set wildmenu
 set nowrap
-set termguicolors
 set guicursor=
 set noshowmatch
 set relativenumber
