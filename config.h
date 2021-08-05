@@ -95,63 +95,74 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
-static const char *colorname[] = {
-	/* /1* 8 normal colors *1/ */
-	/* "black", */
-	/* "red3", */
-	/* "green3", */
-	/* "yellow3", */
-	/* "blue2", */
-	/* "magenta3", */
-	/* "cyan3", */
-	/* "gray90", */
+/* static const char *colorname[] = { */
+/* 	/1* 8 normal colors *1/ */
+/* 	"#0d1f21", */
+/* 	"#dc2566", */
+/* 	"#8fc029", */
+/* 	"#d4c96e", */
+/* 	"#55bcce", */
+/* 	"#9358fe", */
+/* 	"#56b7a5", */
+/* 	"#acada1", */
 
-	/* /1* 8 bright colors *1/ */
-	/* "gray50", */
-	/* "red", */
-	/* "green", */
-	/* "yellow", */
-	/* "#5c5cff", */
-	/* "magenta", */
-	/* "cyan", */
-	/* "white", */
+/* 	/1* 8 bright colors *1/ */
+/* 	"#282a2e", */
+/* 	"#fa2772", */
+/* 	"#a7e22e", */
+/* 	"#e7db75", */
+/* 	"#66d9ee", */
+/* 	"#ae82ff", */
+/* 	"#66efd5", */
+/* 	"#cfd0c2", */
 
-	/* 8 normal colors */
-	"#0d1f21",
-	"#dc2566",
-	"#8fc029",
-	"#d4c96e",
-	"#55bcce",
-	"#9358fe",
-	"#56b7a5",
-	"#acada1",
+/* 	[255] = 0, */
 
-	/* 8 bright colors */
-	"#282a2e",
-	"#fa2772",
-	"#a7e22e",
-	"#e7db75",
-	"#66d9ee",
-	"#ae82ff",
-	"#66efd5",
-	"#cfd0c2",
-
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
-};
+/* 	/1* more colors can be added after 255 to use with DefaultXX *1/ */
+/* 	"#cccccc", */
+/* 	"#555555", */
+/* }; */
 
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 7;
-unsigned int defaultbg = 0;
-static unsigned int defaultcs = 256;
+/* unsigned int defaultfg = 7; */
+/* unsigned int defaultbg = 0; */
+/* static unsigned int defaultcs = 256; */
 static unsigned int defaultrcs = 257;
+
+/* gruvbox-dark colorscheme */
+
+/* Terminal colors (16 first used in escape sequence) */
+static const char *colorname[] = {
+	"#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
+	"#cc241d",
+	"#98971a",
+	"#d79921",
+	"#458588",
+	"#b16286",
+	"#689d6a",
+	"#a89984",
+	"#928374",
+	"#fb4934",
+	"#b8bb26",
+	"#fabd2f",
+	"#83a598",
+	"#d3869b",
+	"#8ec07c",
+	"#ebdbb2",
+};
+
+
+/*
+ * Default colors (colorname index)
+ * foreground, background, cursor
+ */
+unsigned int defaultfg = 15;
+unsigned int defaultbg = 0;
+unsigned int defaultcs = 15;
 
 /*
  * Default shape of cursor
