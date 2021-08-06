@@ -31,9 +31,9 @@ luafile ~/.config/nvim/lua/treesitter.lua
 " LSP 
 source ~/.config/nvim/lua/lsp-config.vim
 luafile ~/.config/nvim/lua/compe-config.lua
-luafile ~/.config/nvim/lsp/dockerls.lua
-luafile ~/.config/nvim/lsp/lsp-colors.lua
-luafile ~/.config/nvim/lsp/python-ls.lua
+luafile ~/.config/nvim/lua/dockerls.lua
+luafile ~/.config/nvim/lua/lsp-colors.lua
+luafile ~/.config/nvim/lua/python-ls.lua
 luafile ~/.config/nvim/lua/lua-ls.lua
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
