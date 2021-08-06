@@ -1,8 +1,12 @@
 # config
 My own config.
 
+### Stow
+`stow */` to grab all folders
+`stow <folder_name>` to grab specific piece
+
 ### Install `neovim`
-sudo apt-get install neovim
+`sudo apt-get install neovim`
 
 ### To get dircolors files in your home
 `dircolors -p > ~/.dircolors`
