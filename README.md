@@ -26,3 +26,8 @@ compile/install.sh
 cd ../..
 ./3rd/luamake/luamake rebuild
 ```
+
+### PS1
+https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+
+Place in `~` for this to read git branch
