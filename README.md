@@ -35,3 +35,7 @@ cd ../..
 https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 
 Place in `~` for this to read git branch
+
+### Colorscheme
+Place `palenight.yml` in `/home/hkhan/.config/nvim/plugged/nvcode-color-schemes.vim`
+

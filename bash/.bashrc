@@ -83,7 +83,7 @@ export work="/home/hkhan/Work"
 export downloads="/mnt/Downloads"
 alias ww="source ./venv/bin/activate"
 
-alias fix="xrandr -s 1920x1200"
+alias fix="xrandr --output VGA-1 --mode 1920x1200"
 
 #export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 

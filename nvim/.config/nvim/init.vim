@@ -11,9 +11,8 @@ Plug 'tpope/vim-obsession'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
-Plug 'rktjmp/lush.nvim'
-Plug 'npxbr/gruvbox.nvim'
-Plug 'folke/lsp-colors.nvim'
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
+" Plug 'folke/lsp-colors.nvim'
 call plug#end()
 
 " General settings import
@@ -32,7 +31,7 @@ luafile ~/.config/nvim/lua/treesitter.lua
 source ~/.config/nvim/lua/lsp-config.vim
 luafile ~/.config/nvim/lua/compe-config.lua
 luafile ~/.config/nvim/lua/dockerls.lua
-luafile ~/.config/nvim/lua/lsp-colors.lua
+" luafile ~/.config/nvim/lua/lsp-colors.lua
 luafile ~/.config/nvim/lua/python-ls.lua
 luafile ~/.config/nvim/lua/lua-ls.lua
 
@@ -61,7 +60,11 @@ augroup END
 
 nnoremap <leader>yy "+y
 
+let g:lsp_diagnostics_enabled                = 0
+let g:lsp_diagnostics_signs_enabled          = 0
+let g:lsp_diagnostics_virtual_text_enabled   = 0
+let g:lsp_diagnostics_highlights_enabled     = 0
+let g:lsp_document_code_action_signs_enabled = 0
+
 set background=dark
-let g:gruvbox_bold=0
-let g:gruvbox_contrast_dark='medium'
-colorscheme gruvbox 
+colorscheme palenight 

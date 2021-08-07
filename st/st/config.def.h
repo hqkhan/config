@@ -95,75 +95,49 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
-/* static const char *colorname[] = { */
-/* 	/1* 8 normal colors *1/ */
-/* 	"#0d1f21", */
-/* 	"#dc2566", */
-/* 	"#8fc029", */
-/* 	"#d4c96e", */
-/* 	"#55bcce", */
-/* 	"#9358fe", */
-/* 	"#56b7a5", */
-/* 	"#acada1", */
-
-/* 	/1* 8 bright colors *1/ */
-/* 	"#282a2e", */
-/* 	"#fa2772", */
-/* 	"#a7e22e", */
-/* 	"#e7db75", */
-/* 	"#66d9ee", */
-/* 	"#ae82ff", */
-/* 	"#66efd5", */
-/* 	"#cfd0c2", */
-
-/* 	[255] = 0, */
-
-/* 	/1* more colors can be added after 255 to use with DefaultXX *1/ */
-/* 	"#cccccc", */
-/* 	"#555555", */
-/* }; */
-
-
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
- */
-/* unsigned int defaultfg = 7; */
-/* unsigned int defaultbg = 0; */
-/* static unsigned int defaultcs = 256; */
-static unsigned int defaultrcs = 257;
-
-/* gruvbox-dark colorscheme */
-
-/* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
-	"#cc241d",
-	"#98971a",
-	"#d79921",
-	"#458588",
-	"#b16286",
-	"#689d6a",
-	"#a89984",
-	"#928374",
-	"#fb4934",
-	"#b8bb26",
-	"#fabd2f",
-	"#83a598",
-	"#d3869b",
-	"#8ec07c",
-	"#ebdbb2",
-};
 
+  /* 8 normal colors */
+  [0] = "#000000", /* black   */
+  [1] = "#ff5555", /* red     */
+  [2] = "#50fa7b", /* green   */
+  [3] = "#f1fa8c", /* yellow  */
+  [4] = "#bd93f9", /* blue    */
+  [5] = "#ff79c6", /* magenta */
+  [6] = "#8be9fd", /* cyan    */
+  [7] = "#bbbbbb", /* white   */
+
+  /* 8 bright colors */
+  [8]  = "#44475a", /* black   */
+  [9]  = "#ff5555", /* red     */
+  [10] = "#50fa7b", /* green   */
+  [11] = "#f1fa8c", /* yellow  */
+  [12] = "#bd93f9", /* blue    */
+  [13] = "#ff79c6", /* magenta */
+  [14] = "#8be9fd", /* cyan    */
+  [15] = "#ffffff", /* white   */
+
+  /* special colors */
+  [256] = "#282a36", /* background */
+  [257] = "#f8f8f2", /* foreground */
+};
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor
  */
-unsigned int defaultfg = 15;
-unsigned int defaultbg = 0;
-unsigned int defaultcs = 15;
+unsigned int defaultfg = 257;
+unsigned int defaultbg = 256;
+static unsigned int defaultcs = 257;
+static unsigned int defaultrcs = 257;
 
+/*
+ * Colors used, when the specific fg == defaultfg. So in reverse mode this
+ * will reverse too. Another logic would only make the simple feature too
+ * complex.
+ */
+unsigned int defaultitalic = 7;
+unsigned int defaultunderline = 7;
 /*
  * Default shape of cursor
  * 2: Block ("█")
