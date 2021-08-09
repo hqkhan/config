@@ -36,7 +36,7 @@ fi
 
 source ~/.git-prompt.sh
 if [ "$color_prompt" = yes ]; then
-    PS1='\[\e[0;1;38;5;113m\]-> \[\033[01;34;4m\]\w\[\033[00m\]\[\e[0;1;38;5;156m\]$(__git_ps1 " (%s)")\[\e[0;38;5;197m\] $\[\e[0m\] '
+    PS1='\[\e[0;1;38;5;113m\]-> \[\033[01;34m\]\w\[\033[00m\]\[\e[0;1;38;5;156m\]$(__git_ps1 " (%s)")\[\e[0;38;5;197m\] $\[\e[0m\] '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -83,7 +83,7 @@ export work="/home/hkhan/Work"
 export downloads="/mnt/Downloads"
 alias ww="source ./venv/bin/activate"
 
-alias fix="xrandr --output VGA-1 --mode 1920x1200"
+alias fix="xrandr -s 1920x1200"
 
 #export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
