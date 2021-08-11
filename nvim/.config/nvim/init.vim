@@ -12,7 +12,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
-" Plug 'folke/lsp-colors.nvim'
+Plug 'marko-cerovac/material.nvim'
 call plug#end()
 
 " General settings import
@@ -31,7 +31,6 @@ luafile ~/.config/nvim/lua/treesitter.lua
 source ~/.config/nvim/lua/lsp-config.vim
 luafile ~/.config/nvim/lua/compe-config.lua
 luafile ~/.config/nvim/lua/dockerls.lua
-" luafile ~/.config/nvim/lua/lsp-colors.lua
 luafile ~/.config/nvim/lua/python-ls.lua
 luafile ~/.config/nvim/lua/lua-ls.lua
 
@@ -43,6 +42,7 @@ if exists('+termguicolors')
     let &t_8b="/<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
 endif
+
 let g:nvcode_termcolors=256
 set t_Co=256
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -55,9 +55,6 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-" set colorcolumn=90
-" highlight ColorColumn ctermbg=0 guibg=grey
-
 nnoremap <leader>yy "+y
 
 let g:lsp_diagnostics_enabled                = 0
@@ -67,4 +64,16 @@ let g:lsp_diagnostics_highlights_enabled     = 0
 let g:lsp_document_code_action_signs_enabled = 0
 
 set background=dark
-colorscheme palenight 
+" let g:material_style = 'oceanic'
+" let g:material_italic_comments = v:true
+" let g:material_italic_keywords = v:false
+" let g:material_italic_functions = v:false
+" let g:material_italic_variables = v:false
+" let g:material_contrast = v:true
+" let g:material_borders = v:false
+" let g:material_disable_background = v:false
+
+" colorscheme material
+colorscheme palenight
+
+" let g.material_custom_colors = { black = "#000000", bg = "#0F111A" }
