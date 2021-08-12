@@ -35,7 +35,7 @@ gls.left[2] = {
       local alias = {n = 'NORMAL',i = 'INSERT',c= 'COMMAND',v= 'VISUAL',V= 'VISUAL LINE', [''] = 'VISUAL BLOCK'}
       return alias[vim.fn.mode()]
     end,
-    separator = '',
+    separator = ' ', 
     separator_highlight = {colors.purple,function()
       if not buffer_not_empty() then
         return colors.purple
@@ -56,15 +56,16 @@ gls.left[4] = {
   FileName = {
     provider = {'FileName'},
     condition = buffer_not_empty,
-    separator = '',
-    separator_highlight = {colors.purple,colors.darkblue},
+    separator = '',
+    separator_highlight = {colors.darkblue, colors.purple},
     highlight = {colors.magenta,colors.darkblue}
   }
 }
 
 gls.left[5] = {
   GitIcon = {
-    provider = function() return '  ' end,
+    -- provider = function() return '  ' end,
+    provider = function() return '  ' end,
     condition = buffer_not_empty,
     highlight = {colors.orange,colors.purple},
   }
@@ -73,6 +74,8 @@ gls.left[6] = {
   GitBranch = {
     provider = 'GitBranch',
     condition = buffer_not_empty,
+    separator = '',
+    separator_highlight = {colors.purple},
     highlight = {colors.grey,colors.purple},
   }
 }
