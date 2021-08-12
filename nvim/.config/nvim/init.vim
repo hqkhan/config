@@ -3,8 +3,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
-Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
@@ -13,6 +11,10 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'marko-cerovac/material.nvim'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+
+" If you want to display icons, then use one of these plugins:
+Plug 'kyazdani42/nvim-web-devicons' " lua
 call plug#end()
 
 " General settings import
@@ -21,18 +23,17 @@ source ~/.config/nvim/settings.vim
 " Plugin config imports
 source ~/.config/nvim/plug-config/fugitive.vim
 source ~/.config/nvim/plug-config/fzf.vim
-source ~/.config/nvim/plug-config/nerd-tree.vim
-source ~/.config/nvim/plug-config/lightline.vim
 source ~/.config/nvim/plug-config/undotree.vim
 source ~/.config/nvim/plug-config/ripgrep.vim
-luafile ~/.config/nvim/lua/treesitter.lua
+luafile ~/.config/nvim/lua/config/galaxy-line.lua
+luafile ~/.config/nvim/lua/config/treesitter.lua
 
 " LSP 
-source ~/.config/nvim/lua/lsp-config.vim
-luafile ~/.config/nvim/lua/compe-config.lua
-luafile ~/.config/nvim/lua/dockerls.lua
-luafile ~/.config/nvim/lua/python-ls.lua
-luafile ~/.config/nvim/lua/lua-ls.lua
+source ~/.config/nvim/plug-config/lsp-config.vim
+luafile ~/.config/nvim/lua/config/compe-config.lua
+luafile ~/.config/nvim/lua/config/dockerls.lua
+luafile ~/.config/nvim/lua/config/python-ls.lua
+luafile ~/.config/nvim/lua/config/lua-ls.lua
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme 
@@ -64,16 +65,4 @@ let g:lsp_diagnostics_highlights_enabled     = 0
 let g:lsp_document_code_action_signs_enabled = 0
 
 set background=dark
-" let g:material_style = 'oceanic'
-" let g:material_italic_comments = v:true
-" let g:material_italic_keywords = v:false
-" let g:material_italic_functions = v:false
-" let g:material_italic_variables = v:false
-" let g:material_contrast = v:true
-" let g:material_borders = v:false
-" let g:material_disable_background = v:false
-
-" colorscheme material
 colorscheme palenight
-
-" let g.material_custom_colors = { black = "#000000", bg = "#0F111A" }

@@ -5,11 +5,17 @@ nnoremap <C-G> :GFiles<CR>
 nnoremap <C-F> :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
-let $FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden -g "!.git" -g "!venv"'
+let $FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --follow --hidden -g "!.git" -g "!venv" -g "!lua-language-server"'
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -34,12 +40,12 @@ command! -bang -nargs=? -complete=dir Files
 " Get text in files with Rg
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --color=always --follow --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
 " Ripgrep advanced
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --follow --smart-case %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
@@ -53,3 +59,19 @@ command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+
+" Search through config files
+command! -bang -nargs=* ConfigFiles
+            \ call fzf#run({
+            \ 'source': 'rg --files ~/config/ --no-ignore-vcs --follow --hidden -g "!.git" -g "!venv" -g "!fonts"',
+            \ 'options': ['--layout=reverse', '--info=inline', '--preview', '~/.config/nvim/plugged/fzf.vim/bin/preview.sh {}'],
+            \ 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' },
+            \ 'sink': 'e'
+            \ })
+" command! -bang ConfigFiles call ConfigFileFzf(<bang>0)
+command! -bang ConfigFiles call fzf#vim#files('~/config', <bang>0)
+
+
+" Go straight to config files
+nnoremap <leader>c :ConfigFiles<CR>
