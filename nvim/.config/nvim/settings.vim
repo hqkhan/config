@@ -64,9 +64,6 @@ function! HasPaste()
     return ''
 endfunction
 
-" Edit init.vim quickly
-nnoremap <leader><CR> :tabnew<CR><bar>:e ~/.config/nvim/init.vim<CR>:cd %:p:h<cr>:pwd<cr>
-
 " source init.vim file
 nnoremap <leader>ss :source ~/.config/nvim/init.vim<CR>
 

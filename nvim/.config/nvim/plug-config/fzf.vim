@@ -64,14 +64,11 @@ command! -bang -nargs=* GGrep
 " Search through config files
 command! -bang -nargs=* ConfigFiles
             \ call fzf#run({
-            \ 'source': 'rg --files ~/config/ --no-ignore-vcs --follow --hidden -g "!.git" -g "!venv" -g "!fonts"',
+            \ 'source': 'rg --files ~/config --no-ignore-vcs --follow --hidden -g "!.git" -g "!venv" -g "!fonts"',
             \ 'options': ['--layout=reverse', '--info=inline', '--preview', '~/.config/nvim/plugged/fzf.vim/bin/preview.sh {}'],
             \ 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' },
             \ 'sink': 'e'
             \ })
-" command! -bang ConfigFiles call ConfigFileFzf(<bang>0)
-command! -bang ConfigFiles call fzf#vim#files('~/config', <bang>0)
-
 
 " Go straight to config files
-nnoremap <leader>c :ConfigFiles<CR>
+nnoremap <leader><CR> :ConfigFiles<CR>
