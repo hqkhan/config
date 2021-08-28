@@ -69,7 +69,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # Start all VBoxClient tools such as shared clipboard
-VBoxClient-all
+# VBoxClient-all
 
 # Add all ssh-keys 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
