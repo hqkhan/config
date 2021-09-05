@@ -12,9 +12,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'marko-cerovac/material.nvim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-
-" If you want to display icons, then use one of these plugins:
-Plug 'kyazdani42/nvim-web-devicons' " lua
+Plug 'kyazdani42/nvim-web-devicons' " If you want to display icons, then use one of these plugins --lua
+Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
 
 " General settings import
@@ -25,6 +24,7 @@ source ~/.config/nvim/plug-config/fugitive.vim
 source ~/.config/nvim/plug-config/fzf.vim
 source ~/.config/nvim/plug-config/undotree.vim
 source ~/.config/nvim/plug-config/ripgrep.vim
+source ~/.config/nvim/plug-config/nvim-tree.vim
 luafile ~/.config/nvim/lua/config/galaxy-line.lua
 luafile ~/.config/nvim/lua/config/treesitter.lua
 
