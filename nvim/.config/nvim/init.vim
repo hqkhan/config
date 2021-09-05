@@ -2,10 +2,10 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'ibhagwan/fzf-lua'
+Plug 'vijaymarupudi/nvim-fzf'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-obsession'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
@@ -21,12 +21,12 @@ source ~/.config/nvim/settings.vim
 
 " Plugin config imports
 source ~/.config/nvim/plug-config/fugitive.vim
-source ~/.config/nvim/plug-config/fzf.vim
 source ~/.config/nvim/plug-config/undotree.vim
 source ~/.config/nvim/plug-config/ripgrep.vim
 source ~/.config/nvim/plug-config/nvim-tree.vim
 luafile ~/.config/nvim/lua/config/galaxy-line.lua
 luafile ~/.config/nvim/lua/config/treesitter.lua
+luafile ~/.config/nvim/lua/config/fzf-lua.lua
 
 " LSP 
 source ~/.config/nvim/plug-config/lsp-config.vim
