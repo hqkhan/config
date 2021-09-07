@@ -17,8 +17,9 @@
 ;==========================================================
 
 [colors]
-background = #292D3E
-foreground = #bfc7d5
+;background = #292D3E
+background = #081633
+foreground = #c792ea
 primary = #ffb52a
 secondary = #e60053
 alert = #ff5370
@@ -33,6 +34,8 @@ blue = #82b1ff
 light_blue = #9CDCFE
 vivid_blue = #4FC1FF
 purple = #c792ea
+darkblue = #081633
+purple_gal = #5d4d7a
 blue_purple = #939ede
 cyan = #89DDFF
 white = #bfc7d5
@@ -71,12 +74,14 @@ module-margin-right = 2
 
 font-0 = FiraCode Nerd Font:size=12;2
 font-1 = FiraCode Nerd Font:pixelsize=25;1
-font-2 = FiraCode Nerd Font:pixelsize=15;1
-font-3 = FiraCode Nerd Font:pixelsize=16;1
+font-2 = FiraCode Nerd Font:pixelsize=15;2
+font-3 = FiraCode Nerd Font:pixelsize=19;2
 font-4 = FiraCode Nerd Font:pixelsize=14;1
+font-5 = FiraCode Nerd Font:size=13:weight=bold;3
 
 modules-left = i3
-modules-right = pulseaudio wlan battery date time
+modules-center = date time
+modules-right = pulseaudio wlan battery
 
 tray-position = right
 tray-padding = 2
@@ -104,8 +109,9 @@ label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
-label-focused = %name%
-label-focused-background = ${colors.line_grey}
+label-focused = %{T6}%name%%{T-}
+label-focused-background = ${colors.purple}
+label-focused-foreground = ${colors.darkblue}
 label-focused-padding = 1 
 
 ; unfocused = Inactive workspace on any monitor
@@ -136,11 +142,12 @@ ramp-signal-1 = 
 ramp-signal-2 =   
 ramp-signal-3 =   
 ramp-signal-4 =   
-ramp-signal-foreground = ${colors.foreground-alt}
+ramp-signal-foreground = ${colors.cyan}
 ramp-signal-font = 3
 
 format-connected = <ramp-signal>  <label-connected>
 label-connected = %essid%
+label-connected-foreground = ${colors.cyan}
 label-disconnected = 睊
 label-disconnected-foreground = ${colors.foreground-alt}
 format-disconnected = <label-disconnected>
@@ -149,10 +156,12 @@ format-disconnected = <label-disconnected>
 type = internal/date
 interval = 5
 
-date = " %{T3}%{T-} %a - %b %d %Y"
+date = " %a - %b %d %Y"
+label = %{T3}%{T-}%date% 
+label-foreground = ${colors.white}
 
 format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-foreground = ${colors.blue_purple}
 
 [module/time]
 type = internal/date
@@ -163,6 +172,7 @@ time-alt = %H:%M:%S
 
 format-prefix-foreground = ${colors.foreground-alt}
 label =  %{T3}%{T-} %time%
+label-foreground = ${colors.white}
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -170,6 +180,7 @@ type = internal/pulseaudio
 format-volume = %{T4}<ramp-volume>%{T-} <label-volume>
 
 label-volume = %percentage%%
+label-volume-foreground = ${colors.cyan}
 label-muted = %{T3}婢%{T-}0%
 label-muted-foreground = ${color.fg-alt}
 
@@ -177,6 +188,7 @@ ramp-volume-0 = 奄
 ramp-volume-1 = 奔
 ramp-volume-2 = 墳
 ramp-volume-3 = 墳
+ramp-volume-foreground = ${colors.cyan}
 
 [module/battery]
 type = internal/battery
@@ -191,16 +203,20 @@ time-format = %H:%M
 
 format-charging = %{T5}<animation-charging>%{T-}  <label-charging>
 format-discharging = %{T5}<ramp-capacity>%{T-}  <label-discharging>
+format-charging-foreground = ${colors.cyan}
+format-discharging-foreground = ${colors.cyan}
 
-label-full = %{T5} %{T-}100%
+label-full = %{T5}  %{T-}100%
 label-charging = %percentage%%
 label-discharging = %percentage%%
+label-discharging-foreground = ${colors.cyan} 
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.cyan}
 
 animation-charging-0 = 
 animation-charging-1 = 

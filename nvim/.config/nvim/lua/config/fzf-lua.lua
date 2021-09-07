@@ -136,7 +136,7 @@ require'fzf-lua'.setup {
     },
     branches = {
       prompt          = 'Branches ❯ ',
-      cmd             = "git branch --all --color --reflog",
+      cmd             = "git branch --all --color",
       preview         = "git log --graph --pretty=oneline --abbrev-commit --color {1}",
       actions = {
         ["default"] = actions.git_switch,
@@ -276,18 +276,21 @@ vim.api.nvim_set_keymap('n', '<c-g>',
     "<cmd>lua require('fzf-lua').git_files()<CR>",
     { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('n', '<leader>cm',
+    "<cmd>lua require('fzf-lua').git_commits()<CR>",
+    { noremap = true, silent = true })
+
 -- Rg
 vim.api.nvim_set_keymap('n', '<leader>rg',
     "<cmd>lua require('fzf-lua').grep()<CR>",
     { noremap = true, silent = true })
 
--- Config
+-- ~/.config
 vim.api.nvim_set_keymap('n', '<leader><CR>',
     "<cmd>lua require('fzf-lua').files({ cwd = '~/.config' })<CR>",
     { noremap = true, silent = true })
 
--- " command! -bang -nargs=* Rg
--- "   \ call fzf#vim#grep(
--- "   \   'rg --column --line-number --no-heading --color=always --follow --smart-case '.shellescape(<q-args>), 1,
--- "   \   fzf#vim#with_preview(), <bang>0)
--- "
+-- ~/config
+vim.api.nvim_set_keymap('n', '<leader>h',
+    "<cmd>lua require('fzf-lua').files({ cwd = '~/config' })<CR>",
+    { noremap = true, silent = true })
