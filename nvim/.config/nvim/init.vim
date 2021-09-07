@@ -1,6 +1,5 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-fugitive'
-Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'ibhagwan/fzf-lua'
 Plug 'vijaymarupudi/nvim-fzf'
@@ -9,11 +8,13 @@ Plug 'tpope/vim-surround'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
-Plug 'marko-cerovac/material.nvim'
+Plug 'hqkhan/palenight' , {'branch': 'main'}
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons' " If you want to display icons, then use one of these plugins --lua
 Plug 'kyazdani42/nvim-tree.lua'
+
+Plug 'akinsho/bufferline.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
 call plug#end()
 
 " General settings import
@@ -44,7 +45,6 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
-let g:nvcode_termcolors=256
 set t_Co=256
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
