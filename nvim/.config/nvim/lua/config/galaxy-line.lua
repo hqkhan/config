@@ -1,19 +1,35 @@
 local gl = require('galaxyline')
 local gls = gl.section
--- local colors = require('galaxyline.theme').default
 gl.short_line_list = {'LuaTree','vista','dbui'}
+
 local colors = {
+  fg = '#bfc7d5',
   bg = '#282c34',
-  yellow = '#fabd2f',
-  cyan = '#008080',
-  darkblue = '#081633',
-  green = '#afd700',
-  orange = '#FF8800',
-  purple = '#5d4d7a',
   magenta = '#d16d9e',
-  grey = '#c0c0c0',
-  blue = '#0087d7',
-  red = '#ec5f67'
+  red = '#ff5370',
+  darkblue = '#081633',
+  error_red = '#BE5046',
+  green = '#C3E88D',
+  light_green = '#B5CEA8',
+  yellow = '#ffcb6b',
+  dark_yellow = '#F78C6C',
+  orange = '#CE9178',
+  blue = '#82b1ff',
+  light_blue = '#9CDCFE',
+  vivid_blue = '#4FC1FF',
+  purple = '#c792ea',
+  blue_purple = '#939ede',
+  cyan = '#89DDFF',
+  white = '#bfc7d5',
+  black = '#292D3E',
+  line_grey = '#697098',
+  gutter_fg_grey = '#4B5263',
+  cursor_grey = '#2C323C',
+  visual_grey = '#3E4452',
+  menu_grey = '#3E4452',
+  special_grey = '#3B4048',
+  comment_grey = '#697098',
+  vertsplit = '#181A1F',
 }
 
 local buffer_not_empty = function()
@@ -57,7 +73,7 @@ gls.left[4] = {
     provider = {'FileName'},
     condition = buffer_not_empty,
     separator = '',
-    separator_highlight = {colors.darkblue, colors.purple},
+    separator_highlight = {colors.darkblue, colors.green},
     highlight = {colors.magenta,colors.darkblue}
   }
 }
@@ -67,7 +83,7 @@ gls.left[5] = {
     -- provider = function() return '  ' end,
     provider = function() return '  ' end,
     condition = buffer_not_empty,
-    highlight = {colors.orange,colors.purple},
+    highlight = {colors.darkblue,colors.green},
   }
 }
 gls.left[6] = {
@@ -75,8 +91,8 @@ gls.left[6] = {
     provider = 'GitBranch',
     condition = buffer_not_empty,
     separator = '',
-    separator_highlight = {colors.purple},
-    highlight = {colors.grey,colors.purple},
+    separator_highlight = {colors.green,colors.bg},
+    highlight = {colors.bg,colors.green},
   }
 }
 
@@ -96,12 +112,6 @@ gls.left[11] = {
   }
 }
 
-gls.left[12] = {
-  Space = {
-    provider = function () return ' ' end
-  }
-}
-
 gls.left[13] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
@@ -113,16 +123,16 @@ gls.left[13] = {
 gls.right[2] = {
   LineInfo = {
     provider = 'LineColumn',
-    separator = ' | ',
-    separator_highlight = {colors.darkblue,colors.purple},
-    highlight = {colors.grey,colors.purple},
+    separator = '',
+    separator_highlight = {colors.purple, colors.bg},
+    highlight = {colors.black,colors.purple},
   },
 }
 
 gls.right[3] = {
   PerCent = {
     provider = 'LinePercent',
-    separator = '',
+    separator = '',
     separator_highlight = {colors.darkblue,colors.purple},
     highlight = {colors.grey,colors.darkblue},
   }

@@ -47,6 +47,7 @@ visual_grey = #3E4452
 menu_grey = #3E4452
 special_grey = #3B4048
 comment_grey = #697098
+magenta = #d16d9e
 
 [bar/mybar]
 ;monitor = ${env:MONITOR:HDMI-1}
@@ -142,12 +143,12 @@ ramp-signal-1 = 
 ramp-signal-2 =   
 ramp-signal-3 =   
 ramp-signal-4 =   
-ramp-signal-foreground = ${colors.cyan}
+ramp-signal-foreground = ${colors.dark_yellow}
 ramp-signal-font = 3
 
-format-connected = <ramp-signal>  <label-connected>
+format-connected = <ramp-signal> <label-connected>
 label-connected = %essid%
-label-connected-foreground = ${colors.cyan}
+label-connected-foreground = ${colors.dark_yellow}
 label-disconnected = 睊
 label-disconnected-foreground = ${colors.foreground-alt}
 format-disconnected = <label-disconnected>
@@ -158,7 +159,7 @@ interval = 5
 
 date = " %a - %b %d %Y"
 label = %{T3}%{T-}%date% 
-label-foreground = ${colors.white}
+label-foreground = ${colors.magenta}
 
 format-prefix = 
 format-prefix-foreground = ${colors.blue_purple}
@@ -172,7 +173,7 @@ time-alt = %H:%M:%S
 
 format-prefix-foreground = ${colors.foreground-alt}
 label =  %{T3}%{T-} %time%
-label-foreground = ${colors.white}
+label-foreground = ${colors.magenta}
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -180,7 +181,7 @@ type = internal/pulseaudio
 format-volume = %{T4}<ramp-volume>%{T-} <label-volume>
 
 label-volume = %percentage%%
-label-volume-foreground = ${colors.cyan}
+label-volume-foreground = ${colors.green}
 label-muted = %{T3}婢%{T-}0%
 label-muted-foreground = ${color.fg-alt}
 
@@ -188,7 +189,7 @@ ramp-volume-0 = 奄
 ramp-volume-1 = 奔
 ramp-volume-2 = 墳
 ramp-volume-3 = 墳
-ramp-volume-foreground = ${colors.cyan}
+ramp-volume-foreground = ${colors.green}
 
 [module/battery]
 type = internal/battery
@@ -201,22 +202,22 @@ adapter = AC
 poll-interval = 2
 time-format = %H:%M
 
-format-charging = %{T5}<animation-charging>%{T-}  <label-charging>
-format-discharging = %{T5}<ramp-capacity>%{T-}  <label-discharging>
-format-charging-foreground = ${colors.cyan}
-format-discharging-foreground = ${colors.cyan}
+format-charging = %{T5}<animation-charging>%{T-} <label-charging>
+format-discharging = %{T5}<ramp-capacity>%{T-} <label-discharging>
+format-charging-foreground = ${colors.blue}
+format-discharging-foreground = ${colors.blue}
 
 label-full = %{T5}  %{T-}100%
 label-charging = %percentage%%
 label-discharging = %percentage%%
-label-discharging-foreground = ${colors.cyan} 
+label-discharging-foreground = ${colors.blue} 
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-ramp-capacity-foreground = ${colors.cyan}
+ramp-capacity-foreground = ${colors.blue}
 
 animation-charging-0 = 
 animation-charging-1 = 
