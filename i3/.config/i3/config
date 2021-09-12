@@ -40,7 +40,7 @@ font pango:Hack Nerd Font 20
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Picom
-exec --no-startup-id picom -b --config ~/.config/picom/picom.conf
+exec --no-startup-id picom --experimental-backends --backend glx -b --config ~/.config/picom/picom.conf
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).

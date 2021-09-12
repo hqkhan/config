@@ -68,9 +68,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Start all VBoxClient tools such as shared clipboard
-# VBoxClient-all
-
 # Add all ssh-keys 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
   eval `ssh-agent -s`
@@ -79,11 +76,7 @@ fi
 
 export TERM=st-256color
 export COLORTERM="truecolor"
-export work="/home/hkhan/Work"
-export downloads="/mnt/Downloads"
 alias ww="source ./venv/bin/activate"
-
-alias fix="xrandr -s 1920x1200"
 
 #export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
