@@ -207,7 +207,7 @@ format-discharging = %{T5}<ramp-capacity>%{T-} <label-discharging>
 format-charging-foreground = ${colors.blue}
 format-discharging-foreground = ${colors.blue}
 
-label-full = %{T5}  %{T-}100%
+label-full = %{T5} %{T-}100%
 label-charging = %percentage%%
 label-discharging = %percentage%%
 label-discharging-foreground = ${colors.blue} 

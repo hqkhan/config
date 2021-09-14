@@ -28,6 +28,7 @@ source ~/.config/nvim/plug-config/nvim-tree.vim
 luafile ~/.config/nvim/lua/config/galaxy-line.lua
 luafile ~/.config/nvim/lua/config/treesitter.lua
 luafile ~/.config/nvim/lua/config/fzf-lua.lua
+luafile ~/.config/nvim/lua/config/bufferline.lua
 
 " LSP 
 source ~/.config/nvim/plug-config/lsp-config.vim

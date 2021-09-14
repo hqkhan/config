@@ -280,14 +280,13 @@ vim.api.nvim_set_keymap('n', '<leader>cm',
     "<cmd>lua require('fzf-lua').git_commits()<CR>",
     { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('n', '<Space><CR>',
+    "<cmd>lua require('fzf-lua').buffers()<CR>",
+    { noremap = true, silent = true })
+
 -- Rg
 vim.api.nvim_set_keymap('n', '<leader>rg',
     "<cmd>lua require('fzf-lua').grep()<CR>",
-    { noremap = true, silent = true })
-
--- ~/.config
-vim.api.nvim_set_keymap('n', '<leader><CR>',
-    "<cmd>lua require('fzf-lua').files({ cwd = '~/.config' })<CR>",
     { noremap = true, silent = true })
 
 -- ~/config
