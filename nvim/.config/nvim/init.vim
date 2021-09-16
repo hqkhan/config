@@ -12,8 +12,9 @@ Plug 'hqkhan/palenight' , {'branch': 'main'}
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons' " If you want to display icons, then use one of these plugins --lua
 Plug 'kyazdani42/nvim-tree.lua'
-
 Plug 'akinsho/bufferline.nvim'
+
+Plug 'hrsh7th/vim-vsnip'
 Plug 'lukas-reineke/indent-blankline.nvim'
 call plug#end()
 

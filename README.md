@@ -34,6 +34,7 @@ Place in `~/` for this to read git branch
 
 ### Colorscheme
 Own colorscheme in `hqkhan/palenight`
+Tmux colorscheme in `hqkhan/tmux-onedark-theme`
 
 ### VIMIUM
 ```
