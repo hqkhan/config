@@ -77,6 +77,7 @@ fi
 export TERM=st-256color
 export COLORTERM="truecolor"
 alias ww="source ./venv/bin/activate"
+alias ff="flameshot full -c -d 2"
 
 #export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
