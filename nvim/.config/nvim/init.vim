@@ -13,8 +13,8 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons' " If you want to display icons, then use one of these plugins --lua
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'akinsho/bufferline.nvim'
-
 Plug 'hrsh7th/vim-vsnip'
+
 Plug 'lukas-reineke/indent-blankline.nvim'
 call plug#end()
 
@@ -30,6 +30,7 @@ luafile ~/.config/nvim/lua/config/galaxy-line.lua
 luafile ~/.config/nvim/lua/config/treesitter.lua
 luafile ~/.config/nvim/lua/config/fzf-lua.lua
 luafile ~/.config/nvim/lua/config/bufferline.lua
+luafile ~/.config/nvim/lua/config/indent-blankline.lua
 
 " LSP 
 source ~/.config/nvim/plug-config/lsp-config.vim
