@@ -31,7 +31,7 @@ source ~/.config/nvim/settings.vim
 source ~/.config/nvim/plug-config/fugitive.vim
 source ~/.config/nvim/plug-config/undotree.vim
 source ~/.config/nvim/plug-config/ripgrep.vim
-source ~/.config/nvim/plug-config/nvim-tree.vim
+luafile ~/.config/nvim/lua/config/nvim-tree.lua
 luafile ~/.config/nvim/lua/config/galaxy-line.lua
 luafile ~/.config/nvim/lua/config/treesitter.lua
 luafile ~/.config/nvim/lua/config/fzf-lua.lua

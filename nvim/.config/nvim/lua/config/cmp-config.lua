@@ -26,8 +26,8 @@ cmp.setup {
         { name = 'nvim_lsp' },
         { name = 'vsnip' }, -- For vsnip users.
         { name = 'buffer', keyword_length = 5 },
-        { name = 'nvim_lua' }, 
-        { name = 'path' }, 
+        { name = 'nvim_lua' },
+        { name = 'path' },
 
     },
 
