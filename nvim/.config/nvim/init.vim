@@ -5,17 +5,23 @@ Plug 'ibhagwan/fzf-lua'
 Plug 'vijaymarupudi/nvim-fzf'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
 Plug 'hqkhan/palenight' , {'branch': 'main'}
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons' " If you want to display icons, then use one of these plugins --lua
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'akinsho/bufferline.nvim'
-Plug 'hrsh7th/vim-vsnip'
-
 Plug 'lukas-reineke/indent-blankline.nvim'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'onsails/lspkind-nvim'
+
 call plug#end()
 
 " General settings import
@@ -34,7 +40,7 @@ luafile ~/.config/nvim/lua/config/indent-blankline.lua
 
 " LSP 
 source ~/.config/nvim/plug-config/lsp-config.vim
-luafile ~/.config/nvim/lua/config/compe-config.lua
+luafile ~/.config/nvim/lua/config/cmp-config.lua
 luafile ~/.config/nvim/lua/config/dockerls.lua
 luafile ~/.config/nvim/lua/config/python-ls.lua
 luafile ~/.config/nvim/lua/config/lua-ls.lua
