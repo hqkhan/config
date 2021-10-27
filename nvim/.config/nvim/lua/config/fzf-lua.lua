@@ -1,4 +1,23 @@
 local actions = require "fzf-lua.actions"
+
+local fzf_lua = require("fzf-lua")
+function _G.fzf_buffers(opts)
+  if not opts then opts = {} end
+  local action = require("fzf.actions").action(function(selected)
+    fzf_lua.actions.buf_del(selected)
+    fzf_lua.win.set_autoclose(false)
+    _G.fzf_buffers(opts)
+    fzf_lua.win.set_autoclose(true)
+  end, "{+}")
+  if not opts.curbuf then
+    -- make sure we keep current buffer at the header
+    opts.curbuf = vim.api.nvim_get_current_buf()
+  end
+  opts.actions = { ["ctrl-x"] = false }
+  opts.fzf_cli_args  = ("--bind=ctrl-x:execute-silent:%s"):format(action)
+  fzf_lua.buffers(opts)
+end
+
 require'fzf-lua'.setup {
   winopts = {
     -- split         = "belowright new",-- open in a split instead?
@@ -369,7 +388,7 @@ vim.api.nvim_set_keymap('n', '<leader>cm',
     { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<Space><CR>',
-    "<cmd>lua require('fzf-lua').buffers()<CR>",
+    "<cmd>lua _G.fzf_buffers()<CR>",
     { noremap = true, silent = true })
 
 -- Rg
