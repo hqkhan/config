@@ -18,6 +18,7 @@ function _G.fzf_buffers(opts)
   fzf_lua.buffers(opts)
 end
 
+
 require'fzf-lua'.setup {
   winopts = {
     -- split         = "belowright new",-- open in a split instead?
@@ -292,7 +293,7 @@ require'fzf-lua'.setup {
       ["ctrl-s"]      = actions.buf_split,
       ["ctrl-v"]      = actions.buf_vsplit,
       ["ctrl-t"]      = actions.buf_tabedit,
-      ["ctrl-x"]      = actions.buf_del,
+      ["ctrl-d"]      = actions.buf_del,
     }
   },
   blines = {

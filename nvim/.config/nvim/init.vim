@@ -39,7 +39,7 @@ luafile ~/.config/nvim/lua/config/bufferline.lua
 luafile ~/.config/nvim/lua/config/indent-blankline.lua
 
 " LSP 
-source ~/.config/nvim/plug-config/lsp-config.vim
+luafile ~/.config/nvim/lua/config/lsp-config.lua
 luafile ~/.config/nvim/lua/config/cmp-config.lua
 luafile ~/.config/nvim/lua/config/dockerls.lua
 luafile ~/.config/nvim/lua/config/python-ls.lua
