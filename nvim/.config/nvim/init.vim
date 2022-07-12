@@ -12,6 +12,7 @@ Plug 'kyazdani42/nvim-web-devicons' " If you want to display icons, then use one
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'akinsho/bufferline.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'williamboman/nvim-lsp-installer'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
@@ -39,11 +40,13 @@ luafile ~/.config/nvim/lua/config/bufferline.lua
 luafile ~/.config/nvim/lua/config/indent-blankline.lua
 
 " LSP 
+luafile ~/.config/nvim/lua/config/lsp-installer.lua
 luafile ~/.config/nvim/lua/config/lsp-config.lua
 luafile ~/.config/nvim/lua/config/cmp-config.lua
 luafile ~/.config/nvim/lua/config/dockerls.lua
 luafile ~/.config/nvim/lua/config/python-ls.lua
-" luafile ~/.config/nvim/lua/config/lua-ls.lua
+luafile ~/.config/nvim/lua/config/ccls.lua
+luafile ~/.config/nvim/lua/config/lua-ls.lua
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme 
