@@ -95,6 +95,8 @@ nnoremap Y y$
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+nnoremap <C-p> :echo expand('%:p')<CR>
+
 " Undo break points
 inoremap , ,<c-g>u
 inoremap ( (<c-g>u
