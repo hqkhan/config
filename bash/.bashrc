@@ -74,7 +74,8 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
   ssh-add
 fi
 
-alias lg="git log --all --decorate --oneline --graph"
+# alias lg="git log --all --decorate --oneline --graph"
+alias lg="git log --pretty="%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s" --all --graph --date=relative --date-order"
 # export TERM=st-256color
 export COLORTERM="truecolor"
 # export PICTURE_PATH="~/Pictures/"
