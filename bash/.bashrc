@@ -74,13 +74,14 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
   ssh-add
 fi
 
-export TERM=st-256color
+alias lg="git log --all --decorate --oneline --graph"
+# export TERM=st-256color
 export COLORTERM="truecolor"
-export PICTURE_PATH="~/Pictures/"
+# export PICTURE_PATH="~/Pictures/"
 alias ww="source ./venv/bin/activate"
-alias ff="flameshot full -c -p $PICTURE_PATH -d 3000"
+# alias ff="flameshot full -c -p $PICTURE_PATH -d 3000"
 alias ss="source ~/.bashrc"
 
 #export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
-alias luamake=/home/hkhan/.config/nvim/lua-language-server/3rd/luamake/compile/luamake
+# alias luamake=/home/hkhan/.config/nvim/lua-language-server/3rd/luamake/compile/luamake
