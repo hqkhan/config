@@ -72,7 +72,9 @@ set history=500
 
 nnoremap <silent> <S-k> <PageUp>zz
 nnoremap <silent> <S-j> <PageDown>zz
-nnoremap <leader>ll :set invrelativenumber<CR> 
+vnoremap <silent> <S-k> <PageUp>zz
+vnoremap <silent> <S-j> <PageDown>zz
+nnoremap <leader>ll :set invrelativenumber<CR> :set nonu<CR>
 nnoremap <leader>pp :set invpaste paste?<CR>
 
 " Vim tabs hotkey
@@ -107,5 +109,5 @@ inoremap [ [<c-g>u
 inoremap ] ]<c-g>u
 inoremap ) )<c-g>u
 
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+" vnoremap J :m '>+1<CR>gv=gv
+" vnoremap K :m '<-2<CR>gv=gv

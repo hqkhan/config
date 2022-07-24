@@ -5,6 +5,7 @@ Plug 'ibhagwan/fzf-lua'
 Plug 'vijaymarupudi/nvim-fzf'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
 Plug 'hqkhan/palenight' , {'branch': 'main'}
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}

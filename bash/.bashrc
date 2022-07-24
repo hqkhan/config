@@ -82,6 +82,7 @@ export COLORTERM="truecolor"
 alias ww="source ./venv/bin/activate"
 # alias ff="flameshot full -c -p $PICTURE_PATH -d 3000"
 alias ss="source ~/.bashrc"
+export INPUTRC='~/.inputrc'
 
 #export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
