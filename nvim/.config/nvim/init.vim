@@ -45,11 +45,6 @@ luafile ~/.config/nvim/lua/config/indent-blankline.lua
 luafile ~/.config/nvim/lua/config/lsp-installer.lua
 luafile ~/.config/nvim/lua/config/lsp-config.lua
 luafile ~/.config/nvim/lua/config/cmp-config.lua
-luafile ~/.config/nvim/lua/config/dockerls.lua
-luafile ~/.config/nvim/lua/config/python-ls.lua
-luafile ~/.config/nvim/lua/config/rust_analyzer.lua
-luafile ~/.config/nvim/lua/config/ccls.lua
-luafile ~/.config/nvim/lua/config/lua-ls.lua
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme 
