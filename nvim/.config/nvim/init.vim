@@ -28,6 +28,7 @@ call plug#end()
 
 " General settings import
 source ~/.config/nvim/settings.vim
+luafile ~/.config/nvim/au_commands.lua
 
 " Plugin config imports
 source ~/.config/nvim/plug-config/fugitive.vim
@@ -46,6 +47,7 @@ luafile ~/.config/nvim/lua/config/lsp-config.lua
 luafile ~/.config/nvim/lua/config/cmp-config.lua
 luafile ~/.config/nvim/lua/config/dockerls.lua
 luafile ~/.config/nvim/lua/config/python-ls.lua
+luafile ~/.config/nvim/lua/config/rust_analyzer.lua
 luafile ~/.config/nvim/lua/config/ccls.lua
 luafile ~/.config/nvim/lua/config/lua-ls.lua
 
@@ -68,8 +70,6 @@ augroup numbertoggle
   autocmd BufWinEnter,BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
-
-nnoremap <leader>yy "+y
 
 let g:lsp_diagnostics_enabled                = 0
 let g:lsp_diagnostics_signs_enabled          = 0

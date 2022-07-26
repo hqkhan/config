@@ -44,7 +44,7 @@ set cmdheight=2
 set updatetime=50
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
+map <leader>bd :bd<cr>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -55,6 +55,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Fast saving
 nmap <leader>w :w!<cr>
 nmap <leader>q :q!<cr>
+nnoremap <leader>yy "+y
 
 " Returns true if paste mode is enabled
 function! HasPaste()
@@ -76,12 +77,6 @@ vnoremap <silent> <S-k> <PageUp>zz
 vnoremap <silent> <S-j> <PageDown>zz
 nnoremap <leader>ll :set invrelativenumber<CR> :set nonu<CR>
 nnoremap <leader>pp :set invpaste paste?<CR>
-
-" Vim tabs hotkey
-nnoremap <leader>tn :tabnew <bar> BufExplorer<CR>
-nnoremap gh :tabprev<cr>
-nnoremap gl :tabnext<cr>
-nnoremap <leader>bd :tabclose<CR>
 
 " Quick resizing of windows
 nnoremap <S-h> 5<C-w>>

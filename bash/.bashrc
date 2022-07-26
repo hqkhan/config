@@ -71,7 +71,7 @@ alias l='ls -CF'
 # Add all ssh-keys 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
   eval `ssh-agent -s`
-  ssh-add
+  ssh-add `find $HOME/.ssh -not -name "*.pub" -name "id_*"`
 fi
 
 # alias lg="git log --all --decorate --oneline --graph"

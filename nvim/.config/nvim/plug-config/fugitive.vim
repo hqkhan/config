@@ -10,5 +10,6 @@ nmap <leader>dp :diffput<CR>
 " nmap <leader>co :G branch --all<CR><bar>:Git checkout 
 
 nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gm :Gvdiffsplit!<CR>
 nmap <leader>gl :diffget //3<CR>:diffupdate<CR>
 nmap <leader>gh :diffget //2<CR>:diffupdate<CR>
