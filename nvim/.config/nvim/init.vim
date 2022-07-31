@@ -1,8 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
-Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'ibhagwan/fzf-lua'
-Plug 'vijaymarupudi/nvim-fzf'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -14,6 +13,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'akinsho/bufferline.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'williamboman/nvim-lsp-installer'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'shaunsingh/oxocarbon.nvim', { 'do': './install.sh' }
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
@@ -40,6 +41,8 @@ luafile ~/.config/nvim/lua/config/treesitter.lua
 luafile ~/.config/nvim/lua/config/fzf-lua.lua
 luafile ~/.config/nvim/lua/config/bufferline.lua
 luafile ~/.config/nvim/lua/config/indent-blankline.lua
+luafile ~/.config/nvim/lua/config/devicons.lua
+luafile ~/.config/nvim/lua/config/colorizer.lua
 
 " LSP 
 luafile ~/.config/nvim/lua/config/lsp-installer.lua
@@ -73,4 +76,6 @@ let g:lsp_diagnostics_highlights_enabled     = 0
 let g:lsp_document_code_action_signs_enabled = 0
 
 set background=dark
-colorscheme palenight
+lua vim.g.lua_embark_transparent = true
+colorscheme lua-embark
+" colorscheme palenight

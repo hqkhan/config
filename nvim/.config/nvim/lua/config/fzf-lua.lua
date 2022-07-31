@@ -1,25 +1,43 @@
 local actions = require "fzf-lua.actions"
 
-local fzf_lua = require("fzf-lua")
-function _G.fzf_buffers(opts)
-  if not opts then opts = {} end
-  local action = require("fzf.actions").action(function(selected)
-    fzf_lua.actions.buf_del(selected)
-    fzf_lua.win.set_autoclose(false)
-    _G.fzf_buffers(opts)
-    fzf_lua.win.set_autoclose(true)
-  end, "{+}")
-  if not opts.curbuf then
-    -- make sure we keep current buffer at the header
-    opts.curbuf = vim.api.nvim_get_current_buf()
+-- return first matching highlight or nil
+local function hl_match(t)
+  for _, h in ipairs(t) do
+    local ok, hl = pcall(vim.api.nvim_get_hl_by_name, h, true)
+    -- must have at least bg or fg, otherwise this returns
+    -- succesffully for cleared highlights (on colorscheme switch)
+    if ok and (hl.foreground or hl.background) then
+      return h
+    end
   end
-  opts.actions = { ["ctrl-x"] = false }
-  opts.fzf_cli_args  = ("--bind=ctrl-x:execute-silent:%s"):format(action)
-  fzf_lua.buffers(opts)
 end
 
+local fzf_colors = function(opts)
+  local binary = opts and opts.fzf_bin
+  local colors = {
+    ["fg"] = { "fg", "Normal" },
+    ["bg"] = { "bg", "Normal" },
+    ["hl"] = { "fg", "htmlTagN"},
+    ["fg+"] = { "fg", "Normal" },
+    ["bg+"] = { "bg", "CursorLine" },
+    ["hl+"] = { "fg", "htmlTagN" },
+    ["info"] = { "fg", "ErrorMsg"},
+    -- ["prompt"] = { "fg", "SpecialKey" },
+    ["pointer"] = { "fg", "DiagnosticError" },
+    ["marker"] = { "fg", "DiagnosticError" },
+    ["spinner"] = { "fg", "Label" },
+    ["header"] = { "fg", "Comment" },
+    ["gutter"] = { "bg", "Normal" },
+  }
+  if binary == 'sk' and vim.fn.executable(binary) == 1 then
+    colors["matched_bg"] = { "bg", "Normal" }
+    colors["current_match_bg"] = { "bg", hl_match({ "NightflyVisual", "CursorLine" }) }
+  end
+  return colors
+end
 
 require'fzf-lua'.setup {
+  fzf_colors         = fzf_colors,
   winopts = {
     -- split         = "belowright new",-- open in a split instead?
                                         -- "belowright new"  : split below
@@ -59,23 +77,84 @@ require'fzf-lua'.setup {
       horizontal     = 'right:60%',     -- right|left:size
       layout         = 'flex',          -- horizontal|vertical|flex
       flip_columns   = 120,             -- #cols to switch to horizontal on flex
-      -- Only valid with the builtin previewer:
+      -- Only used with the builtin previewer:
       title          = true,            -- preview border title (file/buf)?
       scrollbar      = 'float',         -- `false` or string:'float|border'
-                                        -- float:  in-window floating border 
+                                        -- float:  in-window floating border
                                         -- border: in-border chars (see below)
       scrolloff      = '-2',            -- float scrollbar offset from right
                                         -- applies only when scrollbar = 'float'
       scrollchars    = {'█', '' },      -- scrollbar chars ({ <full>, <empty> }
                                         -- applies only when scrollbar = 'border'
+      delay          = 100,             -- delay(ms) displaying the preview
+                                        -- prevents lag on fast scrolling
+      winopts = {                       -- builtin previewer window options
+        number            = true,
+        relativenumber    = false,
+        cursorline        = true,
+        cursorlineopt     = 'both',
+        cursorcolumn      = false,
+        signcolumn        = 'no',
+        list              = false,
+        foldenable        = false,
+        foldmethod        = 'manual',
+      },
     },
+  },
+  previewers = {
+    cat = {
+      cmd             = "cat",
+      args            = "--number",
+    },
+    bat = {
+      cmd             = "bat",
+      args            = "--style=numbers,changes --color always",
+      theme           = 'Coldark-Dark', -- bat preview theme (bat --list-themes)
+      config          = nil,            -- nil uses $BAT_CONFIG_PATH
+    },
+    head = {
+      cmd             = "head",
+      args            = nil,
+    },
+    git_diff = {
+      cmd_deleted     = "git diff --color HEAD --",
+      cmd_modified    = "git diff --color HEAD",
+      cmd_untracked   = "git diff --color --no-index /dev/null",
+      -- uncomment if you wish to use git-delta as pager
+      -- can also be set under 'git.status.preview_pager'
+      -- pager        = "delta --width=$FZF_PREVIEW_COLUMNS",
+    },
+    man = {
+      -- NOTE: remove the `-c` flag when using man-db
+      cmd             = "man -c %s | col -bx",
+    },
+    builtin = {
+      syntax          = true,         -- preview syntax highlight?
+      syntax_limit_l  = 0,            -- syntax limit (lines), 0=nolimit
+      syntax_limit_b  = 1024*1024,    -- syntax limit (bytes), 0=nolimit
+      limit_b         = 1024*1024*10, -- preview limit (bytes), 0=nolimit
+      -- preview extensions using a custom shell command:
+      -- for example, use `viu` for image previews
+      -- will do nothing if `viu` isn't executable
+      extensions      = {
+        -- neovim terminal only supports `viu` block output
+        ["png"]       = { "viu", "-b" },
+        ["jpg"]       = { "ueberzug" },
+      },
+      -- if using `ueberzug` in the above extensions map
+      -- set the default image scaler, possible scalers:
+      --   false (none), "crop", "distort", "fit_contain",
+      --   "contain", "forced_cover", "cover"
+      -- https://github.com/seebye/ueberzug
+      ueberzug_scaler = "cover",
+    },
+  },
     on_create = function()
       -- called once upon creation of the fzf main window
       -- can be used to add custom fzf-lua mappings, e.g:
       --   vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", "<Down>",
       --     { silent = true, noremap = true })
     end,
-  },
   keymap = {
     -- These override the default tables completely
     -- no need to set to `false` to disable a bind
@@ -118,10 +197,10 @@ require'fzf-lua'.setup {
     -- set to '' for a non-value flag
     -- for raw args use `fzf_args` instead
     ['--ansi']        = '',
-    ['--prompt']      = ' >',
     ['--info']        = 'inline',
     ['--height']      = '100%',
     ['--layout']      = 'reverse',
+    ['--border']      = 'none',
   },
   -- fzf '--color=' options (optional)
   --[[ fzf_colors = {
@@ -152,65 +231,31 @@ require'fzf-lua'.setup {
   flip_columns        = 120,            -- #cols to switch to horizontal on flex
   -- default_previewer   = "bat",       -- override the default previewer?
                                         -- by default uses the builtin previewer
-  previewers = {
-    cmd = {
-      -- custom previewer, will execute:
-      -- `<cmd> <args> <filename>`
-      cmd             = "echo",
-      args            = "",
-    },
-    cat = {
-      cmd             = "cat",
-      args            = "--number",
-    },
-    bat = {
-      cmd             = "bat",
-      args            = "--style=numbers,changes --color always",
-      theme           = 'Coldark-Dark', -- bat preview theme (bat --list-themes)
-      config          = nil,            -- nil uses $BAT_CONFIG_PATH
-    },
-    head = {
-      cmd             = "head",
-      args            = nil,
-    },
-    git_diff = {
-      cmd             = "git diff",
-      args            = "--color",
-    },
-    builtin = {
-      title           = true,         -- preview title?
-      scrollbar       = true,         -- scrollbar?
-      scrollchar      = '█',          -- scrollbar character
-      syntax          = true,         -- preview syntax highlight?
-      syntax_limit_l  = 0,            -- syntax limit (lines), 0=nolimit
-      syntax_limit_b  = 1024*1024,    -- syntax limit (bytes), 0=nolimit
-      expand          = false,        -- preview max size?
-      hl_cursor       = 'Cursor',     -- cursor highlight
-      hl_cursorline   = 'CursorLine', -- cursor line highlight
-      hl_range        = 'IncSearch',  -- ranger highlight (not yet in use)
-    },
-  },
   -- provider setup
   files = {
     -- previewer         = "cat",       -- uncomment to override previewer
     prompt            = 'Files ❯ ',
-    cmd               = '',             -- "find . -type f -printf '%P\n'",
+    -- cmd               = '',             -- "find . -type f -printf '%P\n'",
     git_icons         = true,           -- show git icons?
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons
+    find_opts         = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
+    rg_opts           = "--color=never --files --hidden --follow -g '!.git'",
+    fd_opts           = "--color=never --type f --hidden --follow --exclude .git",
     actions = {
       ["default"]     = actions.file_edit,
       ["ctrl-s"]      = actions.file_split,
       ["ctrl-v"]      = actions.file_vsplit,
       ["ctrl-t"]      = actions.file_tabedit,
       ["ctrl-q"]      = actions.file_sel_to_qf,
-      ["ctrl-y"]      = function(selected) print(selected[2]) end,
+      ["ctrl-y"]      = function(selected) print(selected[1]) end,
     }
   },
   git = {
     files = {
       prompt          = 'GitFiles ❯ ',
       cmd             = 'git ls-files --exclude-standard',
+      multiprocess    = true,
       git_icons       = true,           -- show git icons?
       file_icons      = true,           -- show file icons?
       color_icons     = true,           -- colorize file|git icons
@@ -225,16 +270,20 @@ require'fzf-lua'.setup {
     },
     commits = {
       prompt          = 'Commits ❯ ',
-      cmd             = "git log --pretty=oneline --abbrev-commit --color --reflog",
-      preview         = "git show --pretty='%Cred%H%n%Cblue%an%n%Cgreen%s' --color {1}",
+      cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset'",
+      preview       = "git show --pretty='%Cred%H%n%Cblue%an <%ae>%n%C(yellow)%cD%n%Cgreen%s' --color {1}",
+      -- uncomment if you wish to use git-delta as pager
+      --preview_pager = "delta --width=$FZF_PREVIEW_COLUMNS"
       actions = {
         ["default"] = actions.git_checkout,
       },
     },
     bcommits = {
       prompt          = 'BCommits ❯ ',
-      cmd             = "git log --pretty=oneline --abbrev-commit --color --reflog",
-      preview         = "git show --pretty='%Cred%H%n%Cblue%an%n%Cgreen%s' --color {1}",
+      cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' <file>",
+      preview       = "git diff --color {1}~1 {1} -- <file>",
+      -- uncomment if you wish to use git-delta as pager
+      --preview_pager = "delta --width=$FZF_PREVIEW_COLUMNS"
       actions = {
         ["default"] = actions.git_buf_edit,
         ["ctrl-s"]  = actions.git_buf_split,
@@ -266,9 +315,11 @@ require'fzf-lua'.setup {
     -- cmd               = "rg --vimgrep",
     rg_opts           = "--hidden --column --line-number --no-heading " ..
                         "--color=always --smart-case -g '!{.git,node_modules}/*'",
+    multiprocess      = true,
     git_icons         = true,           -- show git icons?
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons
+    rg_glob           = true,
     actions = {
       ["default"]     = actions.file_edit,
       ["ctrl-s"]      = actions.file_split,
@@ -276,11 +327,14 @@ require'fzf-lua'.setup {
       ["ctrl-t"]      = actions.file_tabedit,
       ["ctrl-q"]      = actions.file_sel_to_qf,
       ["ctrl-y"]      = function(selected) print(selected[2]) end,
+      ["ctrl-g"]      = { actions.grep_lgrep }
     }
   },
   oldfiles = {
     prompt            = 'History ❯ ',
     cwd_only          = false,
+    stat_file         = true,         -- verify files exist on disk
+    include_current_session = false,  -- include bufs from current session
   },
   buffers = {
     -- previewer      = false,        -- disable the builtin previewer?
@@ -293,7 +347,7 @@ require'fzf-lua'.setup {
       ["ctrl-s"]      = actions.buf_split,
       ["ctrl-v"]      = actions.buf_vsplit,
       ["ctrl-t"]      = actions.buf_tabedit,
-      ["ctrl-d"]      = actions.buf_del,
+      ["ctrl-x"]      = { actions.buf_del, actions.resume }
     }
   },
   blines = {
@@ -366,11 +420,11 @@ require'fzf-lua'.setup {
 ------------------------------------
 
 -- Builtin
-vim.api.nvim_set_keymap('n', '<leader>fzf',
-    "<cmd>lua require('fzf-lua').builtin()<CR>",
-    { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>fzf',
+--     "<cmd>lua require('fzf-lua').builtin()<CR>",
+--     { noremap = true, silent = true })
 
- -- Normal files
+ -- Files
 vim.api.nvim_set_keymap('n', '<c-f>',
     "<cmd>lua require('fzf-lua').files()<CR>",
     { noremap = true, silent = true })
@@ -388,13 +442,18 @@ vim.api.nvim_set_keymap('n', '<leader>cm',
     "<cmd>lua require('fzf-lua').git_commits()<CR>",
     { noremap = true, silent = true })
 
+-- Buffers
 vim.api.nvim_set_keymap('n', '<Space><CR>',
-    "<cmd>lua _G.fzf_buffers()<CR>",
+    "<cmd>lua require('fzf-lua').buffers()<CR>",
     { noremap = true, silent = true })
 
 -- Rg
 vim.api.nvim_set_keymap('n', '<leader>rg',
     "<cmd>lua require('fzf-lua').grep()<CR>",
+    { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>f',
+    "<cmd>lua require('fzf-lua').grep_cword()<CR>",
     { noremap = true, silent = true })
 
 -- ~/config
