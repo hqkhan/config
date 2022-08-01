@@ -97,7 +97,7 @@ export FZF_CTRL_R_OPTS="--height=50%"
 
 # Use fd to generate the list for directory completion
 cd_with_fzf() {
-    cd "$(fd --type d --hidden --follow --exclude ".git" . "$PWD" | fzf $FZF_DEFAULT_OPTS --layout=reverse --preview="tree -C {} | head -200" -m)"
+    cd "$(fd --type d --hidden --follow --exclude "*.git" . "$PWD" | fzf $FZF_DEFAULT_OPTS --layout=reverse --preview="tree -C {} | head -200" -m)"
 }
 
 _fzf_compgen_path() {
