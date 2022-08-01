@@ -74,16 +74,38 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
   ssh-add `find $HOME/.ssh -not -name "*.pub" -name "id_*"`
 fi
 
-# alias lg="git log --all --decorate --oneline --graph"
 alias lg="git log --pretty="%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s" --all --graph --date=relative --date-order"
 # export TERM=st-256color
 export COLORTERM="truecolor"
-# export PICTURE_PATH="~/Pictures/"
 alias ww="source ./venv/bin/activate"
 # alias ff="flameshot full -c -p $PICTURE_PATH -d 3000"
 alias ss="source ~/.bashrc"
 export INPUTRC='~/.inputrc'
+export DISPLAY="localhost:10.0"
 
-#export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+# Setting fd as the default source for fzf
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
-# alias luamake=/home/hkhan/.config/nvim/lua-language-server/3rd/luamake/compile/luamake
+# --height=50% <- Adjust per command
+# --layout=reverse <- Adjust per command
+export FZF_DEFAULT_OPTS="--height=90% --info=inline --border --margin=1 --padding=1"
+
+# To apply the command to CTRL-T as well
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--layout=reverse"
+export FZF_CTRL_R_OPTS="--height=50%"
+
+# Use fd to generate the list for directory completion
+cd_with_fzf() {
+    cd "$(fd --type d --hidden --follow --exclude ".git" . "$PWD" | fzf $FZF_DEFAULT_OPTS --layout=reverse --preview="tree -C {} | head -200" -m)"
+}
+
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# CTRL-G for changing directories
+# bind '"\C-g":"cd_with_fzf\n"'
+# OS-X
+bind '"\C-g":"cd_with_fzf\C-M"'
+
