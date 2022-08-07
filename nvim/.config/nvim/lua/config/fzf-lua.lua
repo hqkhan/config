@@ -266,9 +266,8 @@ require'fzf-lua'.setup {
     commits = {
       prompt          = 'Commits ❯ ',
       cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset'",
-      preview       = "git show --pretty='%Cred%H%n%Cblue%an <%ae>%n%C(yellow)%cD%n%Cgreen%s' --color {1}",
-      -- uncomment if you wish to use git-delta as pager
-      --preview_pager = "delta --width=$FZF_PREVIEW_COLUMNS"
+      -- preview       = "git show --pretty='%Cred%H%n%Cblue%an <%ae>%n%C(yellow)%cD%n%Cgreen%s' --color {1}",
+      preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ["default"] = actions.git_checkout,
       },
@@ -276,11 +275,7 @@ require'fzf-lua'.setup {
     bcommits = {
       prompt          = 'BCommits ❯ ',
       cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' <file>",
-      -- preview       = "git diff --color {1}~1 {1} -- <file>",
-      preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$COLUMNS --line-numbers",
-
-      -- uncomment if you wish to use git-delta as pager
-      --preview_pager = "delta --width=$FZF_PREVIEW_COLUMNS"
+      preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ['default'] = function(selected, o)
               local commit_hash = selected[1]:match("[^ ]+")
@@ -339,11 +334,16 @@ require'fzf-lua'.setup {
   blines = {
     previewer         = "builtin",    -- set to 'false' to disable
     prompt            = 'BLines ❯ ',
+    show_unlisted     = true,         -- include 'help' buffers
+    no_term_buffers   = false,        -- include 'term' buffers
+    fzf_opts = {
+      -- hide filename, tiebreak by line no.
+      ['--delimiter'] = "'[\\]:]'",
+      ["--with-nth"]  = '3..',
+      ["--tiebreak"]  = 'index',
+    },
     actions = {
       ["default"]     = actions.buf_edit,
-      ["ctrl-s"]      = actions.buf_split,
-      ["ctrl-v"]      = actions.buf_vsplit,
-      ["ctrl-t"]      = actions.buf_tabedit,
     }
   },
   quickfix = {
@@ -362,10 +362,10 @@ require'fzf-lua'.setup {
 ------------------------------------
 
 -- Find commits for current file
-
 vim.api.nvim_set_keymap('n', '<leader>fc',
     "<cmd>lua require('fzf-lua').git_bcommits()<CR>",
     { noremap = true, silent = true })
+
  -- Files
 vim.api.nvim_set_keymap('n', '<c-f>',
     "<cmd>lua require('fzf-lua').files()<CR>",
@@ -401,4 +401,8 @@ vim.api.nvim_set_keymap('n', '<leader>cw',
 -- ~/config
 vim.api.nvim_set_keymap('n', '<leader>h',
     "<cmd>lua require('fzf-lua').files({ cwd = '~/config' })<CR>",
+    { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>bl',
+    "<cmd>lua require('fzf-lua').blines()<CR>",
     { noremap = true, silent = true })
