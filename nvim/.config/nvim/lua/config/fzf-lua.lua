@@ -39,11 +39,6 @@ end
 require'fzf-lua'.setup {
   fzf_colors         = fzf_colors,
   winopts = {
-    -- split         = "belowright new",-- open in a split instead?
-                                        -- "belowright new"  : split below
-                                        -- "aboveleft new"   : split above
-                                        -- "belowright vnew" : split right
-                                        -- "aboveleft vnew   : split left
     -- Only valid when using a float window
     -- (i.e. when 'split' is not defined)
     height           = 0.85,            -- window height
@@ -133,20 +128,6 @@ require'fzf-lua'.setup {
       syntax_limit_l  = 0,            -- syntax limit (lines), 0=nolimit
       syntax_limit_b  = 1024*1024,    -- syntax limit (bytes), 0=nolimit
       limit_b         = 1024*1024*10, -- preview limit (bytes), 0=nolimit
-      -- preview extensions using a custom shell command:
-      -- for example, use `viu` for image previews
-      -- will do nothing if `viu` isn't executable
-      extensions      = {
-        -- neovim terminal only supports `viu` block output
-        ["png"]       = { "viu", "-b" },
-        ["jpg"]       = { "ueberzug" },
-      },
-      -- if using `ueberzug` in the above extensions map
-      -- set the default image scaler, possible scalers:
-      --   false (none), "crop", "distort", "fit_contain",
-      --   "contain", "forced_cover", "cover"
-      -- https://github.com/seebye/ueberzug
-      ueberzug_scaler = "cover",
     },
   },
     on_create = function()
@@ -168,9 +149,9 @@ require'fzf-lua'.setup {
       -- Rotate preview clockwise/counter-clockwise
       ["<F5>"]        = "toggle-preview-ccw",
       ["<F6>"]        = "toggle-preview-cw",
-      ["<S-down>"]    = "preview-page-down",
-      ["<S-up>"]      = "preview-page-up",
-      ["<S-left>"]    = "preview-page-reset",
+      ["<C-d>"]       = "preview-page-down",
+      ["<C-u>"]       = "preview-page-up",
+      ["<C-r>"]       = "preview-page-reset",
     },
     fzf = {
      -- fzf '--bind=' options
@@ -188,9 +169,6 @@ require'fzf-lua'.setup {
       ["shift-up"]    = "preview-page-up",
     },
   },
-  -- use skim instead of fzf?
-  -- https://github.com/lotabout/skim
-  -- fzf_bin          = 'sk',
   fzf_opts = {
     -- options are sent as `<left>=<right>`
     -- set to `false` to remove a flag
@@ -202,22 +180,6 @@ require'fzf-lua'.setup {
     ['--layout']      = 'reverse',
     ['--border']      = 'none',
   },
-  -- fzf '--color=' options (optional)
-  --[[ fzf_colors = {
-      ["fg"] = { "fg", "CursorLine" },
-      ["bg"] = { "bg", "Normal" },
-      ["hl"] = { "fg", "Comment" },
-      ["fg+"] = { "fg", "Normal" },
-      ["bg+"] = { "bg", "CursorLine" },
-      ["hl+"] = { "fg", "Statement" },
-      ["info"] = { "fg", "PreProc" },
-      ["prompt"] = { "fg", "Conditional" },
-      ["pointer"] = { "fg", "Exception" },
-      ["marker"] = { "fg", "Keyword" },
-      ["spinner"] = { "fg", "Label" },
-      ["header"] = { "fg", "Comment" },
-      ["gutter"] = { "bg", "Normal" },
-  }, ]] 
 
   -- fzf_bin             = 'sk',        -- use skim instead of fzf?
   fzf_layout          = 'reverse',      -- fzf '--layout='
@@ -255,14 +217,6 @@ require'fzf-lua'.setup {
       file_icons      = true,           -- show file icons?
       color_icons     = true,           -- colorize file|git icons
     },
-    status = {
-      prompt        = 'GitStatus ❯ ',
-      cmd           = "git status -s",
-      previewer     = "git_diff",
-      file_icons    = true,
-      git_icons     = true,
-      color_icons   = true,
-    },
     commits = {
       prompt          = 'Commits ❯ ',
       cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset'",
@@ -297,9 +251,6 @@ require'fzf-lua'.setup {
       ["D"]           = { icon = "D", color = "red" },
       ["A"]           = { icon = "A", color = "green" },
       ["?"]           = { icon = "?", color = "magenta" },
-      -- ["M"]          = { icon = "★", color = "red" },
-      -- ["D"]          = { icon = "✗", color = "red" },
-      -- ["A"]          = { icon = "+", color = "green" },
     },
   },
   grep = {
