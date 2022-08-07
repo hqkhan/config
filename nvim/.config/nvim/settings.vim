@@ -25,6 +25,7 @@ set incsearch
 set scrolloff=8
 set noshowmode
 set clipboard+=unnamedplus
+set cursorline
 
 au BufRead,BufNewFile *.py set expandtab
 set autoindent
@@ -104,5 +105,21 @@ inoremap [ [<c-g>u
 inoremap ] ]<c-g>u
 inoremap ) )<c-g>u
 
-" vnoremap J :m '>+1<CR>gv=gv
-" vnoremap K :m '<-2<CR>gv=gv
+" Quickfix
+let g:quickfix_is_open = 0
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+        execute g:quickfix_return_to_window . "wincmd w"
+    else
+        let g:quickfix_return_to_window = winnr()
+        copen
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+
+nnoremap <silent> <leader>cn :cn<CR>
+nnoremap <silent> <leader>cp :cp<CR>
+nnoremap <leader>cq :call QuickfixToggle()<cr>
+

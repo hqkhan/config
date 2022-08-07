@@ -239,16 +239,11 @@ require'fzf-lua'.setup {
     git_icons         = true,           -- show git icons?
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons
-    find_opts         = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
-    rg_opts           = "--color=never --files --hidden --follow -g '!.git'",
-    fd_opts           = "--color=never --type f --hidden --follow --exclude .git",
+    fd_opts           = "--no-ignore --color=never --type f --hidden --follow --exclude .git",
     actions = {
       ["default"]     = actions.file_edit,
-      ["ctrl-s"]      = actions.file_split,
       ["ctrl-v"]      = actions.file_vsplit,
-      ["ctrl-t"]      = actions.file_tabedit,
-      ["ctrl-q"]      = actions.file_sel_to_qf,
-      ["ctrl-y"]      = function(selected) print(selected[1]) end,
+      ["ctrl-q"]      = actions.file_sel_to_qf
     }
   },
   git = {
@@ -281,15 +276,18 @@ require'fzf-lua'.setup {
     bcommits = {
       prompt          = 'BCommits ❯ ',
       cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' <file>",
-      preview       = "git diff --color {1}~1 {1} -- <file>",
+      -- preview       = "git diff --color {1}~1 {1} -- <file>",
+      preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$COLUMNS --line-numbers",
+
       -- uncomment if you wish to use git-delta as pager
       --preview_pager = "delta --width=$FZF_PREVIEW_COLUMNS"
       actions = {
-        ["default"] = actions.git_buf_edit,
-        ["ctrl-s"]  = actions.git_buf_split,
-        ["ctrl-v"]  = actions.git_buf_vsplit,
-        ["ctrl-t"]  = actions.git_buf_tabedit,
-      },
+        ['default'] = function(selected, o)
+              local commit_hash = selected[1]:match("[^ ]+")
+              local cmd = string.format("Gvdiffsplit %s", commit_hash)
+              vim.cmd(cmd)
+       end
+      }
     },
     branches = {
       prompt          = 'Branches ❯ ',
@@ -312,7 +310,6 @@ require'fzf-lua'.setup {
   grep = {
     prompt            = 'Rg ❯ ',
     input_prompt      = 'Grep For ❯ ',
-    -- cmd               = "rg --vimgrep",
     rg_opts           = "--hidden --column --line-number --no-heading " ..
                         "--color=always --smart-case -g '!{.git,node_modules}/*'",
     multiprocess      = true,
@@ -322,19 +319,10 @@ require'fzf-lua'.setup {
     rg_glob           = true,
     actions = {
       ["default"]     = actions.file_edit,
-      ["ctrl-s"]      = actions.file_split,
       ["ctrl-v"]      = actions.file_vsplit,
-      ["ctrl-t"]      = actions.file_tabedit,
       ["ctrl-q"]      = actions.file_sel_to_qf,
-      ["ctrl-y"]      = function(selected) print(selected[2]) end,
       ["ctrl-g"]      = { actions.grep_lgrep }
     }
-  },
-  oldfiles = {
-    prompt            = 'History ❯ ',
-    cwd_only          = false,
-    stat_file         = true,         -- verify files exist on disk
-    include_current_session = false,  -- include bufs from current session
   },
   buffers = {
     -- previewer      = false,        -- disable the builtin previewer?
@@ -344,9 +332,7 @@ require'fzf-lua'.setup {
     sort_lastused     = true,         -- sort buffers() by last used
     actions = {
       ["default"]     = actions.buf_edit,
-      ["ctrl-s"]      = actions.buf_split,
       ["ctrl-v"]      = actions.buf_vsplit,
-      ["ctrl-t"]      = actions.buf_tabedit,
       ["ctrl-x"]      = { actions.buf_del, actions.resume }
     }
   },
@@ -360,70 +346,26 @@ require'fzf-lua'.setup {
       ["ctrl-t"]      = actions.buf_tabedit,
     }
   },
-  colorschemes = {
-    prompt            = 'Colorschemes ❯ ',
-    live_preview      = true,       -- apply the colorscheme on preview?
-    actions = {
-      ["default"]     = actions.colorscheme,
-      ["ctrl-y"]      = function(selected) print(selected[2]) end,
-    },
-    winopts = {
-      win_height        = 0.55,
-      win_width         = 0.30,
-    },
-    post_reset_cb     = function()
-      -- reset statusline highlights after
-      -- a live_preview of the colorscheme
-      -- require('feline').reset_highlights()
-    end,
-  },
   quickfix = {
     -- cwd               = vim.loop.cwd(),
     file_icons        = true,
     git_icons         = true,
   },
-  lsp = {
-    prompt            = '❯ ',
-    -- cwd               = vim.loop.cwd(),
-    cwd_only          = false,      -- LSP/diagnostics for cwd only?
-    async_or_timeout  = true,       -- timeout(ms) or false for blocking calls
-    file_icons        = true,
-    git_icons         = false,
-    lsp_icons         = true,
-    severity          = "hint",
-    icons = {
-      ["Error"]       = { icon = "", color = "red" },       -- error
-      ["Warning"]     = { icon = "", color = "yellow" },    -- warning
-      ["Information"] = { icon = "", color = "blue" },      -- info
-      ["Hint"]        = { icon = "", color = "magenta" },   -- hint
-    },
-  },
-  -- placeholders for additional user customizations
-  loclist = {},
-  helptags = {},
-  manpages = {},
-  -- optional override of file extension icon colors
-  -- available colors (terminal):
-  --    clear, bold, black, red, green, yellow
-  --    blue, magenta, cyan, grey, dark_grey, white
-  -- padding can help kitty term users with
-  -- double-width icon rendering
   file_icon_padding = '',
   file_icon_colors = {
     ["lua"]   = "blue",
   },
 }
 
-
 ------------------------------------
 -------------Keymaps----------------
 ------------------------------------
 
--- Builtin
--- vim.api.nvim_set_keymap('n', '<leader>fzf',
---     "<cmd>lua require('fzf-lua').builtin()<CR>",
---     { noremap = true, silent = true })
+-- Find commits for current file
 
+vim.api.nvim_set_keymap('n', '<leader>fc',
+    "<cmd>lua require('fzf-lua').git_bcommits()<CR>",
+    { noremap = true, silent = true })
  -- Files
 vim.api.nvim_set_keymap('n', '<c-f>',
     "<cmd>lua require('fzf-lua').files()<CR>",
@@ -452,7 +394,7 @@ vim.api.nvim_set_keymap('n', '<leader>rg',
     "<cmd>lua require('fzf-lua').grep()<CR>",
     { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<leader>f',
+vim.api.nvim_set_keymap('n', '<leader>cw',
     "<cmd>lua require('fzf-lua').grep_cword()<CR>",
     { noremap = true, silent = true })
 

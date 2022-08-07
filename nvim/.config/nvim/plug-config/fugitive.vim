@@ -1,18 +1,18 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fugitive
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>gs :G<CR>
-nnoremap <leader>gc :Git commit<CR>
-nnoremap <leader>gp :Git -c push.default=current push<CR>
-nnoremap <leader>gw :Gwrite!<CR>
+nnoremap <leader>gs <Esc>:G<CR>
+nnoremap <leader>gc <Esc>:Git commit<CR>
+nnoremap <leader>gp <Esc>:Git -c push.default=current push<CR>
+nnoremap <leader>gw <Esc>:Gwrite!<CR>
 " # Get commit hash from fzf lua
-nnoremap <leader>ge :Gedit HEAD~:%<Left><Left>
+nnoremap <leader>ge <Esc>:vsp<CR>:Gedit HEAD~:%<Left><Left>
 
-nnoremap <leader>dg :diffget<CR> 
-nnoremap <leader>dp :diffput<CR> 
+nnoremap <leader>dg <Esc>:diffget<CR> 
+nnoremap <leader>dp <Esc>:diffput<CR> 
 " nnoremap <leader>co :G branch --all<CR><bar>:Git checkout 
 
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gm :Gvdiffsplit!<CR>
-nnoremap <leader>gl :diffget //3<CR>:diffupdate<CR>
-nnoremap <leader>gh :diffget //2<CR>:diffupdate<CR>
+nnoremap <leader>gd <Esc>:Gvdiff<CR>
+nnoremap <leader>gm <Esc>:Gvdiffsplit!<CR>
+nnoremap <leader>gl <Esc>:diffget //3<CR>:diffupdate<CR>
+nnoremap <leader>gh <Esc>:diffget //2<CR>:diffupdate<CR>

@@ -6,7 +6,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'nvim-treesitter/nvim-treesitter', {'do':':TSUpdate'}
-Plug 'hqkhan/palenight' , {'branch': 'main'}
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons' " If you want to display icons, then use one of these plugins --lua
 Plug 'kyazdani42/nvim-tree.lua'
@@ -14,7 +13,6 @@ Plug 'akinsho/bufferline.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'norcalli/nvim-colorizer.lua'
-Plug 'shaunsingh/oxocarbon.nvim', { 'do': './install.sh' }
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
@@ -22,7 +20,6 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/vim-vsnip'
 Plug 'onsails/lspkind-nvim'
 
 call plug#end()
@@ -78,4 +75,3 @@ let g:lsp_document_code_action_signs_enabled = 0
 set background=dark
 lua vim.g.lua_embark_transparent = true
 colorscheme lua-embark
-" colorscheme palenight
