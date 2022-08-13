@@ -152,6 +152,8 @@ require'fzf-lua'.setup {
       ["ctrl-b"]      = "half-page-up",
       ["ctrl-a"]      = "beginning-of-line",
       ["ctrl-e"]      = "end-of-line",
+      ["ctrl-d"]      = "preview-page-down",
+      ["ctrl-u"]      = "preview-page-up",
     },
   },
   fzf_opts = {
@@ -204,16 +206,24 @@ require'fzf-lua'.setup {
     },
     commits = {
       prompt          = 'Commits ❯ ',
-      cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset'",
+      -- cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset'",
       -- preview       = "git show --pretty='%Cred%H%n%Cblue%an <%ae>%n%C(yellow)%cD%n%Cgreen%s' --color {1}",
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ["default"] = actions.git_checkout,
+        ["ctrl-e"] = function(selected, o)
+              local commit_hash = selected[1]:match("[^ ]+")
+              local file = require'fzf-lua'.path.entry_to_file(selected[1], o)
+              vim.pretty_print("File path: %s", file.path)
+              local cmd = string.format("vsp | Gedit %s:%s", commit_hash, file.path)
+              vim.pretty_print(cmd)
+              vim.cmd(cmd)
+        end
       },
     },
     bcommits = {
       prompt          = 'BCommits ❯ ',
-      cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' <file>",
+      -- cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' <file>",
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ['default'] = function(selected, o)
@@ -298,7 +308,7 @@ require'fzf-lua'.setup {
 ------------------------------------
 
 -- Find commits for current file
-vim.api.nvim_set_keymap('n', '<leader>fc',
+vim.api.nvim_set_keymap('n', '<leader>bc',
     "<cmd>lua require('fzf-lua').git_bcommits()<CR>",
     { noremap = true, silent = true })
 

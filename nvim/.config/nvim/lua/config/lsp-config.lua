@@ -35,19 +35,17 @@ local on_attach = function(client, bufnr)
 end
 
 -- Language servers
+local lspconfig = require'lspconfig'
 local lsp_flags = {
    -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
-require('lspconfig')['pyright'].setup{
+lspconfig.pyright.setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
-require('lspconfig')['tsserver'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-require('lspconfig')['rust_analyzer'].setup{
+lspconfig.rust_analyzer.setup {
+    
     on_attach = on_attach,
     flags = lsp_flags,
     -- Server-specific settings...
@@ -55,11 +53,19 @@ require('lspconfig')['rust_analyzer'].setup{
       ["rust-analyzer"] = {}
     }
 }
-require('lspconfig')['sumneko_lua'].setup{
+lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
-require('lspconfig')['dockerls'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
+lspconfig.ccls.setup {
+  init_options = {
+    compilationDatabaseDirectory = "build";
+    index = {
+      threads = 0;
+    };
+    clang = {
+      excludeArgs = { "-frounding-math"} ;
+    };
+  }
 }
+
