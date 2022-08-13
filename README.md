@@ -16,24 +16,13 @@ Using [JetBrainsMono](https://www.jetbrains.com/lp/mono/) font.
 
 Use `fc-cache` after placing font in `~/.local/share/fonts/`
 
-### LSP
-#### Compile Lua
-https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
-
-```
-cd 3rd/luamake
-compile/install.sh
-cd ../..
-./3rd/luamake/luamake rebuild
-```
-
 ### PS1
 https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 
 Place in `~/` for this to read git branch
 
 ### Colorscheme
-Own colorscheme in `hqkhan/palenight`
+Embark theme from ibhagwan's repo
 Tmux colorscheme in `hqkhan/tmux-onedark-theme`
 
 ### VIMIUM
@@ -81,4 +70,16 @@ g: https://www.google.com/search?q=%s Google
 y: https://www.youtube.com/results?search_query=%s Youtube
 gm: https://www.google.com/maps?q=%s Google maps
 a: https://www.amazon.com/s/?field-keywords=%s Amazon
+```
+
+### Installing Jetbrains mono
+`https://github.com/sabah1994/dotfiles/blob/90b74549d1303a9655ba18851e0042f11b81a4d9/scripts/installation.sh#L139`
+```
+install_font(){
+    # insatll jetBrainsMono Nerd Font
+    cd ~ && git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts
+    cd nerd-fonts
+    git sparse-checkout add patched-fonts/JetBrainsMono install.sh
+    ./install.sh JetBrainsMono
+}
 ```
