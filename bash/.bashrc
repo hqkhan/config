@@ -111,3 +111,4 @@ bind '"\C-g":"cd_with_fzf\C-M"'
 
 alias dev="ssh hqkhan-dev.aka.corp.amazon.com"
 export PATH="/usr/local/bin:$PATH"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
