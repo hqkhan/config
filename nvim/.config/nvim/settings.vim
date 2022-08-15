@@ -123,3 +123,7 @@ nnoremap <silent> <leader>cn :cn<CR>
 nnoremap <silent> <leader>cp :cp<CR>
 nnoremap <leader>cq :call QuickfixToggle()<cr>
 
+cmap <leader>W w !sudo tee > /dev/null %<CR>
+cmap <C-j> <Down>
+cmap <C-k> <Up>
+
