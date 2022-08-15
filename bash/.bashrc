@@ -74,7 +74,7 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
   ssh-add `find $HOME/.ssh -not -name "*.pub" -name "id_*"`
 fi
 
-alias lg="git log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s' --all --graph --date=relative --date-order"
+alias lg="git log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s' --graph --date=relative --date-order"
 # export TERM=st-256color
 export COLORTERM="truecolor"
 alias ww="source ./venv/bin/activate"
