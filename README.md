@@ -74,6 +74,7 @@ a: https://www.amazon.com/s/?field-keywords=%s Amazon
 
 ### Installing Jetbrains mono
 `https://github.com/sabah1994/dotfiles/blob/90b74549d1303a9655ba18851e0042f11b81a4d9/scripts/installation.sh#L139`
+
 ```
 install_font(){
     # insatll jetBrainsMono Nerd Font

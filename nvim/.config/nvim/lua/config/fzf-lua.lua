@@ -211,12 +211,14 @@ require'fzf-lua'.setup {
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ["default"] = actions.git_checkout,
-        ["ctrl-e"] = function(selected, o)
+        ["ctrl-e"] = function(selected)
               local commit_hash = selected[1]:match("[^ ]+")
-              local file = require'fzf-lua'.path.entry_to_file(selected[1], o)
-              vim.pretty_print("File path: %s", file.path)
-              local cmd = string.format("vsp | Gedit %s:%s", commit_hash, file.path)
-              vim.pretty_print(cmd)
+              local cmd = "vsp | Gedit " .. commit_hash .. ":%"
+              vim.cmd(cmd)
+        end,
+        ["ctrl-v"] = function(selected)
+              local commit_hash = selected[1]:match("[^ ]+")
+              local cmd = "Gvdiffsplit " .. commit_hash .. ":%"
               vim.cmd(cmd)
         end
       },
@@ -226,11 +228,17 @@ require'fzf-lua'.setup {
       -- cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' <file>",
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
-        ['default'] = function(selected, o)
+        ['default'] = actions.git_checkout,
+        ["ctrl-e"] = function(selected)
               local commit_hash = selected[1]:match("[^ ]+")
-              local cmd = string.format("Gvdiffsplit %s", commit_hash)
+              local cmd = "vsp | Gedit " .. commit_hash .. ":%"
               vim.cmd(cmd)
-       end
+        end,
+        ["ctrl-v"] = function(selected)
+              local commit_hash = selected[1]:match("[^ ]+")
+              local cmd = "Gvdiffsplit " .. commit_hash .. ":%"
+              vim.cmd(cmd)
+        end
       }
     },
     branches = {
