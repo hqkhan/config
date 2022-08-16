@@ -30,7 +30,7 @@ hs.hotkey.bind({"cmd"}, "o", function()
 end)
 
 -- Snapshot
-hs.hotkey.bind({"cmd", "shift"}, "m", function()
+hs.hotkey.bind({"cmd", "ctrl"}, "m", function()
     hs.eventtap.keyStroke({"cmd", "shift"}, "4") 
 end)
 

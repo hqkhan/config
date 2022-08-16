@@ -81,8 +81,9 @@ alias ww="source ./venv/bin/activate"
 # alias ff="flameshot full -c -p $PICTURE_PATH -d 3000"
 alias ss="source ~/.bashrc"
 export INPUTRC='~/.inputrc'
-export DISPLAY="localhost:10.0"
+# export DISPLAY="localhost:10.0"
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
@@ -109,5 +110,7 @@ _fzf_compgen_path() {
 # OS-X
 bind '"\C-g":"cd_with_fzf\C-M"'
 
-alias dev="ssh hqkhan-dev.aka.corp.amazon.com"
+alias dev="ssh -X hqkhan-dev.aka.corp.amazon.com"
 export PATH="/usr/local/bin:$PATH"
+alias auth="mwinit -o"
+export PATH=/opt/X11/bin:$PATH
