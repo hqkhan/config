@@ -89,7 +89,8 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 # --height=50% <- Adjust per command
 # --layout=reverse <- Adjust per command
-export FZF_DEFAULT_OPTS="--height=90% --info=inline --border --margin=1 --padding=1"
+FZF_OPTS="--height=90% --info=inline --border --margin=1 --padding=1"
+export FZF_DEFAULT_OPTS="$FZF_OPTS --no-height --color=bg+:#100E23,gutter:#323F4E,pointer:#F48FB1,info:#ffe6b3,hl:#d4bfff,hl+:#A1EFD3"
 
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
