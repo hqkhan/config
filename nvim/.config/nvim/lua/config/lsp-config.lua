@@ -2,6 +2,16 @@
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
+vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=#c792ea guibg=#081633]]
+local border = "rounded"
+
+-- LSP settings (for overriding per client)
+local handlers =  {
+  ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
+  ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
+}
+
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -33,7 +43,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
-
 -- Language servers
 local lspconfig = require'lspconfig'
 local lsp_flags = {
@@ -43,19 +52,21 @@ local lsp_flags = {
 lspconfig.pyright.setup {
     on_attach = on_attach,
     flags = lsp_flags,
+    handlers = handlers
 }
 lspconfig.rust_analyzer.setup {
-    
     on_attach = on_attach,
     flags = lsp_flags,
     -- Server-specific settings...
     settings = {
       ["rust-analyzer"] = {}
-    }
+    },
+    handlers = handlers
 }
 lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     flags = lsp_flags,
+    handlers = handlers,
 }
 lspconfig.ccls.setup {
   init_options = {
@@ -66,6 +77,7 @@ lspconfig.ccls.setup {
     clang = {
       excludeArgs = { "-frounding-math"} ;
     };
-  }
+  },
+    handlers=handlers
 }
 

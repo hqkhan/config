@@ -127,4 +127,3 @@ cnoremap <leader>w execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 cmap <C-j> <Down>
 cmap <C-k> <Up>
-
