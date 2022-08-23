@@ -85,6 +85,7 @@ nnoremap <S-l> 5<C-w><
 
 " Remap ctrl carrot
 nnoremap <C-e> <C-^>
+inoremap <C-e> <Esc><C-^>
 
 " Copy whole line
 nnoremap Y y$
