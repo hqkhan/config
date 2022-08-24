@@ -225,7 +225,7 @@ require'fzf-lua'.setup {
     },
     bcommits = {
       prompt          = 'BCommits ❯ ',
-      -- cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' <file>",
+      -- cmd             = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' <file>",
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ['default'] = actions.git_checkout,
@@ -316,7 +316,7 @@ require'fzf-lua'.setup {
 ------------------------------------
 
 -- Find commits for current file
-vim.api.nvim_set_keymap('n', '<leader>bc',
+vim.api.nvim_set_keymap('n', '<leader>bcm',
     "<cmd>lua require('fzf-lua').git_bcommits()<CR>",
     { noremap = true, silent = true })
 
