@@ -39,26 +39,27 @@ hs.hotkey.bind({"cmd"}, "h", function()
     hs.application.launchOrFocus("Amazon Chime")
 end)
 
+-- Quip
 hs.hotkey.bind({"cmd"}, "p", function()
-    local win = hs.window.focusedWindow()
-    if win ~= hs.window.desktop() then
-        local desk = hs.window.desktop()
-        desk:focus()
-        desk:maximize()
-    end
+    hs.application.launchOrFocus("Quip")
 end)
 
--- local arrowHotkeys = {
---     h = hs.keycodes.map.left,
---     j = hs.keycodes.map.down,
---     l = hs.keycodes.map.right,
---     k = hs.keycodes.map.up
--- }
--- for key, arrow in pairs(arrowHotkeys) do
---   hs.hotkey.bind({ 'ctrl' }, key, function()
---     hs.eventtap.keyStroke(nil, arrow)
---  end)
--- end
+-- hs.hotkey.bind({"cmd"}, "p", function()
+--     local win = hs.window.focusedWindow()
+--     if win ~= hs.window.desktop() then
+--         local desk = hs.window.desktop()
+--         desk:focus()
+--         desk:maximize()
+--     end
+-- end)
+
+-- Dismiss outlook events
+local DismissHotkey = hs.hotkey.bind({ "cmd", "ctrl" }, "d", function()
+    local DismissLoc = {}
+    DismissLoc['y'] = 1100
+    DismissLoc['x'] = 1650
+    hs.eventtap.leftClick(DismissLoc)
+end)
 
 -- Normal binds
 local select_all = hs.hotkey.new({"ctrl"}, "a", nil, function() hs.eventtap.keyStroke({"cmd"}, "a") end)
@@ -92,26 +93,17 @@ local InboxHotkey = hs.hotkey.new({ "cmd", "ctrl" }, "m", function()
     hs.eventtap.leftClick(InboxLoc)
 end)
 
-local DismissHotkey = hs.hotkey.new({ "cmd", "ctrl" }, "d", function()
-    local DismissLoc = {}
-    DismissLoc['y'] = 1100
-    DismissLoc['x'] = 1650
-    hs.eventtap.leftClick(DismissLoc)
-end)
-
 -- Subscribe to when your Google Chrome window is focused and unfocused
 OutlookCalInbox
     :subscribe(hs.window.filter.windowFocused, function()
         calendarHotkey:enable()
         InboxHotkey:enable()
-        DismissHotkey:enable()
         up:enable()
         down:enable()
     end)
     :subscribe(hs.window.filter.windowUnfocused, function()
         calendarHotkey:disable()
         InboxHotkey:disable()
-        DismissHotkey:disable()
         up:disable()
         down:disable()
     end)
