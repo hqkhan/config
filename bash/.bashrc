@@ -107,9 +107,8 @@ _fzf_compgen_path() {
 }
 
 # CTRL-G for changing directories
-# bind '"\C-g":"cd_with_fzf\n"'
+bind '"\C-g":"cd_with_fzf\n"'
 # OS-X
-bind '"\C-g":"cd_with_fzf\C-M"'
 
 alias dev="ssh -X hqkhan-dev.aka.corp.amazon.com"
 export PATH="/usr/local/bin:$PATH"
