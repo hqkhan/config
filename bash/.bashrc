@@ -171,16 +171,21 @@ zz() {
 alias j=z
 alias jj=zz
 
-test_() {
+tt() {
     local test_name
     test_name=$(rg 'def test_' | awk '{split($0,a,"def"); split(a[2],b,"("); split(b[1],c," "); print c[1]}'| fzf)
-    echo SKIPSSL=1 TEST_PATTERN=$test_name bb amztests -j8
-    SKIPSSL=1 TEST_PATTERN=$test_name bb amztests -j8
+    if [[ ! -z "$test_name" ]]; then
+        echo SKIPSSL=1 TEST_PATTERN=$test_name bb amztests -j8
+        SKIPSSL=1 TEST_PATTERN=$test_name bb amztests -j8
+    fi
 }
 
-test_file() {
+tf() {
     local test_name
     test_name=$(fd -g 'test_*.py' amztests/ | xargs -n1 basename | fzf)
-    echo SKIPSSL=1 TEST_PATTERN=$test_name bb amztests -j8
-    SKIPSSL=1 TEST_PATTERN=$test_name bb amztests -j8
+    if [[ ! -z "$test_name" ]]; then
+        echo SKIPSSL=1 TEST_PATTERN=$test_name bb amztests -j8
+        SKIPSSL=1 TEST_PATTERN=$test_name bb amztests -j8
+    fi
 }
+
