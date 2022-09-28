@@ -206,8 +206,6 @@ require'fzf-lua'.setup {
     },
     commits = {
       prompt          = 'Commits ❯ ',
-      -- cmd           = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset'",
-      -- preview       = "git show --pretty='%Cred%H%n%Cblue%an <%ae>%n%C(yellow)%cD%n%Cgreen%s' --color {1}",
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ["default"] = actions.git_checkout,
@@ -225,7 +223,6 @@ require'fzf-lua'.setup {
     },
     bcommits = {
       prompt          = 'BCommits ❯ ',
-      -- cmd             = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' <file>",
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ['default'] = actions.git_checkout,
@@ -260,7 +257,7 @@ require'fzf-lua'.setup {
     prompt            = 'Rg ❯ ',
     input_prompt      = 'Grep For ❯ ',
     rg_opts           = "--hidden --column --line-number --no-heading " ..
-                        "--color=always --smart-case -g '!{.git,node_modules}/*'",
+                        "--color=always --smart-case -g '!{.git,node_modules,.ccls-cache}/*'",
     multiprocess      = true,
     git_icons         = true,           -- show git icons?
     file_icons        = true,           -- show file icons?
