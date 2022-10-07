@@ -133,12 +133,8 @@ fman() {
 # Get the colors in the opened man page itself
 export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
 
-# Select a running docker container to stop
 function ds() {
-  local cid
-  cid=$(docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
-
-  [ -n "$cid" ] && docker stop "$cid"
+  docker ps | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{print $1}' | xargs -r docker stop
 }
 
 # Same as above, but allows multi selection:
