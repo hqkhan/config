@@ -66,11 +66,11 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-let g:lsp_diagnostics_enabled                = 0
-let g:lsp_diagnostics_signs_enabled          = 0
-let g:lsp_diagnostics_virtual_text_enabled   = 0
-let g:lsp_diagnostics_highlights_enabled     = 0
-let g:lsp_document_code_action_signs_enabled = 0
+" let g:lsp_diagnostics_enabled                = 0
+" let g:lsp_diagnostics_signs_enabled          = 0
+" let g:lsp_diagnostics_virtual_text_enabled   = 0
+" let g:lsp_diagnostics_highlights_enabled     = 0
+" let g:lsp_document_code_action_signs_enabled = 0
 
 set background=dark
 lua vim.g.lua_embark_transparent = true

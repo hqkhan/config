@@ -357,3 +357,23 @@ vim.api.nvim_set_keymap('n', '<leader>h',
 vim.api.nvim_set_keymap('n', '<leader>bl',
     "<cmd>lua require('fzf-lua').blines()<CR>",
     { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>tt',
+    "<cmd>lua require('fzf-lua').lsp_workspace_symbols()<CR>",
+    { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>bt',
+    "<cmd>lua require('fzf-lua').lsp_document_symbols()<CR>",
+    { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>gr',
+    "<cmd>lua require('fzf-lua').lsp_references()<CR>",
+    { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>gd',
+    "<cmd>lua require('fzf-lua').lsp_definitions()<CR>",
+    { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>gD',
+    "<cmd>lua require('fzf-lua').lsp_declaration()<CR>",
+    { noremap = true, silent = true })

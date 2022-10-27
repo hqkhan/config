@@ -128,3 +128,6 @@ cnoremap <leader>w execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 cmap <C-j> <Down>
 cmap <C-k> <Up>
+
+nnoremap <C-j> j<C-E>
+nnoremap <C-k> k<C-Y>
