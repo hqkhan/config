@@ -692,7 +692,8 @@ hl.nvim_cmp = {
 -- `MiniIndentscopeSymbol` - symbol showing on every line of scope.
 -- `MiniIndentscopePrefix` - space before symbol. By default made so as to
 hl.mini_indent = {
-  MiniIndentscopeSymbol = { fg = colors.white },
+  -- MiniIndentscopeSymbol = { fg = colors.white },
+  MiniIndentscopeSymbol = { fg = colors.dark_yellow },
 }
 
 local function h(group, style)

@@ -10,9 +10,9 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons' " If you want to display icons, then use one of these plugins --lua
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'akinsho/bufferline.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
@@ -26,34 +26,35 @@ call plug#end()
 
 " General settings import
 source ~/.config/nvim/settings.vim
-luafile ~/.config/nvim/au_commands.lua
+luafile ~/.config/nvim/lua/au_commands.lua
 
 " Plugin config imports
 source ~/.config/nvim/plug-config/fugitive.vim
 source ~/.config/nvim/plug-config/undotree.vim
 source ~/.config/nvim/plug-config/ripgrep.vim
-luafile ~/.config/nvim/lua/config/nvim-tree.lua
-luafile ~/.config/nvim/lua/config/galaxy-line.lua
-luafile ~/.config/nvim/lua/config/treesitter.lua
-luafile ~/.config/nvim/lua/config/fzf-lua.lua
-luafile ~/.config/nvim/lua/config/bufferline.lua
-luafile ~/.config/nvim/lua/config/indent-blankline.lua
-luafile ~/.config/nvim/lua/config/devicons.lua
-luafile ~/.config/nvim/lua/config/colorizer.lua
+luafile ~/.config/nvim/lua/plugins/nvim-tree.lua
+luafile ~/.config/nvim/lua/plugins/galaxy-line.lua
+luafile ~/.config/nvim/lua/plugins/treesitter.lua
+luafile ~/.config/nvim/lua/plugins/fzf-lua/init.lua
+luafile ~/.config/nvim/lua/plugins/fzf-lua/mappings.lua
+luafile ~/.config/nvim/lua/plugins/bufferline.lua
+luafile ~/.config/nvim/lua/plugins/devicons.lua
+luafile ~/.config/nvim/lua/plugins/colorizer.lua
+luafile ~/.config/nvim/lua/plugins/indent.lua
 
 " LSP 
-luafile ~/.config/nvim/lua/config/lsp-installer.lua
-luafile ~/.config/nvim/lua/config/lsp-config.lua
-luafile ~/.config/nvim/lua/config/cmp-config.lua
+luafile ~/.config/nvim/lua/plugins/lsp-installer.lua
+luafile ~/.config/nvim/lua/plugins/lsp-config.lua
+luafile ~/.config/nvim/lua/plugins/cmp-config.lua
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if exists('+termguicolors')
-    let &t_8f="/<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b="/<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
+" if exists('+termguicolors')
+"     let &t_8f="/<Esc>[38;2;%lu;%lu;%lum"
+"     let &t_8b="/<Esc>[48;2;%lu;%lu;%lum"
+"     set termguicolors
+" endif
 
 set t_Co=256
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -66,12 +67,7 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-" let g:lsp_diagnostics_enabled                = 0
-" let g:lsp_diagnostics_signs_enabled          = 0
-" let g:lsp_diagnostics_virtual_text_enabled   = 0
-" let g:lsp_diagnostics_highlights_enabled     = 0
-" let g:lsp_document_code_action_signs_enabled = 0
-
 set background=dark
 lua vim.g.lua_embark_transparent = true
 colorscheme lua-embark
+

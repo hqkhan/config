@@ -41,10 +41,10 @@ require'fzf-lua'.setup {
   winopts = {
     -- Only valid when using a float window
     -- (i.e. when 'split' is not defined)
-    height           = 0.85,            -- window height
-    width            = 0.80,            -- window width
+    height           = 0.9,            -- window height
+    width            = 0.85,            -- window width
     row              = 0.35,            -- window row position (0=top, 1=bottom)
-    col              = 0.50,            -- window col position (0=left, 1=right)
+    col              = 0.55,            -- window col position (0=left, 1=right)
     -- border argument passthrough to nvim_open_win(), also used
     -- to manually draw the border characters around the preview
     -- window, can be set to 'false' to remove all borders or to
@@ -68,8 +68,8 @@ require'fzf-lua'.setup {
                                         -- native fzf previewers (bat/cat/git/etc)
       wrap           = 'nowrap',        -- wrap|nowrap
       hidden         = 'nohidden',      -- hidden|nohidden
-      vertical       = 'down:45%',      -- up|down:size
-      horizontal     = 'right:60%',     -- right|left:size
+      -- vertical       = 'down:45%',      -- up|down:size
+      -- horizontal     = 'right:60%',     -- right|left:size
       layout         = 'flex',          -- horizontal|vertical|flex
       flip_columns   = 120,             -- #cols to switch to horizontal on flex
       -- Only used with the builtin previewer:
@@ -141,13 +141,10 @@ require'fzf-lua'.setup {
     -- no need to set to `false` to disable a bind
     -- delete or modify is sufficient
     builtin = {
-      ["<C-d>"]       = "preview-page-down",
-      ["<C-u>"]       = "preview-page-up",
-      ["<C-r>"]       = "preview-page-reset",
+      ["<C-]>"]        = "toggle-preview-cw",
     },
     fzf = {
      -- fzf '--bind=' options
-      ["ctrl-z"]      = "abort",
       ["ctrl-f"]      = "half-page-down",
       ["ctrl-b"]      = "half-page-up",
       ["ctrl-a"]      = "beginning-of-line",
@@ -308,9 +305,61 @@ require'fzf-lua'.setup {
   },
 }
 
+local function git_status_tmuxZ(opts)
+  local function tmuxZ()
+    vim.cmd("!tmux resize-pane -Z")
+  end
+  opts = opts or {}
+  opts.fn_pre_win = function(_)
+    if not opts.__want_resume then
+      -- new fzf window, set tmux Z
+      -- add small delay or fzf
+      -- win gets wrong dimensions
+      tmuxZ()
+      vim.cmd("sleep! 20m")
+    end
+    opts.__want_resume = nil
+  end
+  opts.fn_post_fzf = function(_, s)
+    opts.__want_resume = s and (s[1] == 'left' or s[1] == 'right')
+    if not opts.__want_resume then
+      -- resume asked do not resize
+      -- signals fn_pre to do the same
+      tmuxZ()
+    end
+  end
+  fzf_lua.git_status(opts)
+end
+
 ------------------------------------
 -------------Keymaps----------------
 ------------------------------------
+local map_fzf = function(mode, key, f, options, buffer)
+
+  local desc = nil
+  if type(options) == 'table' then
+    desc = options.desc
+    options.desc = nil
+  elseif type(options) == 'function' then
+    desc = options().desc
+  end
+
+  local rhs = function()
+    f(options or {})
+  end
+
+  local map_options = {
+    silent = true,
+    buffer = buffer,
+    desc   = desc or string.format("FzfLua %s", f),
+  }
+
+  vim.keymap.set(mode, key, rhs, map_options)
+end
+
+vim.api.nvim_set_keymap('n', '<leader>f?',
+    "<cmd>lua require('fzf-lua').builtin()<CR>",
+    { noremap = true, silent = true })
 
 -- Find commits for current file
 vim.api.nvim_set_keymap('n', '<leader>bcm',
@@ -377,3 +426,22 @@ vim.api.nvim_set_keymap('n', '<leader>gd',
 vim.api.nvim_set_keymap('n', '<leader>gD',
     "<cmd>lua require('fzf-lua').lsp_declaration()<CR>",
     { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>lg',
+    "<cmd>lua require('fzf-lua').live_grep()<CR>",
+    { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>lG',
+    "<cmd>lua require('fzf-lua').live_grep_resume()<CR>",
+    { noremap = true, silent = true })
+
+-- Full screen git status
+map_fzf('n', '<leader>gS', "git_status_tmuxZ", { desc = "git status (fullscreen)",
+  winopts = {
+    fullscreen = true,
+    preview = {
+      vertical = "down:70%",
+      horizontal = "right:70%",
+    }
+  }
+})
