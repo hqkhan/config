@@ -13,6 +13,7 @@ Plug 'akinsho/bufferline.nvim'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
+Plug 'ibhagwan/smartyank.nvim'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'

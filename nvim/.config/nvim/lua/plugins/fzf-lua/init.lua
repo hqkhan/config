@@ -41,7 +41,7 @@ require'fzf-lua'.setup {
   winopts = {
     -- Only valid when using a float window
     -- (i.e. when 'split' is not defined)
-    height           = 0.9,            -- window height
+    height           = 0.98,             -- window height
     width            = 0.85,            -- window width
     row              = 0.35,            -- window row position (0=top, 1=bottom)
     col              = 0.55,            -- window col position (0=left, 1=right)
@@ -70,14 +70,15 @@ require'fzf-lua'.setup {
       hidden         = 'nohidden',      -- hidden|nohidden
       -- vertical       = 'down:45%',      -- up|down:size
       -- horizontal     = 'right:60%',     -- right|left:size
-      layout         = 'flex',          -- horizontal|vertical|flex
-      flip_columns   = 120,             -- #cols to switch to horizontal on flex
+      -- layout         = 'vertical',          -- horizontal|vertical|flex
+      layout         = 'horizontal',          -- horizontal|vertical|flex
+      flip_columns   = 130,             -- #cols to switch to horizontal on flex
       -- Only used with the builtin previewer:
       title          = true,            -- preview border title (file/buf)?
       scrollbar      = 'float',         -- `false` or string:'float|border'
                                         -- float:  in-window floating border
                                         -- border: in-border chars (see below)
-      scrolloff      = '-2',            -- float scrollbar offset from right
+      scrolloff      = '-1',            -- float scrollbar offset from right
                                         -- applies only when scrollbar = 'float'
       scrollchars    = {'█', '' },      -- scrollbar chars ({ <full>, <empty> }
                                         -- applies only when scrollbar = 'border'
@@ -177,9 +178,9 @@ require'fzf-lua'.setup {
   preview_border      = 'border',       -- border|noborder
   preview_wrap        = 'nowrap',       -- wrap|nowrap
   preview_opts        = 'nohidden',     -- hidden|nohidden
-  preview_vertical    = 'down:45%',     -- up|down:size
+  preview_vertical    = 'down:65%',     -- up|down:size
   preview_horizontal  = 'right:60%',    -- right|left:size
-  preview_layout      = 'flex',         -- horizontal|vertical|flex
+  preview_layout      = 'vertical',         -- horizontal|vertical|flex
   flip_columns        = 120,            -- #cols to switch to horizontal on flex
   -- default_previewer   = "bat",       -- override the default previewer?
                                         -- by default uses the builtin previewer

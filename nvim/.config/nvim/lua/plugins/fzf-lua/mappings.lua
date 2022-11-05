@@ -106,6 +106,10 @@ vim.api.nvim_set_keymap('n', '<leader>lG',
     "<cmd>lua require('fzf-lua').live_grep_resume()<CR>",
     { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('n', '<leader>HT',
+    "<cmd>lua require('fzf-lua').help_tags()<CR>",
+    { noremap = true, silent = true })
+
 -- Full screen git status
 map_fzf('n', '<leader>gS', "git_status_tmuxZ", { desc = "git status (fullscreen)",
   winopts = {

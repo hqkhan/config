@@ -24,7 +24,7 @@ set undofile
 set incsearch
 set scrolloff=8
 set noshowmode
-set clipboard+=unnamedplus
+" set clipboard+=unnamedplus
 set cursorline
 
 au BufRead,BufNewFile *.py set expandtab
