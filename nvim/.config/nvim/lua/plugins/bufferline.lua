@@ -1,3 +1,7 @@
+if not pcall(require, "bufferline") then
+    return
+end
+
   -- For ⁸·₂
 -- buf_numbers = function(opts)
 --   return string.format(opts.lower(opts.ordinal))

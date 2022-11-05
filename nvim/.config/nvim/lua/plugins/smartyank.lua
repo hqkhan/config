@@ -1,8 +1,12 @@
+if not pcall(require, "smartyank") then
+    return
+end
+
 require('smartyank').setup {
   highlight = {
     enabled = true,         -- highlight yanked text
     higroup = "IncSearch",  -- highlight group of yanked text
-    timeout = 1500,         -- timeout for clearing the highlight
+    timeout = 200,         -- timeout for clearing the highlight
   },
   clipboard = {
     enabled = true

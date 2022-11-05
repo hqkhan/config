@@ -31,8 +31,6 @@ luafile ~/.config/nvim/lua/au_commands.lua
 
 " Plugin config imports
 source ~/.config/nvim/plug-config/fugitive.vim
-source ~/.config/nvim/plug-config/undotree.vim
-source ~/.config/nvim/plug-config/ripgrep.vim
 luafile ~/.config/nvim/lua/plugins/nvim-tree.lua
 luafile ~/.config/nvim/lua/plugins/galaxy-line.lua
 luafile ~/.config/nvim/lua/plugins/treesitter.lua
