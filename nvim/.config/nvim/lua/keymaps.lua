@@ -150,3 +150,6 @@ map({'n', 'v'}, '<S-j>', '<PageDown>zz',
   { silent = true, desc = "Page down and keep center screen" })
 map({'n', 'v'}, '<S-k>', '<PageUp>zz',
   { silent = true, desc = "Page up and keep center screen" })
+
+map('n', '<leader>bd', '<Esc>:bd<CR>',
+  { silent = true, desc = "Close current buffer" })

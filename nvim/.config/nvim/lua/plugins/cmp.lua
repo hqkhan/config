@@ -20,7 +20,7 @@ cmp.setup {
 
   completion = {
     -- start completion immediately
-    keyword_length = 1,
+    keyword_length = 4,
   },
 
 
@@ -37,36 +37,17 @@ cmp.setup {
   -- uncomment to disable
   -- preselect = cmp.PreselectMode.None,
 
-  mapping = {
-    ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i' }),
-    ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i' }),
-    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
-    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
-    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
-    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
-    ['<S-up>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<S-down>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i' }),
-    ['<C-e>'] = cmp.mapping({
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-    }),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-    -- ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Insert })
-    -- close the cmp interface if no item is selected, I find it more
-    -- intuitive when using LSP autoselect (instead of sending <CR>)
-    ['<CR>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        if cmp.get_selected_entry() then
-          cmp.confirm({ select = false, cmp.ConfirmBehavior.Insert })
-        else
-          cmp.close()
-        end
-      else
-        fallback()
-      end
-    end),
-  },
+    mapping = {
+        ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-p>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-n>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.close(),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    },
 
   formatting = {
     deprecated = false,

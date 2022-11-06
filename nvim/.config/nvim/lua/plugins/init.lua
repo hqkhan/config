@@ -10,7 +10,7 @@ local install_suffix = "/site/pack/packer/%s/packer.nvim"
 local install_path = vim.fn.stdpath("data") .. string.format(install_suffix, "opt")
 local compile_path = vim.fn.stdpath("data") .. compile_suffix
 -- Call bootstrap here to install packer
-local ok, packer, compile_path  = pcall(require('plugins.bootstrap'), install_path, compile_path)
+local ok, packer = pcall(require('plugins.packer_bootstrap'), install_path, compile_path)
 if not ok or not packer then return end -- user cancelled installation?
 
 -- Packer commands

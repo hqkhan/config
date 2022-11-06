@@ -1,5 +1,6 @@
 -- Set vim settings
 require('settings')
+local o = vim.opt
 
 -- MacOS clipboard
 if require'utils'.is_darwin() then

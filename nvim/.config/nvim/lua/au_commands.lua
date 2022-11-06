@@ -5,12 +5,6 @@ local function augroup(name, fnc)
   fnc(vim.api.nvim_create_augroup(name, { clear = true }))
 end
 
--- vim.api.nvim_create_autocmd('TextYankPost', {
---     group    = 'bufcheck',
---     pattern  = '*',
---     callback = function() vim.highlight.on_yank{timeout=200} 
--- end })
-
 augroup('SmartTextYankPost', function(g)
   -- highlight yanked text and copy to system clipboard
   -- TextYankPost is also called on deletion, limit to
@@ -156,10 +150,10 @@ augroup('Help', function(g)
 end)
 
 -- Return to last edit position when opening files (You want this!)
-augroup('ReturnToLastEditPos', function(g)
-  aucmd("BufReadPost", {
-    group = g,
-    pattern = '*',
-    command = 'if line("\'\"") > 1 && line("\'\"") <= line("$") | exe "normal! g\'\"" | endif'
-  })
-end)
+-- augroup('ReturnToLastEditPos', function(g)
+--   aucmd("BufReadPost", {
+--     group = g,
+--     pattern = '*',
+--     command = 'if line("\'\"") > 1 && line("\'\"") <= line("$") | exe "normal! g\'\"" | endif'
+--   })
+-- end)

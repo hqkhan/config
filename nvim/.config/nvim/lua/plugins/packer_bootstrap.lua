@@ -47,7 +47,7 @@ local function packer_bootstrap(install_path, compile_path)
     end
   end
 
-  return res and packer and compile_path or nil
+  return res and packer or nil
 end
 
 return packer_bootstrap
