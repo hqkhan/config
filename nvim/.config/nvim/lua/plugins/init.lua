@@ -9,8 +9,8 @@ local compile_suffix = "/plugin/packer_compiled.lua"
 local install_suffix = "/site/pack/packer/%s/packer.nvim"
 local install_path = vim.fn.stdpath("data") .. string.format(install_suffix, "opt")
 local compile_path = vim.fn.stdpath("data") .. compile_suffix
--- Call bootstrap here to install packer
-local ok, packer = pcall(require('plugins.packer_bootstrap'), install_path, compile_path)
+
+local ok, packer = pcall(require('plugins.bootstrap'), install_path, compile_path)
 if not ok or not packer then return end -- user cancelled installation?
 
 -- Packer commands
@@ -22,6 +22,13 @@ vim.cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').co
 vim.cmd [[command! PC PackerCompile]]
 vim.cmd [[command! PS PackerStatus]]
 vim.cmd [[command! PU PackerSync]]
+
+-- delete leftover 'packer_compiled.lua'
+if packer.config.compile_path ~= compile_path and
+  vim.loop.fs_stat(packer.config.compile_path) then
+  vim.fn.delete(packer.config.compile_path, "rf")
+  vim.fn.delete(vim.fn.fnamemodify(packer.config.compile_path, ":p:h"), "d")
+end
 
 -- Packer config
 local config = {

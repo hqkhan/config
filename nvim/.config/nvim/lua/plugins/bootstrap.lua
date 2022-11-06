@@ -29,8 +29,6 @@ local function packer_bootstrap(install_path, compile_path)
       fn.system({
         "git",
         "clone",
-        "--depth",
-        "1",
         "https://github.com/wbthomason/packer.nvim",
         install_path,
       })

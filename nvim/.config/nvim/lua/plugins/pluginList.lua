@@ -51,11 +51,6 @@ local packer_startup = function(use)
     -- keys = {'gcc', 'gc', 'gl'}
     event = "VimEnter"
   }
-  -- Autocompletion & snippets
-  use { 'L3MON4D3/LuaSnip',
-    config = 'require("plugins.luasnip")',
-    event = 'InsertEnter'
-  }
 
   -- needs no introduction
   use { 'https://tpope.io/vim/fugitive.git',
@@ -80,6 +75,12 @@ local packer_startup = function(use)
     -- in our command / binding
     -- cmd = { 'NvimReload', 'NvimRestart' },
     opt = true,
+  }
+
+  -- Autocompletion & snippets
+  use { 'L3MON4D3/LuaSnip',
+    config = 'require("plugins.luasnip")',
+    event = 'InsertEnter'
   }
 
   use { 'hrsh7th/nvim-cmp',

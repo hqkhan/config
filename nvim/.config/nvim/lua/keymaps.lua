@@ -143,7 +143,7 @@ map('n', '<Esc><Esc>', '<Esc>:nohlsearch<CR>', { silent = true })
 map('n', '<leader>cd', '<Esc>:lua require"utils".set_cwd()<CR>',
   { silent = true, desc = "smart set cwd (git|file parent)" })
 
-map('n', '<C-p>', '<Esc>:lua print(vim.api.nvim_buf_get_name(0))',
+map('n', '<C-p>', '<Esc>:lua print(vim.api.nvim_buf_get_name(0))<CR>',
   { silent = true, desc = "print current buffer path" })
 
 map({'n', 'v'}, '<S-j>', '<PageDown>zz',
