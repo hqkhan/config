@@ -55,7 +55,7 @@ fzf_lua.setup {
     row              = 0.35,            -- window row position (0=top, 1=bottom)
     col              = 0.55,            -- window col position (0=left, 1=right)
     preview = {
-      layout         = 'horizontal',          -- horizontal|vertical|flex
+      layout         = 'vertical',          -- horizontal|vertical|flex
       flip_columns   = 130,             -- #cols to switch to horizontal on flex
       scrollbar      = 'float',         -- `false` or string:'float|border'
     },
@@ -63,12 +63,6 @@ fzf_lua.setup {
   previewers = {
     bat = {
       theme           = 'Coldark-Dark', -- bat preview theme (bat --list-themes)
-    },
-    builtin = {
-      syntax          = true,         -- preview syntax highlight?
-      syntax_limit_l  = 0,            -- syntax limit (lines), 0=nolimit
-      syntax_limit_b  = 1024*1024,    -- syntax limit (bytes), 0=nolimit
-      limit_b         = 1024*1024*10, -- preview limit (bytes), 0=nolimit
     },
   },
   keymap = {
@@ -94,57 +88,17 @@ fzf_lua.setup {
       ["ctrl-u"]      = "preview-page-up",
     },
   },
-  fzf_opts = {
-    -- options are sent as `<left>=<right>`
-    -- set to `false` to remove a flag
-    -- set to '' for a non-value flag
-    -- for raw args use `fzf_args` instead
-    ['--ansi']        = '',
-    ['--info']        = 'inline',
-    ['--height']      = '100%',
-    ['--layout']      = 'reverse',
-    ['--border']      = 'none',
-  },
-
-  -- fzf_bin             = 'sk',        -- use skim instead of fzf?
-  fzf_layout          = 'reverse',      -- fzf '--layout='
-  fzf_args            = '',             -- adv: fzf extra args, empty unless adv
-  preview_border      = 'border',       -- border|noborder
-  preview_wrap        = 'nowrap',       -- wrap|nowrap
-  preview_opts        = 'nohidden',     -- hidden|nohidden
-  preview_vertical    = 'down:65%',     -- up|down:size
-  preview_horizontal  = 'right:60%',    -- right|left:size
-  preview_layout      = 'vertical',         -- horizontal|vertical|flex
-  flip_columns        = 120,            -- #cols to switch to horizontal on flex
-  -- default_previewer   = "bat",       -- override the default previewer?
-                                        -- by default uses the builtin previewer
-  -- provider setup
-  files = {
-    -- previewer         = "cat",       -- uncomment to override previewer
-    prompt            = 'Files ❯ ',
-    -- cmd               = '',             -- "find . -type f -printf '%P\n'",
-    git_icons         = true,           -- show git icons?
-    file_icons        = true,           -- show file icons?
-    color_icons       = true,           -- colorize file|git icons
-    fd_opts           = "--no-ignore --color=never --type f --hidden --follow --exclude .git",
-    actions = {
-      ["default"]     = actions.file_edit,
-      ["ctrl-v"]      = actions.file_vsplit,
-      ["ctrl-q"]      = actions.file_sel_to_qf
-    }
-  },
   git = {
     files = {
-      prompt          = 'GitFiles ❯ ',
-      cmd             = 'git ls-files --exclude-standard',
-      multiprocess    = true,
-      git_icons       = true,           -- show git icons?
-      file_icons      = true,           -- show file icons?
-      color_icons     = true,           -- colorize file|git icons
+      winopts = {
+        preview = { vertical = "down:65%", horizontal = "right:75%", }
+      },
     },
     commits = {
-      prompt          = 'Commits ❯ ',
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
+      winopts = {
+        preview = { vertical = "down:75%", horizontal = "right:75%", }
+      },
       actions = {
         ["default"] = actions.git_checkout,
         ["ctrl-e"] = function(selected)
@@ -160,7 +114,9 @@ fzf_lua.setup {
       },
     },
     bcommits = {
-      prompt          = 'BCommits ❯ ',
+      winopts = {
+        preview = { vertical = "down:75%", horizontal = "right:75%", }
+      },
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ['default'] = actions.git_checkout,
@@ -176,74 +132,16 @@ fzf_lua.setup {
         end
       }
     },
-    branches = {
-      prompt          = 'Branches ❯ ',
-      cmd             = "git branch --all --color",
-      preview         = "git log --graph --pretty=oneline --abbrev-commit --color {1}",
-      actions = {
-        ["default"] = actions.git_switch,
-      },
-    },
-    icons = {
-      ["M"]           = { icon = "M", color = "yellow" },
-      ["D"]           = { icon = "D", color = "red" },
-      ["A"]           = { icon = "A", color = "green" },
-      ["?"]           = { icon = "?", color = "magenta" },
-    },
+    branches          = { winopts = {
+      preview         = { vertical = "down:75%", horizontal = "right:75%", }
+    }}
   },
   grep = {
-    prompt            = 'Rg ❯ ',
-    input_prompt      = 'Grep For ❯ ',
     rg_opts           = "--hidden --column --line-number --no-heading " ..
                         "--color=always --smart-case -g '!{.git,node_modules,.ccls-cache}/*'",
-    multiprocess      = true,
-    git_icons         = true,           -- show git icons?
-    file_icons        = true,           -- show file icons?
-    color_icons       = true,           -- colorize file|git icons
-    rg_glob           = true,
-    actions = {
-      ["default"]     = actions.file_edit,
-      ["ctrl-v"]      = actions.file_vsplit,
-      ["ctrl-q"]      = actions.file_sel_to_qf,
-      ["ctrl-g"]      = { actions.grep_lgrep }
-    }
   },
-  buffers = {
-    -- previewer      = false,        -- disable the builtin previewer?
-    prompt            = 'Buffers ❯ ',
-    file_icons        = true,         -- show file icons?
-    color_icons       = true,         -- colorize file|git icons
-    sort_lastused     = true,         -- sort buffers() by last used
-    actions = {
-      ["default"]     = actions.buf_edit,
-      ["ctrl-v"]      = actions.buf_vsplit,
-      ["ctrl-x"]      = { actions.buf_del, actions.resume }
-    }
-  },
-  blines = {
-    previewer         = "builtin",    -- set to 'false' to disable
-    prompt            = 'BLines ❯ ',
-    show_unlisted     = true,         -- include 'help' buffers
-    no_term_buffers   = false,        -- include 'term' buffers
-    fzf_opts = {
-      -- hide filename, tiebreak by line no.
-      ['--delimiter'] = "'[\\]:]'",
-      ["--with-nth"]  = '3..',
-      ["--tiebreak"]  = 'index',
-    },
-    actions = {
-      ["default"]     = actions.buf_edit,
-    }
-  },
-  quickfix = {
-    -- cwd               = vim.loop.cwd(),
-    file_icons        = true,
-    git_icons         = true,
-  },
-  file_icon_padding = '',
-  file_icon_colors = {
-    ["lua"]   = "blue",
-  },
+  lsp                 = { symbols = { path_shorten=1 } },
+  diagnostics         = { file_icons=false, icon_padding=' ', path_shorten=1 }
 }
 
 local M = {}

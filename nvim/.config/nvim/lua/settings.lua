@@ -25,7 +25,7 @@ vim.cmd[[set path=.,,,$PWD/**]]
 -- unnamedplus = use the + register (cmd-v paste in our term)
 -- o.clipboard         = 'unnamedplus'
 
-o.showmode          = true      -- show current mode (insert, etc) under the cmdline
+o.showmode          = false      -- show current mode (insert, etc) under the cmdline
 o.showcmd           = true      -- show current command under the cmd line
 o.cmdheight         = 2         -- cmdline height
 o.cmdwinheight      = math.floor(vim.o.lines/2) -- 'q:' window height

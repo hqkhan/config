@@ -98,10 +98,10 @@ require'nvim-tree'.setup {
   },
 }
 
-vim.keymap.set('n', '<leader>nn',
+vim.keymap.set('', '<leader>nn',
     ":NvimTreeToggle<CR>",
     { noremap = true, silent = true })
 
-vim.keymap.set('n', '<leader>nf',
+vim.keymap.set('', '<leader>nf',
     ":NvimTreeFindFileToggle<CR>",
     { noremap = true, silent = true })

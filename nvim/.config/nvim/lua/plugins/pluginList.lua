@@ -79,8 +79,8 @@ local packer_startup = function(use)
 
   -- Autocompletion & snippets
   use { 'L3MON4D3/LuaSnip',
-    config = 'require("plugins.luasnip")',
-    event = 'InsertEnter'
+    config = 'require("plugins.luasnip")'
+    -- event = 'InsertEnter'
   }
 
   use { 'hrsh7th/nvim-cmp',
@@ -124,15 +124,14 @@ local packer_startup = function(use)
   -- nvim-tree
   use { 'kyazdani42/nvim-tree.lua',
     config = "require('plugins.nvim-tree')",
-    cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' },
+    -- cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' },
   }
 
   -- only required if you do not have fzf binary
   -- use = { 'junegunn/fzf', run = './install --bin', }
   use { prefer_local('ibhagwan/fzf-lua'),
     setup = "require('plugins.fzf-lua.mappings')",
-    config = "require('plugins.fzf-lua')",
-    opt = true,
+    config = "require('plugins.fzf-lua')"
   }
 
   -- better quickfix
@@ -176,8 +175,8 @@ use({
 -- Colorizer
 use { 'nvchad/nvim-colorizer.lua',
     config = "require'colorizer'.setup()",
-    cmd = { 'ColorizerAttachToBuffer', 'ColorizerDetachFromBuffer' },
-    opt = true
+    -- cmd = { 'ColorizerAttachToBuffer', 'ColorizerDetachFromBuffer' },
+    -- opt = true
 }
 
 -- Install statusline (galaxy)
