@@ -38,8 +38,8 @@ luafile ~/.config/nvim/lua/plugins/fzf-lua/init.lua
 luafile ~/.config/nvim/lua/plugins/fzf-lua/mappings.lua
 luafile ~/.config/nvim/lua/plugins/bufferline.lua
 luafile ~/.config/nvim/lua/plugins/devicons.lua
-luafile ~/.config/nvim/lua/plugins/colorizer.lua
 luafile ~/.config/nvim/lua/plugins/indent.lua
+luafile ~/.config/nvim/lua/plugins/smartyank.lua
 
 " LSP 
 luafile ~/.config/nvim/lua/plugins/lsp-installer.lua
@@ -55,8 +55,8 @@ luafile ~/.config/nvim/lua/plugins/cmp-config.lua
 "     set termguicolors
 " endif
 
-set t_Co=256
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" set t_Co=256
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

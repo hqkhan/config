@@ -11,7 +11,6 @@ local map_fzf = function(mode, key, f, options, buffer)
     desc = options().desc
   end
 
-  print(require('plugins.fzf-lua'))
   local rhs = function()
     if not pcall(require, 'fzf-lua') then
       require('packer').loader('fzf-lua')

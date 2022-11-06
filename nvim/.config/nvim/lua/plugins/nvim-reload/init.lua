@@ -7,14 +7,8 @@ local plugin_dirs_autoload = vim.fn.stdpath('data') .. '/site/pack/*/start/*'
 local plugin_dirs_lazyload = {
   vim.fn.stdpath('data') .. '/site/pack/*/opt/fzf-lua',
   vim.fn.stdpath('data') .. '/site/pack/*/opt/nvim-fzf',
-  vim.fn.stdpath('data') .. '/site/pack/*/opt/lualine.nvim',
-  vim.fn.stdpath('data') .. '/site/pack/*/opt/telescope.nvim',
-  vim.fn.stdpath('data') .. '/site/pack/*/opt/which-key.nvim',
-  vim.fn.stdpath('data') .. '/site/pack/*/opt/ts-vimdoc.nvim',
   vim.fn.stdpath('data') .. '/site/pack/*/opt/smartyank.nvim',
-  vim.fn.stdpath('data') .. '/site/pack/*/opt/toggleterm.nvim',
   vim.fn.stdpath('data') .. '/site/pack/*/opt/indent-blankline.nvim',
-  vim.fn.stdpath('data') .. '/site/pack/*/opt/nvim-dap',
 }
 
 reload.vim_reload_dirs = {

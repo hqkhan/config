@@ -35,7 +35,7 @@ filetype plugin indent on
 set showmatch 
 
 " How many tenths of a second to blink when matching brackets
-set mat=2
+" set mat=2000
 
 " Give more space for displaying messages.
 set cmdheight=2

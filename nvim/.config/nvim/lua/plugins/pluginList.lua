@@ -38,6 +38,7 @@ local packer_startup = function(use)
     config = [[
         require'plugins.surround'
         require'plugins.indent'
+        require'mini.ai'.setup()
       ]],
     event = "VimEnter"
   }
@@ -182,7 +183,7 @@ use { 'nvchad/nvim-colorizer.lua',
 use{
     'glepnir/galaxyline.nvim',
     branch = 'main',
-    config = "require('plugins.galaxy-line')",
+    config = "require('plugins.statusline')",
     requires = {'kyazdani42/nvim-web-devicons'}
 }
 
