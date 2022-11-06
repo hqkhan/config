@@ -74,7 +74,7 @@ local packer_startup = function(use)
     -- skip this since we manually lazy load
     -- in our command / binding
     -- cmd = { 'NvimReload', 'NvimRestart' },
-    opt = true,
+    -- opt = true,
   }
 
   -- Autocompletion & snippets

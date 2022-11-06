@@ -88,6 +88,9 @@ fzf_lua.setup {
       ["ctrl-u"]      = "preview-page-up",
     },
   },
+    files = {
+        prompt            = 'Files❯ ',
+    },
   git = {
     files = {
       winopts = {
