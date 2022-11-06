@@ -88,10 +88,17 @@ fzf_lua.setup {
       ["ctrl-u"]      = "preview-page-up",
     },
   },
-    files = {
-        prompt            = 'Files❯ ',
-    },
   git = {
+    status = {
+      cmd             = "git status -su",
+      winopts         = {
+        preview       = { vertical = "down:70%", horizontal = "right:70%" }
+      },
+      actions         = {
+        ["ctrl-r"]    = { fzf_lua.actions.git_reset, fzf_lua.actions.resume },
+      },
+      preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$COLUMNS",
+    },
     files = {
       winopts = {
         preview = { vertical = "down:65%", horizontal = "right:75%", }

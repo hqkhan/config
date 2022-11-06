@@ -27,95 +27,56 @@ local map_fzf = function(mode, key, f, options, buffer)
   vim.keymap.set(mode, key, rhs, map_options)
 end
 
-vim.api.nvim_set_keymap('n', '<leader>f?',
-    "<cmd>lua require('fzf-lua').builtin()<CR>",
-    { noremap = true, silent = true })
+-- Misc
+map_fzf('n', "<leader>f?", "builtin",         { desc = "builtin commands" })
+map_fzf('n', "<C-f>", "files",
+{ desc = "Files",
+    winopts = {
+    preview = { vertical = "down:65%", horizontal = "right:75%", }
+    },
+})
 
--- Find commits for current file
-vim.api.nvim_set_keymap('n', '<leader>bcm',
-    "<cmd>lua require('fzf-lua').git_bcommits()<CR>",
-    { noremap = true, silent = true })
+map_fzf('n', "<Space><CR>", "buffers",   { desc = "Buffers" })
+map_fzf('n', "<leader>bl", "blines",   { desc = "Buffer lines" })
 
- -- Files
-vim.api.nvim_set_keymap('n', '<c-f>',
-    "<cmd>lua require('fzf-lua').files()<CR>",
-    { noremap = true, silent = true })
+-- Git
+map_fzf('n', "<leader>bcm", "git_bcommits",   { desc = "Git buffer commits" })
+map_fzf('n', "<leader>cm", "git_commits",   { desc = "Git commits" })
+map_fzf('n', "<C-g>", "git_files",   { desc = "Git Files" })
+map_fzf('n', "<leader>co", "git_branches",   { desc = "Checkout git branches" })
 
- -- Git
-vim.api.nvim_set_keymap('n', '<leader>co',
-    "<cmd>lua require('fzf-lua').git_branches()<CR>",
-    { noremap = true, silent = true })
+-- Grep
+map_fzf('n', "<leader>rg", "grep",   { desc = "Grep" })
+map_fzf('n', "<leader>cw", "grep_cword",   { desc = "Grep current word" })
+map_fzf('n', "<leader>lg", "live_grep",   { desc = "Live grep" })
+map_fzf('n', "<leader>lg", "live_grep_resume",   { desc = "Live grep resume" })
 
-vim.api.nvim_set_keymap('n', '<c-g>',
-    "<cmd>lua require('fzf-lua').git_files()<CR>",
-    { noremap = true, silent = true })
+map_fzf('n', "<leader>tm", "tmux_buffers",   { desc = "tmux buffers" })
 
-vim.api.nvim_set_keymap('n', '<leader>cm',
-    "<cmd>lua require('fzf-lua').git_commits()<CR>",
-    { noremap = true, silent = true })
+-- Config files
+map_fzf('n', "<leader>h", "files",
+    { desc = "Grep current word",
+      cwd = '~/config'
+    })
 
--- Buffers
-vim.api.nvim_set_keymap('n', '<Space><CR>',
-    "<cmd>lua require('fzf-lua').buffers()<CR>",
-    { noremap = true, silent = true })
+-- LSP
+map_fzf('n', "<leader>lS", "lsp_workspace_symbols",   { desc = "Workspace symbols" })
+map_fzf('n', "<leader>ls", "lsp_document_symbols",   { desc = "Document symbols" })
+map_fzf('n', "<leader>lr", "lsp_references",   { desc = "LSP references" })
+map_fzf('n', "<leader>ld", "lsp_definitions",   { desc = "LSP definitinos" })
+map_fzf('n', "<leader>lD", "lsp_declaration",   { desc = "LSP declaration" })
 
--- Rg
-vim.api.nvim_set_keymap('n', '<leader>rg',
-    "<cmd>lua require('fzf-lua').grep()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>cw',
-    "<cmd>lua require('fzf-lua').grep_cword()<CR>",
-    { noremap = true, silent = true })
-
--- ~/config
-vim.api.nvim_set_keymap('n', '<leader>h',
-    "<cmd>lua require('fzf-lua').files({ cwd = '~/config' })<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>bl',
-    "<cmd>lua require('fzf-lua').blines()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lS',
-    "<cmd>lua require('fzf-lua').lsp_workspace_symbols()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>ls',
-    "<cmd>lua require('fzf-lua').lsp_document_symbols()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lr',
-    "<cmd>lua require('fzf-lua').lsp_references()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>ld',
-    "<cmd>lua require('fzf-lua').lsp_definitions()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lD',
-    "<cmd>lua require('fzf-lua').lsp_declaration()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lg',
-    "<cmd>lua require('fzf-lua').live_grep()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lG',
-    "<cmd>lua require('fzf-lua').live_grep_resume()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>HT',
-    "<cmd>lua require('fzf-lua').help_tags()<CR>",
-    { noremap = true, silent = true })
+map_fzf('n', "<leader>HT", "help_tags",   { desc = "nvim help tags" })
 
 -- Full screen git status
-map_fzf('n', '<leader>gS', "git_status_tmuxZ", { desc = "git status (fullscreen)",
-  winopts = {
-    fullscreen = true,
-    preview = {
-      vertical = "down:70%",
-      horizontal = "right:70%",
-    }
-  }
-})
+map_fzf('n', '<leader>gS', "git_status_tmuxZ",
+    { desc = "git status (fullscreen)",
+        winopts = {
+            fullscreen = true,
+            preview = {
+            vertical = "down:70%",
+            horizontal = "right:70%",
+            }
+        }
+    })
+map_fzf('n', '<leader>gs', "git_status",   { desc = "git status" })

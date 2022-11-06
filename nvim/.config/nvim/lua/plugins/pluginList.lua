@@ -118,7 +118,7 @@ local packer_startup = function(use)
   -- optional for fzf-lua, nvim-tree
   use { 'kyazdani42/nvim-web-devicons',
     config = "require('plugins.devicons')",
-    event = 'VimEnter'
+    -- event = 'VimEnter'
   }
 
   -- nvim-tree
@@ -129,7 +129,7 @@ local packer_startup = function(use)
 
   -- only required if you do not have fzf binary
   -- use = { 'junegunn/fzf', run = './install --bin', }
-  use { prefer_local('ibhagwan/fzf-lua'),
+  use { 'ibhagwan/fzf-lua',
     setup = "require('plugins.fzf-lua.mappings')",
     config = "require('plugins.fzf-lua')"
   }
@@ -175,7 +175,7 @@ use({
 -- Colorizer
 use { 'nvchad/nvim-colorizer.lua',
     config = "require'colorizer'.setup()",
-    -- cmd = { 'ColorizerAttachToBuffer', 'ColorizerDetachFromBuffer' },
+    cmd = { 'ColorizerAttachToBuffer', 'ColorizerDetachFromBuffer' },
     -- opt = true
 }
 
