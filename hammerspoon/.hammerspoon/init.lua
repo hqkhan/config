@@ -68,6 +68,7 @@ local paste = hs.hotkey.new({"ctrl"}, "v", nil, function() hs.eventtap.keyStroke
 local undo = hs.hotkey.new({"ctrl"}, "z", nil, function() hs.eventtap.keyStroke({"cmd"}, "z") end)
 local find = hs.hotkey.new({"ctrl"}, "f", nil, function() hs.eventtap.keyStroke({"cmd"}, "f") end)
 local cut = hs.hotkey.new({"ctrl"}, "x", nil, function() hs.eventtap.keyStroke({"cmd"}, "x") end)
+local delete = hs.hotkey.new({"cmd"}, "delete", nil, function() hs.eventtap.keyStroke({"option"}, "delete") end)
 
 local up = hs.hotkey.new({"ctrl"}, "k", nil, function() hs.eventtap.keyStroke({}, "up") end)
 local down = hs.hotkey.new({"ctrl"}, "j", nil, function() hs.eventtap.keyStroke({}, "down") end)
@@ -121,11 +122,13 @@ Slack_Hotkey
         undo:enable()
         cut:enable()
         find:enable()
+        delete:enable()
     end)
     :subscribe(hs.window.filter.windowUnfocused, function()
         slack_k:disable()
         select_all:disable()
         copy:disable()
+        delete:disable()
         paste:disable()
         cut:disable()
         undo:disable()
@@ -164,6 +167,7 @@ Iterm_Hotkey
     end)
     :subscribe(hs.window.filter.windowUnfocused, function()
         paste:disable()
+        find:disable()
     end)
 
 
