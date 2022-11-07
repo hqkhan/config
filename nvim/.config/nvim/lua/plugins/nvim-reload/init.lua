@@ -8,6 +8,8 @@ local plugin_dirs_lazyload = {
   vim.fn.stdpath('data') .. '/site/pack/*/opt/fzf-lua',
   vim.fn.stdpath('data') .. '/site/pack/*/opt/smartyank.nvim',
   vim.fn.stdpath('data') .. '/site/pack/*/opt/indent-blankline.nvim',
+  vim.fn.stdpath('data') .. '/site/pack/*/opt/bufferline.nvim',
+  vim.fn.stdpath('data') .. '/site/pack/*/opt/galaxyline.nvim',
 }
 
 reload.vim_reload_dirs = {

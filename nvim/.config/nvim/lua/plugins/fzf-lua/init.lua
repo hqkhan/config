@@ -70,9 +70,9 @@ fzf_lua.setup {
     -- no need to set to `false` to disable a bind
     -- delete or modify is sufficient
     builtin = {
-      ["<C-]>"]        = "toggle-preview-cw",
-      ["<C-d>"]        = "preview-page-down",
-      ["<C-u>"]        = "preview-page-up",
+      ["<C-]>"]       = "toggle-preview-cw",
+      ["<C-d>"]       = "preview-page-down",
+      ["<C-u>"]       = "preview-page-up",
       ["ctrl-f"]      = "half-page-down",
       ["ctrl-p"]      = "half-page-up",
       ["ctrl-a"]      = "beginning-of-line",
@@ -96,6 +96,8 @@ fzf_lua.setup {
       },
       actions         = {
         ["ctrl-r"]    = { fzf_lua.actions.git_reset, fzf_lua.actions.resume },
+        ["ctrl-s"]    = { fzf_lua.actions.git_stage, fzf_lua.actions.resume },
+        ["ctrl-u"]    = { fzf_lua.actions.git_unstage, fzf_lua.actions.resume },
       },
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$COLUMNS",
     },
@@ -155,6 +157,7 @@ fzf_lua.setup {
 }
 
 local M = {}
+
 function M.git_status_tmuxZ(opts)
   local function tmuxZ()
     vim.cmd("!tmux resize-pane -Z")
@@ -179,6 +182,18 @@ function M.git_status_tmuxZ(opts)
     end
   end
   fzf_lua.git_status(opts)
+end
+
+function M.git_status_prioritize(opts)
+    opts = opts or {}
+    opts.actions = {
+        ['<C-s>'] = function(selected)
+            vim.pretty_print(selected)
+        end,
+        ["right"]   = { actions.git_unstage, actions.resume },
+        ["left"]    = { actions.git_stage, actions.resume },
+    }
+    fzf_lua.git_status(opts)
 end
 
 return setmetatable({}, {
