@@ -60,8 +60,8 @@ local grep_cur_buf_opts = {
 }
 map_fzf('n', "<leader>bl", "blines",
 vim.tbl_extend("force", grep_cur_buf_opts,           { desc = "Live grep current buffer" }))
-map_fzf('n', "<leader>lG", "lgrep_curbuf",
-vim.tbl_extend("force", grep_cur_buf_opts,           { desc = "Live grep current buffer" }))
+-- TODO pass in current word under cursor using expand
+map_fzf('n', "<leader>lG", "lgrep_curbuf", { desc = "Live grep current buffer" })
 map_fzf('n', "<leader>LG", "live_grep_resume",
 vim.tbl_extend("force", grep_cur_buf_opts,           { desc = "Live grep resume" }))
 
@@ -97,7 +97,3 @@ map_fzf('n', '<leader>gs', "git_status_tmuxZ",
         }
     })
 map_fzf('n', '<leader>gS', "git_status", vim.tbl_extend("force", {show_cwd_header = false},            { desc = "git status" }))
-
--- TODO
-map_fzf('n', '<leader>gt', "git_status_prioritize", vim.tbl_extend("force", {show_cwd_header = false}, { desc = "git status" }))
-

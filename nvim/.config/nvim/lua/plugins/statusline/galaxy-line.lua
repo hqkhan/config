@@ -1,10 +1,14 @@
 local gl = require('galaxyline')
 local gls = gl.section
 gl.short_line_list = {'LuaTree','vista','dbui'}
+local whitespace = require('galaxyline.provider_whitespace')
+local lspclient = require('galaxyline.provider_lsp')
+local fileinfo = require('galaxyline.provider_fileinfo')
 
 local colors = {
   fg = '#bfc7d5',
   bg = '#282c34',
+  -- bg = '#081633',
   magenta = '#d16d9e',
   red = '#ff5370',
   darkblue = '#081633',
@@ -80,7 +84,6 @@ gls.left[4] = {
 
 gls.left[5] = {
   GitIcon = {
-    -- provider = function() return '  ' end,
     provider = function() return '  ' end,
     condition = buffer_not_empty,
     highlight = {colors.darkblue,colors.green},
@@ -96,28 +99,55 @@ gls.left[6] = {
   }
 }
 
-local checkwidth = function()
-  local squeeze_width  = vim.fn.winwidth(0) / 2
-  if squeeze_width > 40 then
-    return true
-  end
-  return false
-end
-
-gls.left[11] = {
+gls.left[7] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
-    highlight = {colors.red,colors.bg}
+    highlight = {colors.red,colors.darkblue}
   }
 }
 
-gls.left[13] = {
+gls.left[8] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
-    highlight = {colors.blue,colors.bg},
+    highlight = {colors.blue,colors.darkblue},
   }
+}
+
+-- gls.mid[1] ={
+--   Whitespace = {
+--     provider = function() return '' end,
+--     condition = buffer_not_empty,
+--     highlight = {colors.darkblue,colors.yellow},
+--   },
+-- }
+
+-- gls.mid[2] ={
+--   FileIcon = {
+--     provider = 'FileIcon',
+--     condition = buffer_not_empty,
+--     highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.darkblue},
+--   },
+-- }
+
+-- gls.mid[3] = {
+--   FilePath = {
+--     provider = {'FilePath'},
+--     condition = buffer_not_empty,
+--     highlight = {colors.magenta,colors.darkblue}
+--   }
+-- }
+
+
+gls.right[1] = {
+  GetLspClient = {
+    provider = lspclient.get_lsp_client,
+    condition = buffer_not_empty,
+    separator = '',
+    separator_highlight = {colors.darkblue, colors.black},
+    highlight = {colors.yellow,colors.black},
+  },
 }
 
 gls.right[2] = {

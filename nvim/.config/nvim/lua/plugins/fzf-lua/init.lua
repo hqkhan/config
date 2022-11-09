@@ -184,18 +184,6 @@ function M.git_status_tmuxZ(opts)
   fzf_lua.git_status(opts)
 end
 
-function M.git_status_prioritize(opts)
-    opts = opts or {}
-    opts.actions = {
-        ['<C-s>'] = function(selected)
-            vim.pretty_print(selected)
-        end,
-        ["right"]   = { actions.git_unstage, actions.resume },
-        ["left"]    = { actions.git_stage, actions.resume },
-    }
-    fzf_lua.git_status(opts)
-end
-
 return setmetatable({}, {
   __index = function(_, k)
 

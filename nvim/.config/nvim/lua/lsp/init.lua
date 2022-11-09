@@ -149,7 +149,7 @@ local servers = {
   'gopls',
   'pyright',
   'clangd',
-  -- 'ccls',
+  'ccls',
 }
 
 local function is_installed(cfg)

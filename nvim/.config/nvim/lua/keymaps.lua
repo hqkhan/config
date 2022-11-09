@@ -79,6 +79,8 @@ map('c', '<C-e>', '<end>' , {})
 -- Go up and down in command mode
 map('c', '<C-j>', '<Down>', {})
 map('c', '<C-k>', '<Up>' , {})
+map('c', '<C-h>', '<Left>', {})
+map('c', '<C-l>', '<Right>' , {})
 
 -- Scroll up and down
 map({'n', 'v'}, '<C-j>', 'j<C-E>', {})
