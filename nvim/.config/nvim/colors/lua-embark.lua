@@ -523,10 +523,10 @@ hl.typescript = {
 
 
 hl.gitsigns = {
-  GitSignsAdd = { fg = colors.green },
-  GitSignsAddLn = { fg = colors.dark_green },
-  GitSignsChange = { fg = colors.yellow },
-  GitSignsChangeDelete = { fg = colors.dark_yellow },
+  GitSignsAdd = { fg = colors.dark_green },
+  GitSignsAddLn = { fg = colors.green },
+  GitSignsChange = { fg = colors.dark_yellow },
+  GitSignsChangeDelete = { fg = colors.yellow },
   GitSignsChangeLn = { fg = colors.yellow },
   GitSignsChangeNr = { fg = colors.dark_yellow },
   GitSignsDelete = { fg = colors.red },

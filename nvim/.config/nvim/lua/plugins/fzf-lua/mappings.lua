@@ -50,20 +50,38 @@ map_fzf('n', "<leader>co", "git_branches",      { desc = "Checkout git branches"
 
 -- Grep
 map_fzf('n', "<leader>rg", "grep",              { desc = "Grep" })
-map_fzf('n', "<leader>cw", "grep_cword",        { desc = "Grep current word" })
-map_fzf('n', "<leader>lg", "live_grep",         { desc = "Live grep" })
-
-local grep_cur_buf_opts = {
+map_fzf('n', "<leader>cW", "grep_cword",        { desc = "Grep current word in project" })
+map_fzf('n', '<leader>cw', "grep_curbuf", function()
+  return {
+    desc = 'Live grep current buffer',
+    prompt = 'Buffer❯ ',
     winopts = {
-        preview = {  vertical = "down:0%", horizontal = "right:0%",  }
+        preview = { vertical = "down:65%", horizontal = "right:75%", }
     },
-}
-map_fzf('n', "<leader>bl", "blines",
-vim.tbl_extend("force", grep_cur_buf_opts,           { desc = "Live grep current buffer" }))
+    search = vim.fn.expand("<cword>"),
+  }
+end)
+map_fzf('n', "<leader>lg", "live_grep", { desc = "Live grep"})
+-- map_fzf('n', "<leader>lg", "lgrep_curbuf",
+--     function() return { desc = "Live grep",
+--         winopts = {
+--             preview = { vertical = "down:65%", horizontal = "right:75%", }
+--         },
+--         search=vim.fn.expand("<cword>"),
+-- }end)
+map_fzf('n', "<leader>lG", "lgrep_curbuf",      { desc = "Live grep (buffer)", prompt = 'Buffer❯ ', search=vim.fn.expand("<cword>")})
+
+map_fzf('n', "<leader>bl", "blines", { desc = "Live grep current buffer",
+        winopts = {
+            preview = { vertical = "down:65%", horizontal = "right:75%", }
+        },
+})
 -- TODO pass in current word under cursor using expand
-map_fzf('n', "<leader>lG", "lgrep_curbuf", { desc = "Live grep current buffer" })
-map_fzf('n', "<leader>LG", "live_grep_resume",
-vim.tbl_extend("force", grep_cur_buf_opts,           { desc = "Live grep resume" }))
+map_fzf('n', "<leader>LG", "live_grep_resume", { desc = "Live grep resume",
+        winopts = {
+            preview = { vertical = "down:65%", horizontal = "right:75%", }
+        },
+})
 
 map_fzf('n', "<leader>tm", "tmux_buffers",           { desc = "tmux buffers" })
 
@@ -75,6 +93,18 @@ map_fzf('n', "<leader>h", "files",
             preview = { vertical = "down:65%", horizontal = "right:75%", }
         },
     })
+
+map_fzf('n', '<leader>fh', "oldfiles", function()
+  return {
+    desc = 'file history (cwd)',
+    cwd = vim.loop.cwd(),
+    show_cwd_header = true,
+    cwd_only = true,
+    winopts = {
+        preview = { vertical = "down:65%", horizontal = "right:75%", }
+    },
+  }
+end)
 
 -- LSP
 map_fzf('n', "<leader>lS", "lsp_workspace_symbols",   { desc = "Workspace symbols" })

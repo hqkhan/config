@@ -1,12 +1,17 @@
-local gl = require('galaxyline')
+local status_ok, gl = pcall(require, 'galaxyline')
+if not status_ok then
+	print("Couldn't load 'galaxyline'")
+	return
+end
+
 local gls = gl.section
-gl.short_line_list = {'LuaTree','vista','dbui'}
+gl.short_line_list = {}
 local whitespace = require('galaxyline.provider_whitespace')
 local lspclient = require('galaxyline.provider_lsp')
 local fileinfo = require('galaxyline.provider_fileinfo')
 
 local colors = {
-  fg = '#bfc7d5',
+  fg = '#282c34',
   bg = '#282c34',
   -- bg = '#081633',
   magenta = '#d16d9e',
@@ -36,6 +41,11 @@ local colors = {
   vertsplit = '#181A1F',
 }
 
+local signs = {
+    right_sepr = '',
+    left_sepr = ''
+}
+
 local buffer_not_empty = function()
   if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
     return true
@@ -55,7 +65,7 @@ gls.left[2] = {
       local alias = {n = 'NORMAL',i = 'INSERT',c= 'COMMAND',v= 'VISUAL',V= 'VISUAL LINE', [''] = 'VISUAL BLOCK'}
       return alias[vim.fn.mode()]
     end,
-    separator = ' ', 
+    separator = signs.right_sepr .. ' ',
     separator_highlight = {colors.purple,function()
       if not buffer_not_empty() then
         return colors.purple
@@ -65,6 +75,7 @@ gls.left[2] = {
     highlight = {colors.darkblue,colors.purple,'bold'},
   },
 }
+
 gls.left[3] ={
   FileIcon = {
     provider = 'FileIcon',
@@ -111,7 +122,7 @@ gls.left[8] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
-    highlight = {colors.blue,colors.darkblue},
+    highlight = {colors.blue, colors.line_grey},
   }
 }
 
@@ -119,24 +130,24 @@ gls.left[8] = {
 --   Whitespace = {
 --     provider = function() return '' end,
 --     condition = buffer_not_empty,
---     highlight = {colors.darkblue,colors.yellow},
+--     highlight = {colors.darkblue,colors.grey},
 --   },
 -- }
-
+--
 -- gls.mid[2] ={
 --   FileIcon = {
 --     provider = 'FileIcon',
 --     condition = buffer_not_empty,
---     highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.darkblue},
+--     highlight = {fileinfo.get_file_icon_color,colors.darkblue},
 --   },
 -- }
-
+--
 -- gls.mid[3] = {
---   FilePath = {
---     provider = {'FilePath'},
---     condition = buffer_not_empty,
---     highlight = {colors.magenta,colors.darkblue}
---   }
+--  FilePath = {
+--    provider = 'FilePath',
+--    condition = buffer_not_empty,
+--    highlight = {colors.magenta,colors.darkblue}
+--  }
 -- }
 
 
