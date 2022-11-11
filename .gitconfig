@@ -1,29 +1,29 @@
+[color]
+	ui = auto
+[core]
+	; pager = less -FMRiX
+	pager = delta
+	excludesfile = /home/hqkhan/.gitignore_global
+[push]
+	default = simple
+[alias]
+	dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
 [delta]
-    # author: https://github.com/Kr1ss-XD
-    commit-decoration-style = 100 130 box
-    commit-style = 100 bold italic 130
     dark = true
-    file-added-label = [+]
-    file-copied-label = [C]
-    file-decoration-style = "#606018" overline
-    file-modified-label = [M]
-    file-removed-label = [-]
-    file-renamed-label = [R]
-    file-style = 232 bold 120
-    hunk-header-decoration-style = none
-    hunk-header-style = syntax bold italic 237
+    file-style = "#d4bfff" bold "#100E23"
+    hunk-header-style = omit
     line-numbers = true
-    line-numbers-left-format = "{nm:>1}┊"
-    line-numbers-left-style = red
-    line-numbers-minus-style = red italic black
-    line-numbers-plus-style = green italic black
-    line-numbers-right-format = "{np:>1}┊"
-    line-numbers-right-style = green
+    line-numbers-left-format = "{nm:>3}┊"
+    line-numbers-left-style = "#ff5370" 
+    line-numbers-minus-style = "#ff5370" italic "#100E23"
+    line-numbers-plus-style = "#A1EFD3" italic "#100E23"
+    line-numbers-right-format = "{np:>3}┊"
+    line-numbers-right-style = "#A1EFD3"
     line-numbers-zero-style = "#999999" italic
-    minus-emph-style = syntax bold "#780000"
-    minus-style = syntax "#400000"
-    plus-emph-style = syntax bold 90
-    plus-style = syntax "#004000"
+    minus-emph-style = "#ff5370" bold "#100E23"
+    minus-style = "#ff5370"
+    plus-emph-style = "#A1EFD3" bold "#100E23"
+    plus-style = "#A1EFD3"
     whitespace-error-style = "#280050" reverse
-    zero-style = syntax
-
+    ; zero-style = "#656A7c"
+    zero-style = "#999999"

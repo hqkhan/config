@@ -61,17 +61,15 @@ map_fzf('n', '<leader>cw', "grep_curbuf", function()
     search = vim.fn.expand("<cword>"),
   }
 end)
-map_fzf('n', "<leader>lg", "live_grep", { desc = "Live grep"})
--- map_fzf('n', "<leader>lg", "lgrep_curbuf",
---     function() return { desc = "Live grep",
---         winopts = {
---             preview = { vertical = "down:65%", horizontal = "right:75%", }
---         },
---         search=vim.fn.expand("<cword>"),
--- }end)
-map_fzf('n', "<leader>lG", "lgrep_curbuf",      { desc = "Live grep (buffer)", prompt = 'Buffer❯ ', search=vim.fn.expand("<cword>")})
+map_fzf('n', "<leader>lG", "live_grep", { desc = "Live grep"})
+map_fzf('n', "<leader>lg", "lgrep_curbuf",
+    function() return { desc = "Live grep current buffer",
+        winopts = {
+            preview = { vertical = "down:65%", horizontal = "right:75%", }
+        },
+}end)
 
-map_fzf('n', "<leader>bl", "blines", { desc = "Live grep current buffer",
+map_fzf('n', "<leader>bl", "blines", { desc = "buffer lines",
         winopts = {
             preview = { vertical = "down:65%", horizontal = "right:75%", }
         },
@@ -86,7 +84,7 @@ map_fzf('n', "<leader>LG", "live_grep_resume", { desc = "Live grep resume",
 map_fzf('n', "<leader>tm", "tmux_buffers",           { desc = "tmux buffers" })
 
 -- Config files
-map_fzf('n', "<leader>h", "files",
+map_fzf('n', "<leader>yf", "files",
     { desc = "Grep current word",
       cwd = '~/config',
         winopts = {
@@ -111,7 +109,8 @@ map_fzf('n', "<leader>lS", "lsp_workspace_symbols",   { desc = "Workspace symbol
 map_fzf('n', "<leader>ls", "lsp_document_symbols",    { desc = "Document symbols" })
 map_fzf('n', "<leader>lr", "lsp_references",          { desc = "LSP references" })
 map_fzf('n', "<leader>ld", "lsp_definitions",         { desc = "LSP definitinos" })
-map_fzf('n', "<leader>lD", "lsp_declaration",         { desc = "LSP declaration" })
+map_fzf('n', "<leader>lD", "lsp_declarations",         { desc = "LSP declaration" })
+map_fzf("n", "<leader>ly", "lsp_typedefs", { desc = "type definitions [LSP]" })
 
 map_fzf('n', "<leader>HT", "help_tags",               { desc = "nvim help tags" })
 
@@ -123,7 +122,8 @@ map_fzf('n', '<leader>gs', "git_status_tmuxZ",
             preview = {
                 vertical = "down:70%",
                 horizontal = "right:70%",
-            }
+            },
+        hl = { help_normal = "FzfLuaTitle", }
         }
     })
 map_fzf('n', '<leader>gS', "git_status", vim.tbl_extend("force", {show_cwd_header = false},            { desc = "git status" }))
