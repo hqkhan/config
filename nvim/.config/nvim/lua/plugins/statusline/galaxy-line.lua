@@ -39,6 +39,10 @@ local colors = {
   special_grey = '#3B4048',
   comment_grey = '#697098',
   vertsplit = '#181A1F',
+
+  l_green = "#A1EFD3",
+  l_red = "#ff5370",
+  onedark_visual_grey="#3E4452",
 }
 
 local signs = {
@@ -105,7 +109,7 @@ gls.left[6] = {
     provider = 'GitBranch',
     condition = buffer_not_empty,
     separator = '',
-    separator_highlight = {colors.green,colors.bg},
+    separator_highlight = {colors.green,colors.onedark_visual_grey},
     highlight = {colors.bg,colors.green},
   }
 }
@@ -114,7 +118,7 @@ gls.left[7] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
-    highlight = {colors.red,colors.darkblue}
+    highlight = {colors.red,colors.onedark_visual_grey}
   }
 }
 
@@ -122,7 +126,7 @@ gls.left[8] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
-    highlight = {colors.blue, colors.line_grey},
+    highlight = {colors.blue, colors.onedark_visual_grey},
   }
 }
 
@@ -130,23 +134,23 @@ gls.left[8] = {
 --   Whitespace = {
 --     provider = function() return '' end,
 --     condition = buffer_not_empty,
---     highlight = {colors.darkblue,colors.grey},
+--     highlight = {colors.l_green,colors.onedark_visual_grey},
 --   },
 -- }
---
+
 -- gls.mid[2] ={
 --   FileIcon = {
 --     provider = 'FileIcon',
 --     condition = buffer_not_empty,
---     highlight = {fileinfo.get_file_icon_color,colors.darkblue},
+--     highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color, colors.red},
 --   },
 -- }
---
+
 -- gls.mid[3] = {
 --  FilePath = {
 --    provider = 'FilePath',
 --    condition = buffer_not_empty,
---    highlight = {colors.magenta,colors.darkblue}
+--    highlight = {colors.black,colors.l_green}
 --  }
 -- }
 
@@ -156,7 +160,7 @@ gls.right[1] = {
     provider = lspclient.get_lsp_client,
     condition = buffer_not_empty,
     separator = '',
-    separator_highlight = {colors.darkblue, colors.black},
+    separator_highlight = {colors.black, colors.onedark_visual_grey},
     highlight = {colors.yellow,colors.black},
   },
 }

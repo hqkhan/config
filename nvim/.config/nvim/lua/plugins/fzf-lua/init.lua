@@ -33,6 +33,7 @@ local fzf_colors = function(opts)
     ["spinner"] = { "fg", "Label" },
     ["header"] = { "fg", "Comment" },
     ["gutter"] = { "bg", "Normal" },
+    ["border"] = { "fg", "FzfLuaTitle" },
   }
   if binary == 'sk' and vim.fn.executable(binary) == 1 then
     colors["matched_bg"] = { "bg", "Normal" }
@@ -97,7 +98,7 @@ fzf_lua.setup {
       actions         = {
         ["ctrl-r"]    = { fzf_lua.actions.git_reset, fzf_lua.actions.resume },
         ["ctrl-s"]    = { fzf_lua.actions.git_stage, fzf_lua.actions.resume },
-        ["ctrl-u"]    = { fzf_lua.actions.git_unstage, fzf_lua.actions.resume },
+        ["ctrl-t"]    = { fzf_lua.actions.git_unstage, fzf_lua.actions.resume },
       },
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$COLUMNS",
     },

@@ -61,8 +61,13 @@ map_fzf('n', '<leader>cw', "grep_curbuf", function()
     search = vim.fn.expand("<cword>"),
   }
 end)
-map_fzf('n', "<leader>lG", "live_grep", { desc = "Live grep"})
-map_fzf('n', "<leader>lg", "lgrep_curbuf",
+map_fzf('n', "<leader>lg", "live_grep",
+    function() return { desc = "Live grep (project)",
+        winopts = {
+            preview = { vertical = "down:65%", horizontal = "right:75%", }
+        },
+}end)
+map_fzf('n', "<leader>lG", "lgrep_curbuf",
     function() return { desc = "Live grep current buffer",
         winopts = {
             preview = { vertical = "down:65%", horizontal = "right:75%", }
@@ -92,7 +97,7 @@ map_fzf('n', "<leader>yf", "files",
         },
     })
 
-map_fzf('n', '<leader>fh', "oldfiles", function()
+map_fzf('n', '<leader>fo', "oldfiles", function()
   return {
     desc = 'file history (cwd)',
     cwd = vim.loop.cwd(),
@@ -109,8 +114,8 @@ map_fzf('n', "<leader>lS", "lsp_workspace_symbols",   { desc = "Workspace symbol
 map_fzf('n', "<leader>ls", "lsp_document_symbols",    { desc = "Document symbols" })
 map_fzf('n', "<leader>lr", "lsp_references",          { desc = "LSP references" })
 map_fzf('n', "<leader>ld", "lsp_definitions",         { desc = "LSP definitinos" })
-map_fzf('n', "<leader>lD", "lsp_declarations",         { desc = "LSP declaration" })
-map_fzf("n", "<leader>ly", "lsp_typedefs", { desc = "type definitions [LSP]" })
+map_fzf('n', "<leader>lD", "lsp_declarations",        { desc = "LSP declaration" })
+map_fzf("n", "<leader>ly", "lsp_typedefs",            { desc = "type definitions [LSP]" })
 
 map_fzf('n', "<leader>HT", "help_tags",               { desc = "nvim help tags" })
 
@@ -123,7 +128,17 @@ map_fzf('n', '<leader>gs', "git_status_tmuxZ",
                 vertical = "down:70%",
                 horizontal = "right:70%",
             },
-        hl = { help_normal = "FzfLuaTitle", }
+        hl = { title = "FzfLuaTitle", }
         }
     })
 map_fzf('n', '<leader>gS', "git_status", vim.tbl_extend("force", {show_cwd_header = false},            { desc = "git status" }))
+
+local _G = {}
+_G.get_scope_lines = function()
+  local scope = require('mini.indentscope').get_scope()
+  if scope.border.indent < 0 then return {} end
+  return vim.api.nvim_buf_get_lines(scope.buf_id, scope.border.top - 1, scope.border.bottom, true)
+end
+return _G
+-- map_fzf('n', "<leader>ls", "grep",  { desc = "Grep" })
+
