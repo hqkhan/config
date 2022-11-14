@@ -102,7 +102,8 @@ local packer_startup = function(use)
       { prefer_local('nvim-treesitter/nvim-treesitter'),
         config = "require('plugins.treesitter')",
         run = ':TSUpdate',
-        event = 'BufRead'
+        event = 'BufRead',
+        commit = "58f61e563fadd1788052586f4d6869a99022df3c",
       },
       { 'nvim-treesitter/nvim-treesitter-textobjects',
         after = { 'nvim-treesitter' }
@@ -153,37 +154,31 @@ local packer_startup = function(use)
     }
   })
 
---  use({
---      "jose-elias-alvarez/null-ls.nvim",
---      config = [[
---        require("null-ls").setup({
---          sources = {
---            require("null-ls").builtins.formatting.stylua,
---          },
---        })
---      ]],
---      after  = { 'nvim-lspconfig' },
--- })
-
   -- key bindings cheatsheet
   -- use { 'folke/which-key.nvim',
   --   config = "require('plugins.which_key')",
   --   event = "VimEnter"
   -- }
 
+  -- statusline
+  use { "tjdevries/express_line.nvim",
+    config = "require('plugins.statusline')",
+    -- statusline won't load at startup due to 'impatient.nvim' mod cache
+    -- to test, delete '~/.cache/nvim/luacache_modpaths' and restart nvim,
+    -- statusline won't show up until <Space-R> or ':lua require("el")'
+    -- workaround: manually load 'pleanry.nvim'
+    setup = 'pcall(require"packer".loader, "plenary.nvim")',
+    requires = { "nvim-lua/plenary.nvim" },
+    after = "plenary.nvim",
+    -- after = { 'plenary.nvim', 'nvim-web-devicons' },
+    -- event = 'VimEnter',
+  }
+
 -- Colorizer
 use { 'nvchad/nvim-colorizer.lua',
     config = "require'colorizer'.setup()",
     cmd = { 'ColorizerAttachToBuffer', 'ColorizerDetachFromBuffer' },
-    -- opt = true
-}
-
--- Install statusline (galaxy)
-use{
-    'glepnir/galaxyline.nvim',
-    branch = 'main',
-    config = "require('plugins.statusline')",
-    requires = {'kyazdani42/nvim-web-devicons'}
+    opt = true
 }
 
 -- Install bufferline

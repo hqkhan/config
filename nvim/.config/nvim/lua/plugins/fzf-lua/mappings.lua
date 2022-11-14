@@ -61,13 +61,13 @@ map_fzf('n', '<leader>cw', "grep_curbuf", function()
     search = vim.fn.expand("<cword>"),
   }
 end)
-map_fzf('n', "<leader>lg", "live_grep",
+map_fzf('n', "<leader>lG", "live_grep",
     function() return { desc = "Live grep (project)",
         winopts = {
             preview = { vertical = "down:65%", horizontal = "right:75%", }
         },
 }end)
-map_fzf('n', "<leader>lG", "lgrep_curbuf",
+map_fzf('n', "<leader>lg", "lgrep_curbuf",
     function() return { desc = "Live grep current buffer",
         winopts = {
             preview = { vertical = "down:65%", horizontal = "right:75%", }
