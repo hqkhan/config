@@ -149,6 +149,7 @@ local function setup()
         { c.git_branch { fmt = " %s %s ", icon = "", hl = highlights.git_branch_fg } },
         { sections.split, required = true },
         { sections.highlight(highlights.filename_sepr, ("%s"):format(signs.left_sepr))},
+        { sections.highlight(highlights.filename_bg_fg, (" "))},
         { c.file_icon { fmt = "%s ", hl_icon = true } },
         { sections.highlight(highlights.filename_bg_fg, sections.maximum_width(builtin.make_responsive_file(140, 90), 0.40)), required = true },
         { sections.highlight(highlights.filename_bg_fg, (" "))},

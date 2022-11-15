@@ -79,8 +79,8 @@ fzf_lua.setup {
       ["ctrl-a"]      = "beginning-of-line",
       ["ctrl-e"]      = "end-of-line",
     },
-    fzf = {
      -- fzf '--bind=' options
+    fzf = {
       ["ctrl-f"]      = "half-page-down",
       ["ctrl-p"]      = "half-page-up",
       ["ctrl-a"]      = "beginning-of-line",
@@ -97,8 +97,8 @@ fzf_lua.setup {
       },
       actions         = {
         ["ctrl-r"]    = { fzf_lua.actions.git_reset, fzf_lua.actions.resume },
-        ["ctrl-s"]    = { fzf_lua.actions.git_stage, fzf_lua.actions.resume },
-        ["ctrl-t"]    = { fzf_lua.actions.git_unstage, fzf_lua.actions.resume },
+        ["ctrl-h"]    = { fzf_lua.actions.git_stage, fzf_lua.actions.resume },
+        ["ctrl-l"]    = { fzf_lua.actions.git_unstage, fzf_lua.actions.resume },
       },
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$COLUMNS",
     },

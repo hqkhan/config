@@ -121,16 +121,19 @@ map_fzf('n', "<leader>HT", "help_tags",               { desc = "nvim help tags" 
 
 -- Full screen git status
 map_fzf('n', '<leader>gs', "git_status_tmuxZ",
-    { desc = "git status (fullscreen)",
-        winopts = {
-            fullscreen = true,
-            preview = {
-                vertical = "down:70%",
-                horizontal = "right:70%",
-            },
-        hl = { title = "FzfLuaTitle", }
-        }
-    })
+          { desc = "git status (fullscreen)",
+              winopts = {
+                  fullscreen = true,
+                  preview = {
+                      vertical = "down:70%",
+                      horizontal = "right:70%",
+                  },
+              },
+            fzf = {
+            ["alt-a"]       = "select-all",
+            ["alt-d"]       = "deselect-all",
+          },
+})
 map_fzf('n', '<leader>gS', "git_status", vim.tbl_extend("force", {show_cwd_header = false},            { desc = "git status" }))
 
 local _G = {}
