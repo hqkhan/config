@@ -111,12 +111,12 @@ M.file_icon = function(opts)
       if icon then
         if opts.hl_icon then
           local hlgroup = M.extract_hl({
-            bg = { StatusLine = "bg" },
+            bg = { ["Darkblue_tmux_bg"] = "bg" },
             fg = { [hl] = "fg" },
           })
-          icon = set_hl(hlgroup, icon)
+          icon = set_hl(hlgroup, (fmt):format(icon))
         end
-        return (fmt):format(icon)
+        return icon
       end
       return ""
     end))
@@ -355,14 +355,6 @@ M.diagnostics = function(opts)
   else
     return M.lsp_diagnostics(opts)
   end
-end
-
-M.filename = function(opts)
-  opts = opts or {}
-  local filename = opts.filename
-
-  return set_hl(opts.hl, filename)
-
 end
 
 return M

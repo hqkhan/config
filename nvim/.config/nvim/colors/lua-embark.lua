@@ -33,6 +33,8 @@ local colors = {
   space3              = { gui = '#3E3869', cterm = 236,  cterm16 = 8 },
   space4              = { gui = '#585273', cterm = 236,  cterm16 = 8 },
   comment_grey_temp   = { gui = '#8A889D', cterm = 252,  cterm16 = 15 },
+  magenta             = { gui = '#d16d9e', cterm = 252,  cterm16 = 15 },
+  darkblue_tmux =       { gui = '#081633', cterm = 252,  cterm16 = 15 }
 }
 
 if not vim.g.lua_embark_transparent then
@@ -136,6 +138,13 @@ hl.syntax = {
   Delimiter =         { fg = colors.cyan },
   Comment =           { fg = colors.comment_grey, italic = true },
   SpecialComment =    { fg = colors.comment_grey },
+
+  -- Added 
+  StatusLineFileName ={ fg = colors.magenta, bg = colors.statusline},
+  Blackfg =           { fg = colors.black },
+  Greenbg =           { bg = colors.green },
+  Darkblue_tmux_bg =  { bg = colors.darkblue_tmux },
+  Magenta =           { fg = colors.magenta },
 }
 
 -- TS highlights

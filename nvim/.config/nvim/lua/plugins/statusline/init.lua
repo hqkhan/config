@@ -82,6 +82,16 @@ local function setup()
           fg = { [hl_yellow] = "fg" },
           bold = true,
         }),
+        filename_bg_fg = c.extract_hl({
+          bg = { ["Darkblue_tmux_bg"] = "bg" },
+          fg = { ["Magenta"] = "fg" },
+          bold = true,
+        }),
+        filename_sepr = c.extract_hl({
+          bg = { [hl_statusline] = "bg" },
+          fg = { ["Darkblue_tmux_bg"] = "bg" },
+        }),
+
       }
 
       local get_darkblue_hl = function(color)
@@ -99,6 +109,13 @@ local function setup()
           bold = true,
         })
       end
+
+      local signs = {
+          right_sepr = '',
+          left_sepr = '',
+          right_sepr_thin = '',
+          left_sepr_thin = '',
+      }
 
       local modes = {
         n      = { "Normal", "N", { "Operator" }},
@@ -131,9 +148,11 @@ local function setup()
         { c.mode { modes = modes, fmt = " %s %s ", icon = "", hl_icon_only = false } },
         { c.git_branch { fmt = " %s %s ", icon = "", hl = highlights.git_branch_fg } },
         { sections.split, required = true },
+        { sections.highlight(highlights.filename_sepr, ("%s"):format(signs.left_sepr))},
         { c.file_icon { fmt = "%s ", hl_icon = true } },
-        -- { sections.maximum_width(builtin.make_responsive_file(140, 90), 0.40), required = true },
-        { sections.maximum_width(sections.highlight("StatusLineFileName", builtin.make_responsive_file(140, 90)), 0.40), required = true },
+        { sections.highlight(highlights.filename_bg_fg, sections.maximum_width(builtin.make_responsive_file(140, 90), 0.40)), required = true },
+        { sections.highlight(highlights.filename_bg_fg, (" "))},
+        { sections.highlight(highlights.filename_sepr, ("%s"):format(signs.right_sepr))},
         { sections.collapse_builtin { { " " }, { builtin.modified_flag } } },
         { sections.split, required = true },
         { c.diagnostics {
