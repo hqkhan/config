@@ -144,6 +144,7 @@ local function setup()
         t      = { "Term  ", "T", { "DiffAdd", "diffAdded" } },
       }
 
+      -- vim.pretty_print(sections.maximum_width(sections.highlight(highlights.filename_bg_fg, builtin.make_responsive_file(140, 90)), 0.40)(vim.))
       local components = {
         { c.mode { modes = modes, fmt = " %s %s ", icon = "", hl_icon_only = false } },
         { c.git_branch { fmt = " %s %s ", icon = "", hl = highlights.git_branch_fg } },
@@ -151,7 +152,9 @@ local function setup()
         { sections.highlight(highlights.filename_sepr, ("%s"):format(signs.left_sepr))},
         { sections.highlight(highlights.filename_bg_fg, (" "))},
         { c.file_icon { fmt = "%s ", hl_icon = true } },
-        { sections.highlight(highlights.filename_bg_fg, sections.maximum_width(builtin.make_responsive_file(140, 90), 0.40)), required = true },
+        { sections.highlight(highlights.filename_bg_fg, builtin.make_responsive_file(140, 90)), required = true },
+        -- { sections.maximum_width(sections.highlight(highlights.filename_bg_fg, builtin.make_responsive_file(140, 90)), 0.40), required = true },
+        -- { sections.maximum_width(sections.highlight(highlights.filename_bg_fg, builtin.make_responsive_file(140, 90)), 0.40), required = true },
         { sections.highlight(highlights.filename_bg_fg, (" "))},
         { sections.highlight(highlights.filename_sepr, ("%s"):format(signs.right_sepr))},
         { sections.collapse_builtin { { " " }, { builtin.modified_flag } } },
