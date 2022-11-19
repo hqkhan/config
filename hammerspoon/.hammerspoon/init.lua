@@ -3,6 +3,10 @@ hs.window.animationDuration = 0
 hs.loadSpoon("ReloadConfiguration")
 spoon.ReloadConfiguration:start()
 
+hs.loadSpoon("Caffeine")
+spoon.Caffeine:start()
+spoon.Caffeine:setState(true)
+
 -- Browser
 hs.hotkey.bind({"cmd"}, "b", function()
     hs.application.launchOrFocus("Google Chrome")
