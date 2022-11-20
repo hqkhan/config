@@ -1,12 +1,47 @@
 hs.window.animationDuration = 0
+hyper       = {"cmd","alt","ctrl"}
+shift_hyper = {"cmd","alt","ctrl","shift"}
+ctrl_cmd    = {"cmd","ctrl"}
+
+hs.loadSpoon("SpoonInstall")
+spoon.SpoonInstall.use_syncinstall = true
+Install=spoon.SpoonInstall
+
+Install:andUse("WindowHalfsAndThirds",
+               {
+                 config = {
+                   use_frame_correctness = true
+                 },
+                 hotkeys = 'default',
+--                 loglevel = 'debug'
+               }
+)
+
+Install:andUse("TextClipboardHistory",
+               {
+                 -- disable = true,
+                 config = {
+                   show_in_menubar = false,
+                 },
+                 hotkeys = {
+                   toggle_clipboard = { { "cmd", "shift" }, "v" } },
+                 start = true,
+               }
+)
+
+Install:andUse("Caffeine", {
+                 start = true,
+                 hotkeys = {
+                   toggle = { hyper, "1" }
+                 },
+--                 fn = BTT_caffeine_widget,
+})
 
 hs.loadSpoon("ReloadConfiguration")
-spoon.ReloadConfiguration:start()
+-- spoon.ReloadConfiguration:start()
+spoon.ReloadConfiguration:bindHotkeys({ reloadConfiguration = { {"cmd","ctrl"}, "r"} })
 
-hs.loadSpoon("Caffeine")
-spoon.Caffeine:start()
-spoon.Caffeine:setState(true)
-
+-- test
 -- Browser
 hs.hotkey.bind({"cmd"}, "b", function()
     hs.application.launchOrFocus("Google Chrome")
