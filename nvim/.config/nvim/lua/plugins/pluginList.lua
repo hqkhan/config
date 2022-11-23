@@ -103,7 +103,7 @@ local packer_startup = function(use)
         config = "require('plugins.treesitter')",
         run = ':TSUpdate',
         event = 'BufRead',
-        commit = "58f61e563fadd1788052586f4d6869a99022df3c",
+        -- commit = "58f61e563fadd1788052586f4d6869a99022df3c",
       },
       { 'nvim-treesitter/nvim-treesitter-textobjects',
         after = { 'nvim-treesitter' }
@@ -161,7 +161,7 @@ local packer_startup = function(use)
   -- }
 
   -- statusline
-  use { "tjdevries/express_line.nvim",
+  use { prefer_local("tjdevries/express_line.nvim"),
     config = "require('plugins.statusline')",
     -- statusline won't load at startup due to 'impatient.nvim' mod cache
     -- to test, delete '~/.cache/nvim/luacache_modpaths' and restart nvim,
