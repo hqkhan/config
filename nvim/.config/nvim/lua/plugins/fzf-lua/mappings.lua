@@ -27,13 +27,14 @@ local map_fzf = function(mode, key, f, options, buffer)
   vim.keymap.set(mode, key, rhs, map_options)
 end
 
+local small_top_big_bottom = {
+                                 preview = { vertical = "down:65%", horizontal = "right:75%", }
+                             }
 -- Misc
 map_fzf('n', "<leader>f?", "builtin",           { desc = "builtin commands" })
 map_fzf('n', "<C-f>", "files",                  { desc = "Files",
     prompt = 'Files❯ ',
-        winopts = {
-            preview = { vertical = "down:65%", horizontal = "right:75%", }
-        },
+        winopts = small_top_big_bottom,
 })
 
 map_fzf('n', "<Space><CR>", "buffers",          { desc = "Buffers",
@@ -55,35 +56,25 @@ map_fzf('n', '<leader>cw', "grep_curbuf", function()
   return {
     desc = 'Live grep current buffer',
     prompt = 'Buffer❯ ',
-    winopts = {
-        preview = { vertical = "down:65%", horizontal = "right:75%", }
-    },
+    winopts = small_top_big_bottom,
     search = vim.fn.expand("<cword>"),
   }
 end)
 map_fzf('n', "<leader>lG", "live_grep",
     function() return { desc = "Live grep (project)",
-        winopts = {
-            preview = { vertical = "down:65%", horizontal = "right:75%", }
-        },
+    winopts = small_top_big_bottom,
 }end)
 map_fzf('n', "<leader>lg", "lgrep_curbuf",
     function() return { desc = "Live grep current buffer",
-        winopts = {
-            preview = { vertical = "down:65%", horizontal = "right:75%", }
-        },
+      winopts = small_top_big_bottom,
 }end)
 
 map_fzf('n', "<leader>bl", "blines", { desc = "buffer lines",
-        winopts = {
-            preview = { vertical = "down:65%", horizontal = "right:75%", }
-        },
+      winopts = small_top_big_bottom,
 })
 -- TODO pass in current word under cursor using expand
 map_fzf('n', "<leader>LG", "live_grep_resume", { desc = "Live grep resume",
-        winopts = {
-            preview = { vertical = "down:65%", horizontal = "right:75%", }
-        },
+      winopts = small_top_big_bottom,
 })
 
 map_fzf('n', "<leader>tm", "tmux_buffers",           { desc = "tmux buffers" })
@@ -92,9 +83,7 @@ map_fzf('n', "<leader>tm", "tmux_buffers",           { desc = "tmux buffers" })
 map_fzf('n', "<leader>yf", "files",
     { desc = "Grep current word",
       cwd = '~/config',
-        winopts = {
-            preview = { vertical = "down:65%", horizontal = "right:75%", }
-        },
+      winopts = small_top_big_bottom,
     })
 
 map_fzf('n', '<leader>fo', "oldfiles", function()
@@ -103,9 +92,7 @@ map_fzf('n', '<leader>fo', "oldfiles", function()
     cwd = vim.loop.cwd(),
     show_cwd_header = true,
     cwd_only = true,
-    winopts = {
-        preview = { vertical = "down:65%", horizontal = "right:75%", }
-    },
+    winopts = small_top_big_bottom,
   }
 end)
 
@@ -136,6 +123,20 @@ map_fzf('n', '<leader>gs', "git_status_tmuxZ",
 })
 map_fzf('n', '<leader>gS', "git_status", vim.tbl_extend("force", {show_cwd_header = false},            { desc = "git status" }))
 
+map_fzf("n", "<leader>fp", "files", {
+  desc = "plugin files (packer)",
+  prompt = "Plugins❯ ",
+  winopts = small_top_big_bottom,
+  cwd = vim.fn.stdpath "data" .. "/site/pack/packer/"
+})
+
+map_fzf("n", "<c-t>", "workdirs", { desc = "cwd workdirs",
+  winopts = {
+    height = 0.40,
+    width  = 0.60,
+    row    = 0.40,
+  } })
+
 local _G = {}
 _G.get_scope_lines = function()
   local scope = require('mini.indentscope').get_scope()
@@ -143,5 +144,4 @@ _G.get_scope_lines = function()
   return vim.api.nvim_buf_get_lines(scope.buf_id, scope.border.top - 1, scope.border.bottom, true)
 end
 return _G
--- map_fzf('n', "<leader>ls", "grep",  { desc = "Grep" })
 

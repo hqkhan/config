@@ -32,6 +32,12 @@ local packer_startup = function(use)
     event = "VimEnter"
   }
 
+ -- better quickfix
+  use { "kevinhwang91/nvim-bqf",
+    config = "require'plugins.bqf'",
+    ft = { "qf" }
+  }
+
   -- vim-surround/sandwich, lua version
   -- mini also has an indent highlighter
   use { 'echasnovski/mini.nvim',

@@ -155,3 +155,6 @@ map({'n', 'v'}, '<S-k>', '<PageUp>zz',
 
 map('n', '<leader>bd', '<Esc>:bd<CR>',
   { silent = true, desc = "Close current buffer" })
+
+map({ "n", "v" }, "<leader>p", '"0p', { desc = "paste AFTER  from yank (reg:0)" })
+map({ "n", "v" }, "<leader>P", '"0P', { desc = "paste BEFORE from yank (reg:0)" })
