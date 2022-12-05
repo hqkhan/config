@@ -27,12 +27,14 @@ local colors = {
   menu_grey           = { gui = '#56687E', cterm = 237,  cterm16 = 8  },
   special_grey        = { gui = '#656A7c', cterm = 238,  cterm16 = 15 },
   vertsplit           = { gui = '#181A1F', cterm = 59,   cterm16 = 15 },
-  statusline          = { gui = '#7E9CD8', cterm = 236,  cterm16 = 8 },
+  statusline          = { gui = '#282c34', cterm = 236,  cterm16 = 8 },
   space1              = { gui = '#1e1c31', cterm = 233,  cterm16 = NONE },
   space2              = { gui = '#2D2B40', cterm = 233,  cterm16 = NONE },
   space3              = { gui = '#3E3869', cterm = 236,  cterm16 = 8 },
   space4              = { gui = '#585273', cterm = 236,  cterm16 = 8 },
   comment_grey_temp   = { gui = '#8A889D', cterm = 252,  cterm16 = 15 },
+  magenta             = { gui = '#d16d9e', cterm = 252,  cterm16 = 15 },
+  darkblue_tmux =       { gui = '#081633', cterm = 252,  cterm16 = 15 }
 }
 
 if not vim.g.lua_embark_transparent then
@@ -136,6 +138,13 @@ hl.syntax = {
   Delimiter =         { fg = colors.cyan },
   Comment =           { fg = colors.comment_grey, italic = true },
   SpecialComment =    { fg = colors.comment_grey },
+
+  -- Added 
+  StatusLineFileName ={ fg = colors.magenta, bg = colors.statusline},
+  Blackfg =           { fg = colors.black },
+  Greenbg =           { bg = colors.green },
+  Darkblue_tmux_bg =  { bg = colors.darkblue_tmux },
+  Magenta =           { fg = colors.magenta },
 }
 
 -- TS highlights
@@ -523,10 +532,10 @@ hl.typescript = {
 
 
 hl.gitsigns = {
-  GitSignsAdd = { fg = colors.green },
-  GitSignsAddLn = { fg = colors.dark_green },
-  GitSignsChange = { fg = colors.yellow },
-  GitSignsChangeDelete = { fg = colors.dark_yellow },
+  GitSignsAdd = { fg = colors.dark_green },
+  GitSignsAddLn = { fg = colors.green },
+  GitSignsChange = { fg = colors.dark_yellow },
+  GitSignsChangeDelete = { fg = colors.yellow },
   GitSignsChangeLn = { fg = colors.yellow },
   GitSignsChangeNr = { fg = colors.dark_yellow },
   GitSignsDelete = { fg = colors.red },

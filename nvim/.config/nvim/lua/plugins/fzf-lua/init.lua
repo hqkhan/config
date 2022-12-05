@@ -1,5 +1,10 @@
 local actions = require "fzf-lua.actions"
 
+local res, fzf_lua = pcall(require, "fzf-lua")
+if not res then
+  return
+end
+
 -- return first matching highlight or nil
 local function hl_match(t)
   for _, h in ipairs(t) do
@@ -17,10 +22,10 @@ local fzf_colors = function(opts)
   local colors = {
     ["fg"] = { "fg", "Normal" },
     ["bg"] = { "bg", "Normal" },
-    ["hl"] = { "fg", hl_match({ "NightflyViolet", "Directory" }) },
+    ["hl"] = { "fg", "Question" },
     ["fg+"] = { "fg", "Normal" },
     ["bg+"] = { "bg", hl_match({ "NightflyVisual", "CursorLine" }) },
-    ["hl+"] = { "fg", "CmpItemKindVariable" },
+    ["hl+"] = { "fg", "CmpItemKindOperator" },
     ["info"] = { "fg", hl_match({ "NightflyPeach", "WarningMsg" }) },
     -- ["prompt"] = { "fg", "SpecialKey" },
     ["pointer"] = { "fg", "DiagnosticError" },
@@ -28,6 +33,7 @@ local fzf_colors = function(opts)
     ["spinner"] = { "fg", "Label" },
     ["header"] = { "fg", "Comment" },
     ["gutter"] = { "bg", "Normal" },
+    ["border"] = { "fg", "FzfLuaTitle" },
   }
   if binary == 'sk' and vim.fn.executable(binary) == 1 then
     colors["matched_bg"] = { "bg", "Normal" }
@@ -36,121 +42,45 @@ local fzf_colors = function(opts)
   return colors
 end
 
-require'fzf-lua'.setup {
+-- custom devicons setup file to be loaded when `multiprocess = true`
+fzf_lua.config._devicons_setup = "~/.config/nvim/lua/plugins/devicons.lua"
+
+fzf_lua.setup {
+  fzf_bin            = fzf_bin,
   fzf_colors         = fzf_colors,
   winopts = {
     -- Only valid when using a float window
     -- (i.e. when 'split' is not defined)
-    height           = 0.9,            -- window height
+    height           = 0.98,             -- window height
     width            = 0.85,            -- window width
     row              = 0.35,            -- window row position (0=top, 1=bottom)
     col              = 0.55,            -- window col position (0=left, 1=right)
-    -- border argument passthrough to nvim_open_win(), also used
-    -- to manually draw the border characters around the preview
-    -- window, can be set to 'false' to remove all borders or to
-    -- 'none', 'single', 'double' or 'rounded' (default)
-    border           = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-    fullscreen       = false,           -- start fullscreen?
-    hl = {
-      normal         = 'Normal',        -- window normal color (fg+bg)
-      border         = 'Normal',        -- border color (try 'FloatBorder')
-      -- Only valid with the builtin previewer:
-      cursor         = 'Cursor',        -- cursor highlight (grep/LSP matches)
-      cursorline     = 'CursorLine',    -- cursor line
-      -- title       = 'Normal',        -- preview border title (file/buffer)
-      -- scrollbar_f = 'PmenuThumb',    -- scrollbar "full" section highlight
-      -- scrollbar_e = 'PmenuSbar',     -- scrollbar "empty" section highlight
-    },
     preview = {
-      -- default     = 'bat',           -- override the default previewer?
-                                        -- default uses the 'builtin' previewer
-      border         = 'border',        -- border|noborder, applies only to
-                                        -- native fzf previewers (bat/cat/git/etc)
-      wrap           = 'nowrap',        -- wrap|nowrap
-      hidden         = 'nohidden',      -- hidden|nohidden
-      -- vertical       = 'down:45%',      -- up|down:size
-      -- horizontal     = 'right:60%',     -- right|left:size
-      layout         = 'flex',          -- horizontal|vertical|flex
-      flip_columns   = 120,             -- #cols to switch to horizontal on flex
-      -- Only used with the builtin previewer:
-      title          = true,            -- preview border title (file/buf)?
+      layout         = 'vertical',          -- horizontal|vertical|flex
+      flip_columns   = 130,             -- #cols to switch to horizontal on flex
       scrollbar      = 'float',         -- `false` or string:'float|border'
-                                        -- float:  in-window floating border
-                                        -- border: in-border chars (see below)
-      scrolloff      = '-2',            -- float scrollbar offset from right
-                                        -- applies only when scrollbar = 'float'
-      scrollchars    = {'█', '' },      -- scrollbar chars ({ <full>, <empty> }
-                                        -- applies only when scrollbar = 'border'
-      delay          = 100,             -- delay(ms) displaying the preview
-                                        -- prevents lag on fast scrolling
-      winopts = {                       -- builtin previewer window options
-        number            = true,
-        relativenumber    = false,
-        cursorline        = true,
-        cursorlineopt     = 'both',
-        cursorcolumn      = false,
-        signcolumn        = 'no',
-        list              = false,
-        foldenable        = false,
-        foldmethod        = 'manual',
-      },
     },
   },
   previewers = {
-    cat = {
-      cmd             = "cat",
-      args            = "--number",
-    },
     bat = {
-      cmd             = "bat",
-      args            = "--style=numbers,changes --color always",
       theme           = 'Coldark-Dark', -- bat preview theme (bat --list-themes)
-      config          = nil,            -- nil uses $BAT_CONFIG_PATH
-    },
-    head = {
-      cmd             = "head",
-      args            = nil,
-    },
-    git_diff = {
-      cmd_deleted     = "git diff --color HEAD --",
-      cmd_modified    = "git diff --color HEAD",
-      cmd_untracked   = "git diff --color --no-index /dev/null",
-      -- uncomment if you wish to use git-delta as pager
-      -- can also be set under 'git.status.preview_pager'
-      -- pager        = "delta --width=$FZF_PREVIEW_COLUMNS",
-    },
-    man = {
-      -- NOTE: remove the `-c` flag when using man-db
-      cmd             = "man -c %s | col -bx",
-    },
-    builtin = {
-      syntax          = true,         -- preview syntax highlight?
-      syntax_limit_l  = 0,            -- syntax limit (lines), 0=nolimit
-      syntax_limit_b  = 1024*1024,    -- syntax limit (bytes), 0=nolimit
-      limit_b         = 1024*1024*10, -- preview limit (bytes), 0=nolimit
     },
   },
-    on_create = function()
-      -- called once upon creation of the fzf main window
-      -- can be used to add custom fzf-lua mappings, e.g:
-      --   vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", "<Down>",
-      --     { silent = true, noremap = true })
-    end,
   keymap = {
     -- These override the default tables completely
     -- no need to set to `false` to disable a bind
     -- delete or modify is sufficient
     builtin = {
-      ["<C-]>"]        = "toggle-preview-cw",
-      ["<C-d>"]        = "preview-page-down",
-      ["<C-u>"]        = "preview-page-up",
+      ["<C-]>"]       = "toggle-preview-cw",
+      ["<C-d>"]       = "preview-page-down",
+      ["<C-u>"]       = "preview-page-up",
       ["ctrl-f"]      = "half-page-down",
       ["ctrl-p"]      = "half-page-up",
       ["ctrl-a"]      = "beginning-of-line",
       ["ctrl-e"]      = "end-of-line",
     },
-    fzf = {
      -- fzf '--bind=' options
+    fzf = {
       ["ctrl-f"]      = "half-page-down",
       ["ctrl-p"]      = "half-page-up",
       ["ctrl-a"]      = "beginning-of-line",
@@ -159,57 +89,29 @@ require'fzf-lua'.setup {
       ["ctrl-u"]      = "preview-page-up",
     },
   },
-  fzf_opts = {
-    -- options are sent as `<left>=<right>`
-    -- set to `false` to remove a flag
-    -- set to '' for a non-value flag
-    -- for raw args use `fzf_args` instead
-    ['--ansi']        = '',
-    ['--info']        = 'inline',
-    ['--height']      = '100%',
-    ['--layout']      = 'reverse',
-    ['--border']      = 'none',
-  },
-
-  -- fzf_bin             = 'sk',        -- use skim instead of fzf?
-  fzf_layout          = 'reverse',      -- fzf '--layout='
-  fzf_args            = '',             -- adv: fzf extra args, empty unless adv
-  preview_border      = 'border',       -- border|noborder
-  preview_wrap        = 'nowrap',       -- wrap|nowrap
-  preview_opts        = 'nohidden',     -- hidden|nohidden
-  preview_vertical    = 'down:45%',     -- up|down:size
-  preview_horizontal  = 'right:60%',    -- right|left:size
-  preview_layout      = 'flex',         -- horizontal|vertical|flex
-  flip_columns        = 120,            -- #cols to switch to horizontal on flex
-  -- default_previewer   = "bat",       -- override the default previewer?
-                                        -- by default uses the builtin previewer
-  -- provider setup
-  files = {
-    -- previewer         = "cat",       -- uncomment to override previewer
-    prompt            = 'Files ❯ ',
-    -- cmd               = '',             -- "find . -type f -printf '%P\n'",
-    git_icons         = true,           -- show git icons?
-    file_icons        = true,           -- show file icons?
-    color_icons       = true,           -- colorize file|git icons
-    fd_opts           = "--no-ignore --color=never --type f --hidden --follow --exclude .git",
-    actions = {
-      ["default"]     = actions.file_edit,
-      ["ctrl-v"]      = actions.file_vsplit,
-      ["ctrl-q"]      = actions.file_sel_to_qf
-    }
-  },
   git = {
+    status = {
+      cmd             = "git status -su",
+      winopts         = {
+        preview       = { vertical = "down:70%", horizontal = "right:70%" }
+      },
+      actions         = {
+        ["ctrl-r"]    = { fzf_lua.actions.git_reset, fzf_lua.actions.resume },
+        ["ctrl-h"]    = { fzf_lua.actions.git_stage, fzf_lua.actions.resume },
+        ["ctrl-l"]    = { fzf_lua.actions.git_unstage, fzf_lua.actions.resume },
+      },
+      preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$COLUMNS",
+    },
     files = {
-      prompt          = 'GitFiles ❯ ',
-      cmd             = 'git ls-files --exclude-standard',
-      multiprocess    = true,
-      git_icons       = true,           -- show git icons?
-      file_icons      = true,           -- show file icons?
-      color_icons     = true,           -- colorize file|git icons
+      winopts = {
+        preview = { vertical = "down:65%", horizontal = "right:75%", }
+      },
     },
     commits = {
-      prompt          = 'Commits ❯ ',
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
+      winopts = {
+        preview = { vertical = "down:75%", horizontal = "right:75%", }
+      },
       actions = {
         ["default"] = actions.git_checkout,
         ["ctrl-e"] = function(selected)
@@ -225,7 +127,9 @@ require'fzf-lua'.setup {
       },
     },
     bcommits = {
-      prompt          = 'BCommits ❯ ',
+      winopts = {
+        preview = { vertical = "down:75%", horizontal = "right:75%", }
+      },
       preview_pager   = vim.fn.executable("delta")==1 and "delta --width=$FZF_PREVIEW_COLUMNS --line-numbers",
       actions = {
         ['default'] = actions.git_checkout,
@@ -241,77 +145,24 @@ require'fzf-lua'.setup {
         end
       }
     },
-    branches = {
-      prompt          = 'Branches ❯ ',
-      cmd             = "git branch --all --color",
-      preview         = "git log --graph --pretty=oneline --abbrev-commit --color {1}",
-      actions = {
-        ["default"] = actions.git_switch,
-      },
-    },
-    icons = {
-      ["M"]           = { icon = "M", color = "yellow" },
-      ["D"]           = { icon = "D", color = "red" },
-      ["A"]           = { icon = "A", color = "green" },
-      ["?"]           = { icon = "?", color = "magenta" },
-    },
+    branches          = { winopts = {
+      preview         = { vertical = "down:75%", horizontal = "right:75%", }
+    }}
   },
   grep = {
-    prompt            = 'Rg ❯ ',
-    input_prompt      = 'Grep For ❯ ',
     rg_opts           = "--hidden --column --line-number --no-heading " ..
                         "--color=always --smart-case -g '!{.git,node_modules,.ccls-cache}/*'",
-    multiprocess      = true,
-    git_icons         = true,           -- show git icons?
-    file_icons        = true,           -- show file icons?
-    color_icons       = true,           -- colorize file|git icons
-    rg_glob           = true,
     actions = {
-      ["default"]     = actions.file_edit,
-      ["ctrl-v"]      = actions.file_vsplit,
-      ["ctrl-q"]      = actions.file_sel_to_qf,
-      ["ctrl-g"]      = { actions.grep_lgrep }
+      ["ctrl-q"]       = actions.file_sel_to_qf,
     }
+    
   },
-  buffers = {
-    -- previewer      = false,        -- disable the builtin previewer?
-    prompt            = 'Buffers ❯ ',
-    file_icons        = true,         -- show file icons?
-    color_icons       = true,         -- colorize file|git icons
-    sort_lastused     = true,         -- sort buffers() by last used
-    actions = {
-      ["default"]     = actions.buf_edit,
-      ["ctrl-v"]      = actions.buf_vsplit,
-      ["ctrl-x"]      = { actions.buf_del, actions.resume }
-    }
-  },
-  blines = {
-    previewer         = "builtin",    -- set to 'false' to disable
-    prompt            = 'BLines ❯ ',
-    show_unlisted     = true,         -- include 'help' buffers
-    no_term_buffers   = false,        -- include 'term' buffers
-    fzf_opts = {
-      -- hide filename, tiebreak by line no.
-      ['--delimiter'] = "'[\\]:]'",
-      ["--with-nth"]  = '3..',
-      ["--tiebreak"]  = 'index',
-    },
-    actions = {
-      ["default"]     = actions.buf_edit,
-    }
-  },
-  quickfix = {
-    -- cwd               = vim.loop.cwd(),
-    file_icons        = true,
-    git_icons         = true,
-  },
-  file_icon_padding = '',
-  file_icon_colors = {
-    ["lua"]   = "blue",
-  },
+  lsp                 = { symbols = { path_shorten=1 } },
+  diagnostics         = { file_icons=false, icon_padding=' ', path_shorten=1 }
 }
 
 local M = {}
+
 function M.git_status_tmuxZ(opts)
   local function tmuxZ()
     vim.cmd("!tmux resize-pane -Z")
@@ -336,6 +187,63 @@ function M.git_status_tmuxZ(opts)
     end
   end
   fzf_lua.git_status(opts)
+end
+
+function M.workdirs(opts)
+  if not opts then opts = {} end
+
+  -- workdirs.lua returns a table of workdirs
+  local ok, dirs = pcall(require, "workdirs")
+  if not ok then dirs = {} end
+
+  local iconify = function(path, color, icon)
+    icon = fzf_lua.utils.ansi_codes[color](icon)
+    path = fzf_lua.path.relative(path, vim.env.HOME)
+    return ("%s  %s"):format(icon, path)
+  end
+
+  local dedup = {}
+  local entries = {}
+  local add_entry = function(path, color, icon)
+    if not path then return end
+    path = vim.fn.expand(path)
+    if not vim.loop.fs_stat(path) then return end
+    if dedup[path] ~= nil then return end
+    entries[#entries + 1] = iconify(path, color or "blue", icon or "")
+    dedup[path] = true
+  end
+
+  add_entry(vim.loop.cwd(), "magenta", "")
+  add_entry(_previous_cwd, "yellow")
+  for _, path in ipairs(dirs) do
+    add_entry(path)
+  end
+
+  local fzf_fn = function(cb)
+    for _, entry in ipairs(entries) do
+      cb(entry)
+    end
+    cb(nil)
+  end
+
+  opts.fzf_opts = {
+    ["--no-multi"]       = "",
+    ["--prompt"]         = "Workdirs❯ ",
+    ["--preview-window"] = "hidden:right:0",
+    ["--header-lines"]   = "1",
+  }
+
+  opts.actions = {
+    ["default"] = function(selected)
+      _previous_cwd = vim.loop.cwd()
+      local newcwd = selected[1]:match("[^ ]*$")
+      newcwd = fzf_lua.path.starts_with_separator(newcwd) and newcwd
+          or fzf_lua.path.join({ vim.env.HOME, newcwd })
+      require "utils".set_cwd(newcwd)
+    end
+  }
+
+  fzf_lua.fzf_exec(fzf_fn, opts)
 end
 
 return setmetatable({}, {

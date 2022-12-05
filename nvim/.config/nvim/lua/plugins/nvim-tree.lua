@@ -1,82 +1,107 @@
--- following options are the default
+if not pcall(require, "nvim-tree") then
+    return
+end
 require'nvim-tree'.setup {
-  -- disables netrw completely
-  disable_netrw       = true,
-  -- hijack netrw window on startup
-  hijack_netrw        = true,
-  -- open the tree when running this setup function
-  open_on_setup       = false,
-  -- will not open on setup if the filetype is in this list
-  ignore_ft_on_setup  = {},
-  -- closes neovim automatically when the tree is the last **WINDOW** in the view
-  auto_close          = true,
-  -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
-  open_on_tab         = false,
-  -- hijacks new directory buffers when they are opened.
-  update_to_buf_dir   = {
-    -- enable the feature
-    enable = true,
-    -- allow to open the tree if it was previously closed
-    auto_open = true,
+  disable_netrw = true,
+  hijack_cursor = true,
+  hijack_netrw = false,
+  update_cwd = true,
+  view = {
+    width = 30,
+    side = 'left',
+    mappings = {
+      custom_only = false,
+      list = {
+        { key = "<C-x>", action = nil },
+        { key = "<C-s>", action = "split" },
+      }
+    }
   },
-  -- hijack the cursor in the tree to put it at the start of the filename
-  hijack_cursor       = false,
-  -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
-  update_cwd          = false,
-  -- show lsp diagnostics in the signcolumn
-  diagnostics = {
-    enable = false,
+  renderer = {
+    indent_markers = {
+      enable = true,
+      icons = {
+        corner = "└ ",
+        edge = "│ ",
+        none = "  ",
+      },
+    },
     icons = {
-      hint = "",
+      symlink_arrow = " → ",  -- ➜ → ➛
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = true,
+        git = false,
+      },
+      glyphs = {
+        git = {
+          -- staged      = "✓",
+          -- renamed     = "➜",
+          -- renamed     = "→",
+          unstaged    = "M",
+          staged      = "S",
+          unmerged    = "U",
+          renamed     = "R",
+          untracked   = "?",
+          deleted     = "✗",
+          ignored     = "◌",
+        },
+      },
+    },
+    special_files = {
+      "README.md",
+      "LICENSE",
+      "Cargo.toml",
+      "Makefile",
+      "package.json",
+      "package-lock.json",
+      "go.mod",
+      "go.sum",
+    }
+  },
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true,
+    icons = {
+      hint = "",
       info = "",
       warning = "",
       error = "",
+    },
+  },
+  filters = {
+    dotfiles = false,
+    custom = {
+      "\\.git",
+      ".cache",
+      "node_modules",
+      "__pycache__",
     }
   },
-  -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
-  update_focused_file = {
-    -- enables the feature
-    enable      = false,
-    -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
-    -- only relevant when `update_focused_file.enable` is true
-    update_cwd  = false,
-    -- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
-    -- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
-    ignore_list = {}
+  git = {
+    enable = true,
+    ignore = false,
+    timeout = 400,
   },
-  -- configuration options for the system open command (`s` in the tree by default)
-  system_open = {
-    -- the command to run this, leaving nil should work in most cases
-    cmd  = nil,
-    -- the command arguments as a list
-    args = {}
+  actions = {
+    use_system_clipboard = false,
+    change_dir = {
+      enable = false,
+      global = false,
+      restrict_above_cwd = false,
+    },
+    open_file = {
+      quit_on_open = true,
+      resize_window = true,
+    },
   },
-
-  view = {
-    -- width of the window, can be either a number (columns) or a string in `%`, for left or right side placement
-    width = 30,
-    -- height of the window, can be either a number (columns) or a string in `%`, for top or bottom side placement
-    height = 30,
-    -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
-    side = 'left',
-    -- if true the tree will resize itself after opening a file
-    auto_resize = false,
-    mappings = {
-      -- custom only false will merge the list with the default mappings
-      -- if true, it will only use your list to set the mappings
-      custom_only = false,
-      -- list of mappings to set on the tree manually
-      list = {}
-    }
-  }
 }
 
--- nnoremap <leader>nn :NvimTreeToggle<CR>
--- nnoremap <leader>r :NvimTreeRefresh<CR>
--- nnoremap <leader>f :NvimTreeFindFile<CR>
--- " NvimTreeOpen, NvimTreeClose and NvimTreeFocus are also available if you need them
-vim.api.nvim_set_keymap('n', '<leader>nn',
+vim.keymap.set('', '<leader>nn',
     ":NvimTreeToggle<CR>",
     { noremap = true, silent = true })
--- " a list of groups can be found at `:help nvim_tree_highlight`
--- highlight NvimTreeFolderIcon guibg=blue
+
+vim.keymap.set('', '<leader>nf',
+    ":NvimTreeFindFileToggle<CR>",
+    { noremap = true, silent = true })

@@ -1,6 +1,7 @@
 ------------------------------------
 -------------Keymaps----------------
 ------------------------------------
+
 local map_fzf = function(mode, key, f, options, buffer)
 
   local desc = nil
@@ -11,7 +12,6 @@ local map_fzf = function(mode, key, f, options, buffer)
     desc = options().desc
   end
 
-  print(require('plugins.fzf-lua'))
   local rhs = function()
     if not pcall(require, 'fzf-lua') then
       require('packer').loader('fzf-lua')
@@ -28,91 +28,124 @@ local map_fzf = function(mode, key, f, options, buffer)
   vim.keymap.set(mode, key, rhs, map_options)
 end
 
-vim.api.nvim_set_keymap('n', '<leader>f?',
-    "<cmd>lua require('fzf-lua').builtin()<CR>",
-    { noremap = true, silent = true })
+local small_top_big_bottom = {
+                                 preview = { vertical = "down:65%", horizontal = "right:75%", }
+                             }
+-- Misc
+map_fzf('n', "<leader>f?", "builtin",           { desc = "builtin commands" })
+map_fzf('n', "<C-f>", "files",                  { desc = "Files",
+    prompt = 'Files❯ ',
+        winopts = small_top_big_bottom,
+})
 
--- Find commits for current file
-vim.api.nvim_set_keymap('n', '<leader>bcm',
-    "<cmd>lua require('fzf-lua').git_bcommits()<CR>",
-    { noremap = true, silent = true })
+map_fzf('n', "<Space><CR>", "buffers",          { desc = "Buffers",
+    winopts = {
+        preview = { vertical = "down:65%", horizontal = "right:75%", }
+    },
+})
 
- -- Files
-vim.api.nvim_set_keymap('n', '<c-f>',
-    "<cmd>lua require('fzf-lua').files()<CR>",
-    { noremap = true, silent = true })
+-- Git
+map_fzf('n', "<leader>bcm", "git_bcommits",     { desc = "Git buffer commits" })
+map_fzf('n', "<leader>cm", "git_commits",       { desc = "Git commits" })
+map_fzf('n', "<C-g>", "git_files",              { desc = "Git Files" })
+map_fzf('n', "<leader>co", "git_branches",      { desc = "Checkout git branches" })
 
- -- Git
-vim.api.nvim_set_keymap('n', '<leader>co',
-    "<cmd>lua require('fzf-lua').git_branches()<CR>",
-    { noremap = true, silent = true })
+-- Grep
+map_fzf('n', "<leader>rg", "grep",              { desc = "Grep" })
+map_fzf('n', "<leader>cW", "grep_cword",        { desc = "Grep current word in project" })
+map_fzf('n', '<leader>cw', "grep_curbuf", function()
+  return {
+    desc = 'Live grep current buffer',
+    prompt = 'Buffer❯ ',
+    winopts = small_top_big_bottom,
+    search = vim.fn.expand("<cword>"),
+  }
+end)
+map_fzf('n', "<leader>lG", "live_grep",
+    function() return { desc = "Live grep (project)",
+    winopts = small_top_big_bottom,
+}end)
+map_fzf('n', "<leader>lg", "lgrep_curbuf",
+    function() return { desc = "Live grep current buffer",
+      winopts = small_top_big_bottom,
+}end)
 
-vim.api.nvim_set_keymap('n', '<c-g>',
-    "<cmd>lua require('fzf-lua').git_files()<CR>",
-    { noremap = true, silent = true })
+map_fzf('n', "<leader>bl", "blines", { desc = "buffer lines",
+      winopts = small_top_big_bottom,
+})
 
-vim.api.nvim_set_keymap('n', '<leader>cm',
-    "<cmd>lua require('fzf-lua').git_commits()<CR>",
-    { noremap = true, silent = true })
+map_fzf('n', "<leader>LG", "live_grep_resume", { desc = "Live grep resume",
+      winopts = small_top_big_bottom,
+})
 
--- Buffers
-vim.api.nvim_set_keymap('n', '<Space><CR>',
-    "<cmd>lua require('fzf-lua').buffers()<CR>",
-    { noremap = true, silent = true })
+map_fzf('n', "<leader>tm", "tmux_buffers",           { desc = "tmux buffers" })
 
--- Rg
-vim.api.nvim_set_keymap('n', '<leader>rg',
-    "<cmd>lua require('fzf-lua').grep()<CR>",
-    { noremap = true, silent = true })
+-- Config files
+map_fzf('n', "<leader>yf", "files",
+    { desc = "Grep current word",
+      cwd = '~/config',
+      winopts = small_top_big_bottom,
+    })
 
-vim.api.nvim_set_keymap('n', '<leader>cw',
-    "<cmd>lua require('fzf-lua').grep_cword()<CR>",
-    { noremap = true, silent = true })
+map_fzf('n', '<leader>fo', "oldfiles", function()
+  return {
+    desc = 'file history (cwd)',
+    cwd = vim.loop.cwd(),
+    show_cwd_header = true,
+    cwd_only = true,
+    winopts = small_top_big_bottom,
+  }
+end)
 
--- ~/config
-vim.api.nvim_set_keymap('n', '<leader>h',
-    "<cmd>lua require('fzf-lua').files({ cwd = '~/config' })<CR>",
-    { noremap = true, silent = true })
+-- LSP
+map_fzf('n', "<leader>lS", "lsp_workspace_symbols",   { desc = "Workspace symbols" })
+map_fzf('n', "<leader>ls", "lsp_document_symbols",    { desc = "Document symbols" })
+map_fzf('n', "<leader>lr", "lsp_references",          { desc = "LSP references" })
+map_fzf('n', "<leader>ld", "lsp_definitions",         { desc = "LSP definitinos" })
+map_fzf('n', "<leader>lD", "lsp_declarations",        { desc = "LSP declaration" })
+map_fzf("n", "<leader>ly", "lsp_typedefs",            { desc = "type definitions [LSP]" })
 
-vim.api.nvim_set_keymap('n', '<leader>bl',
-    "<cmd>lua require('fzf-lua').blines()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lS',
-    "<cmd>lua require('fzf-lua').lsp_workspace_symbols()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>ls',
-    "<cmd>lua require('fzf-lua').lsp_document_symbols()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lr',
-    "<cmd>lua require('fzf-lua').lsp_references()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>ld',
-    "<cmd>lua require('fzf-lua').lsp_definitions()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lD',
-    "<cmd>lua require('fzf-lua').lsp_declaration()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lg',
-    "<cmd>lua require('fzf-lua').live_grep()<CR>",
-    { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>lG',
-    "<cmd>lua require('fzf-lua').live_grep_resume()<CR>",
-    { noremap = true, silent = true })
+map_fzf('n', "<leader>HT", "help_tags",               { desc = "nvim help tags" })
 
 -- Full screen git status
-map_fzf('n', '<leader>gS', "git_status_tmuxZ", { desc = "git status (fullscreen)",
-  winopts = {
-    fullscreen = true,
-    preview = {
-      vertical = "down:70%",
-      horizontal = "right:70%",
-    }
-  }
+map_fzf('n', '<leader>gs', "git_status_tmuxZ",
+          { desc = "git status (fullscreen)",
+              winopts = {
+                  fullscreen = true,
+                  preview = {
+                      vertical = "down:70%",
+                      horizontal = "right:70%",
+                  },
+              },
+            fzf = {
+            ["alt-a"]       = "select-all",
+            ["alt-d"]       = "deselect-all",
+          },
 })
+map_fzf('n', '<leader>gS', "git_status", vim.tbl_extend("force", {show_cwd_header = false},            { desc = "git status" }))
+map_fzf("n", "<leader>fq", "quickfix", { desc = "quickfix list",
+    winopts = small_top_big_bottom,
+})
+
+map_fzf("n", "<leader>fp", "files", {
+  desc = "plugin files (packer)",
+  prompt = "Plugins❯ ",
+  winopts = small_top_big_bottom,
+  cwd = vim.fn.stdpath "data" .. "/site/pack/packer/"
+})
+
+map_fzf("n", "<c-t>", "workdirs", { desc = "cwd workdirs",
+  winopts = {
+    height = 0.40,
+    width  = 0.60,
+    row    = 0.40,
+  } })
+
+local _G = {}
+_G.get_scope_lines = function()
+  local scope = require('mini.indentscope').get_scope()
+  if scope.border.indent < 0 then return {} end
+  return vim.api.nvim_buf_get_lines(scope.buf_id, scope.border.top - 1, scope.border.bottom, true)
+end
+return _G
+
