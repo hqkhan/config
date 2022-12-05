@@ -47,7 +47,6 @@ if require'utils'.is_root() then
   map('n', '<C-p>', '<cmd>FZF<CR>', { desc = "FZF" })
 end
 
--- TODO save mode before leaving
 -- alternate file mapping without zz
 for _, k in ipairs({ '<C-e>', '<C-^>', '<C-6>'}) do
   map({'n', 'i'}, k, function()

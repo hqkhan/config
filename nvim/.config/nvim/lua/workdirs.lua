@@ -6,5 +6,6 @@ return {
   "~/workspace",
   "/local/home/hqkhan/workspace/json-mainline/src/ElastiCacheRedisJSONModule",
   "/local/home/hqkhan/workspace/search-mainline/src/ElastiCacheSearch",
+  "~/Sources/nvim/express_line.nvim",
   vim.fn.stdpath("data") .. "/site/pack/packer",
 }

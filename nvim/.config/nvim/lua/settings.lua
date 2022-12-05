@@ -111,7 +111,8 @@ o.foldlevelstart    = 10        -- open most folds by default
 o.foldnestmax       = 10        -- 10 nested fold max
 o.foldmethod        = 'indent'  -- fold based on indent level
 
-o.undofile          = false     -- no undo file
+o.undofile          = true     -- no undo file
+o.undodir           = "/home/hqkhan/.local/share/nvim/undodir"     -- no undo file
 o.hidden            = true      -- do not unload buffer when abandoned
 o.autochdir         = false     -- do not change dir when opening a file
 

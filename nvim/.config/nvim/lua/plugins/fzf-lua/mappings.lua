@@ -1,6 +1,7 @@
 ------------------------------------
 -------------Keymaps----------------
 ------------------------------------
+
 local map_fzf = function(mode, key, f, options, buffer)
 
   local desc = nil
@@ -72,7 +73,7 @@ map_fzf('n', "<leader>lg", "lgrep_curbuf",
 map_fzf('n', "<leader>bl", "blines", { desc = "buffer lines",
       winopts = small_top_big_bottom,
 })
--- TODO pass in current word under cursor using expand
+
 map_fzf('n', "<leader>LG", "live_grep_resume", { desc = "Live grep resume",
       winopts = small_top_big_bottom,
 })
@@ -122,6 +123,9 @@ map_fzf('n', '<leader>gs', "git_status_tmuxZ",
           },
 })
 map_fzf('n', '<leader>gS', "git_status", vim.tbl_extend("force", {show_cwd_header = false},            { desc = "git status" }))
+map_fzf("n", "<leader>fq", "quickfix", { desc = "quickfix list",
+    winopts = small_top_big_bottom,
+})
 
 map_fzf("n", "<leader>fp", "files", {
   desc = "plugin files (packer)",

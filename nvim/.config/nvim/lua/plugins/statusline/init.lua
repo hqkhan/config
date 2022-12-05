@@ -165,6 +165,7 @@ local function setup()
           hl_hint = highlights.magenta_fg,
           icon_err = ' ', icon_warn = ' ', icon_info = '', icon_hint = ''
         }
+
         },
         { sections.highlight(get_darkblue_hl("yellow"), "[") },
         { c.git_changes_buf {

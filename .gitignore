@@ -1,5 +1,3 @@
-nvim/.config/nvim/plugged/
 nvim/.config/nvim/node_modules/
-nvim/.config/nvim/lua-language-server/
 **/.nvimlog
 tags

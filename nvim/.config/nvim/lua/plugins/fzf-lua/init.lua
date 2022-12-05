@@ -152,6 +152,10 @@ fzf_lua.setup {
   grep = {
     rg_opts           = "--hidden --column --line-number --no-heading " ..
                         "--color=always --smart-case -g '!{.git,node_modules,.ccls-cache}/*'",
+    actions = {
+      ["ctrl-q"]       = actions.file_sel_to_qf,
+    }
+    
   },
   lsp                 = { symbols = { path_shorten=1 } },
   diagnostics         = { file_icons=false, icon_padding=' ', path_shorten=1 }
