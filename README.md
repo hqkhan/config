@@ -55,6 +55,10 @@ map t Vomnibar.activateTabSelection
 
 unmap b
 map b Vomnibar.activateBookmarksInNewTab
+
+unmap /
+
+map <c-e> visitPreviousTab
 ```
 
 ```
