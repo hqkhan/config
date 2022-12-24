@@ -157,9 +157,6 @@ local function is_installed(cfg)
   -- otherwise, check if installed via 'mason-lspconfig'
   local mason_installed = false
   local mason_servers = require "mason-lspconfig".get_installed_servers()
-for _, srv in ipairs(mason_servers) do
-  print(srv)
-end
   for _, s in ipairs(mason_servers) do
     if s == cfg.name then
       mason_installed = true
