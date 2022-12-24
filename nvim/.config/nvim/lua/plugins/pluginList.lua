@@ -150,16 +150,22 @@ local packer_startup = function(use)
   -- LSP
   use({
     { 'neovim/nvim-lspconfig', event = 'BufRead' },
-    { 'williamboman/nvim-lsp-installer',
-      config = "require('lsp')",
-      after  = { 'nvim-lspconfig' },
-    },
     { 'j-hui/fidget.nvim',
       config = [[require('fidget').setup()]],
       after  = { 'nvim-lspconfig' },
     }
   })
 
+  -- LSP Installer
+  use({
+    { "williamboman/mason.nvim",
+      after = { "nvim-lspconfig" }
+    },
+    { "williamboman/mason-lspconfig.nvim",
+      config = "require('lsp')",
+      after  = { "mason.nvim" },
+    },
+  })
   -- key bindings cheatsheet
   -- use { 'folke/which-key.nvim',
   --   config = "require('plugins.which_key')",
