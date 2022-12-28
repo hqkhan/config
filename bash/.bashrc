@@ -93,7 +93,7 @@ alias auth="kinit -f && mwinit -o"
 alias authg="mwinit -o --breakglass"
 alias bb="brazil-build"
 alias ww="source ./venv/bin/activate"
-alias lg="git log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s' --graph --date=relative --date-order"
+alias lg="git log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s' --graph --date=short --date-order"
 alias get-creds="/apollo/env/AmazonAwsCli/bin/isengard get $ACCOUNT_NUMBER $ROLE_NAME"
 
 export INPUTRC="$HOME/.inputrc"

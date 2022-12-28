@@ -1,6 +1,6 @@
 #!/bin/bash
 
-setup_tmux() {
+install_tmux() {
     echo "==================================="
     echo "INSTALLING TMUX "
     echo "==================================="
@@ -14,6 +14,15 @@ setup_tmux() {
     echo "==================================="
     git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
     ln -sf $HOME/config/tmux/.tmux.conf $HOME/.tmux.conf
+}
+
+install_bash() {
+    echo "==================================="
+    echo "SETTING UP BASH"
+    echo "==================================="
+
+    ln -sf $HOME/config/bash/.bashrc $HOME/
+    ln -sf $HOME/config/bash/.bash_func $HOME/
 }
 
 install_font() {
@@ -45,20 +54,18 @@ install_nvim() {
     echo "==================================="
     echo "INSTALLING NVIM"
     echo "==================================="
-    local git_nvim_page="https://github.com/neovim/neovim/releases/tag/stable"
-    local install_folder="$HOME/installation"
-    echo "INSTALLING NVIM v0.8.1 from $git_nvim_page"
-    wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz -P $install_folder
-    cd $install_folder
-    tar -xzvf nvim-linux64.tar.gz 
-    ./nvim-linux64/bin/nvim
+    cd $HOME
+    git clone git@github.com:neovim/neovim.git
+    cd neovim/
+    make CMAKE_BUILD_TYPE=RelWithDebInfo
+    sudo make install
 
     echo "INSTALLING PACKER"
     git clone --depth 1 https://github.com/wbthomason/packer.nvim\
      ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
     echo "INSTALLING NVIM CONFIG"
-    ln -s ~/config/nvim ~/.config/nvim
+    ln -sf ~/config/nvim/.config/nvim ~/.config/nvim
 }
 
 install_git_conf() {
@@ -66,12 +73,22 @@ install_git_conf() {
     ln -sf $HOME/config/git_prompt/.git-prompt.sh $HOME/.git-prompt.sh 
 }
 
+install_fd() {
+}
+
+install_bat() {
+}
+
 install_packages() {
     install_cargo
+    install_git_conf
+    install_tmux
     install_rg
     install_fzf
     install_z
     install_nvim
     install_font
-
+    install_bat
+    install_fd
+    install_bash
 }

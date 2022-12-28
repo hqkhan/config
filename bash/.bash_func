@@ -78,9 +78,11 @@ alias jj=zz
 
 tf() {
     local test_name
-    test_name=$(fd -g 'test_*.py' amztests/ | xargs -n1 basename | fzf --height=50%)
+    test_name=$(fd -g 'test_*.py' `fd -t d amztests` | xargs -n1 basename | fzf --height=50%)
     _run_test $test_name $1 $2
 }
+
+
 
 tt() {
     local test_name
