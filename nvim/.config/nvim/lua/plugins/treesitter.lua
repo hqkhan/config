@@ -44,10 +44,8 @@ require'nvim-treesitter.configs'.setup {
     select = {
       enable  = true,
       keymaps = {
-        ["ac"] = "@comment.outer"    ,
-        ["ic"] = "@comment.outer"    ,
-        ["ao"] = "@class.outer"      ,
-        ["io"] = "@class.inner"      ,
+        ["ac"] = "@class.outer"      ,
+        ["ic"] = "@class.inner"      ,
         ["af"] = "@function.outer"   ,
         ["if"] = "@function.inner"   ,
       },

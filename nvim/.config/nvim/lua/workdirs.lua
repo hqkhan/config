@@ -1,4 +1,4 @@
-return {
+local workdirs = {
   vim.loop.cwd(),
   -- runtime path
   vim.opt.runtimepath._info.default:match("/[^,]+runtime"),
@@ -9,3 +9,5 @@ return {
   "~/Sources/nvim/express_line.nvim",
   vim.fn.stdpath("data") .. "/site/pack/packer",
 }
+
+return workdirs

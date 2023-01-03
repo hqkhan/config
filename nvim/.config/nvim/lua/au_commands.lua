@@ -149,15 +149,18 @@ augroup('Help', function(g)
   })
 end)
 
--- Return to last edit position when opening files
-augroup('ReturnToLastEditPos', function(g)
-  aucmd("BufReadPost", {
-    group = g,
-    pattern = '*',
-    callback = function()
-        vim.api.nvim_exec('silent! normal! g`"zv | ', false)
-        -- Deleting mark in case we want to reload config
-        vim.api.nvim_buf_del_mark(vim.api.nvim_get_current_buf(), '\"')
-    end,
-  })
-end)
+-- go to last loc when opening a buffer
+vim.api.nvim_create_autocmd("BufReadPre", {
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "<buffer>",
+      once = true,
+      callback = function()
+        vim.cmd(
+          [[if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif]]
+        )
+      end,
+    })
+  end,
+})

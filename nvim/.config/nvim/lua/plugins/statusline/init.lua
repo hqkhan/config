@@ -91,6 +91,16 @@ local function setup()
           bg = { [hl_statusline] = "bg" },
           fg = { ["Darkblue_tmux_bg"] = "bg" },
         }),
+        percentage_rhs = c.extract_hl({
+          bg = { [hl_darkblue] = "bg" },
+          fg = { ["cyan"] = "fg" },
+          bold = true,
+        }),
+        filetype = c.extract_hl({
+          bg = { ["Darkblue_tmux_bg"] = "bg" },
+          fg = { ["blue"] = "fg" },
+          bold = true,
+        }),
 
       }
 
@@ -195,10 +205,10 @@ local function setup()
             "]",
           },
         },
-        { "[" },
-        { builtin.percentage_through_window },
-        { "]" },
-        { builtin.filetype },
+        { sections.highlight(highlights.percentage_rhs, "[") },
+        { sections.highlight(highlights.percentage_rhs, builtin.percentage_through_window) },
+        { sections.highlight(highlights.percentage_rhs, "]") },
+        { sections.highlight(highlights.filetype, builtin.filetype) },
       }
 
       local add_item = function(result, item)
