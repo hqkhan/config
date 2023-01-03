@@ -32,8 +32,13 @@ function M.err(msg)
   vim.cmd('echohl None')
 end
 
-function M.has_neovim_v05()
-  return (vim.fn.has('nvim-0.5') == 1)
+function M.has_neovim_v08()
+  return (vim.fn.has("nvim-0.8") == 1)
+end
+
+function M.is_dev(path)
+  return vim.loop.fs_stat(string.format("%s/%s",
+    vim.fn.expand(DEV_DIR), path))
 end
 
 function M.is_root()
@@ -283,6 +288,32 @@ M.osc52printf = function(...)
   local bytes = vim.fn.chansend(vim.v.stderr, osc52str)
   assert(bytes > 0)
   M.info(string.format("[OSC52] %d chars copied (%d bytes)", #str, bytes))
+end
+
+M.reload_config = function()
+  M.unload_modules({
+    { "^options$", fn = function() require("options") end },
+    { "^au_commands$", fn = function() require("au_commands") end },
+    { "^keymaps$", fn = function() require("keymaps") end },
+    { "^utils$" },
+    -- { "^workdirs$" },
+    { mod = "smartyank", fn = function() require("smartyank") end },
+    { mod = "fzf%-lua", fn = function() require("plugins.fzf-lua.setup").setup() end },
+  })
+  -- re-source all language specific settings, scans all runtime files under
+  -- '/usr/share/nvim/runtime/(indent|syntax)' and 'after/ftplugin'
+  local ft = vim.bo.filetype
+  vim.tbl_filter(function(s)
+    for _, e in ipairs({ "vim", "lua" }) do
+      if ft and #ft > 0 and s:match(("/%s.%s"):format(ft, e)) then
+        local file = vim.fn.expand(s:match("[^: ]*$"))
+        vim.cmd("source " .. file)
+        M.warn("RESOURCED " .. vim.fn.fnamemodify(file, ":."))
+        return s
+      end
+    end
+    return nil
+  end, vim.fn.split(vim.fn.execute("scriptnames"), "\n"))
 end
 
 return M

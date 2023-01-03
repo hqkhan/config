@@ -1,6 +1,8 @@
-local res, devicons = pcall(require, "nvim-web-devicons")
-
-if not res then
-  return
+local M = {
+  "nvim-tree/nvim-web-devicons",
+}
+function M.config()
+  require("nvim-web-devicons").setup({})
 end
-devicons.setup({})
+return M
+

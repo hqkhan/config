@@ -49,15 +49,6 @@ augroup('MiniIndentscopeDisable', function(g)
   })
 end)
 
--- update statusline highlights
-augroup('StatusLineColorschemeUpdate', function(g)
-  aucmd("ColorScheme", {
-    group = g,
-    pattern = '*',
-    command = "lua require'plugins.statusline'",
-  })
-end)
-
 augroup('NewlineNoAutoComments', function(g)
   aucmd("BufEnter", {
     group = g,
@@ -77,14 +68,6 @@ augroup('ActiveWinCursorLine', function(g)
     group = g,
     pattern = '*',
     command = 'if &cursorline && ! &pvw | setlocal nocursorline | endif'
-  })
-end)
-
-augroup('PackerCompile', function(g)
-  aucmd("BufWritePost", {
-    group = g,
-    pattern = 'pluginList.lua',
-    command = 'lua require("plugins").compile()',
   })
 end)
 

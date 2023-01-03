@@ -1,7 +1,6 @@
 ------------------------------------
 -------------Keymaps----------------
 ------------------------------------
-
 local map_fzf = function(mode, key, f, options, buffer)
 
   local desc = nil
@@ -13,10 +12,12 @@ local map_fzf = function(mode, key, f, options, buffer)
   end
 
   local rhs = function()
-    if not pcall(require, 'fzf-lua') then
-      require('packer').loader('fzf-lua')
+    local fzf_lua = require("fzf-lua")
+    if fzf_lua[f] then
+      fzf_lua[f](options or {})
+    else
+      require("plugins.fzf-lua.cmds")[f](options or {})
     end
-    require('plugins.fzf-lua')[f](options or {})
   end
 
   local map_options = {
@@ -87,6 +88,7 @@ map_fzf('n', "<leader>yf", "files",
       winopts = small_top_big_bottom,
     })
 
+map_fzf("n", "<leader>fO", "oldfiles", { desc = "file history (all)", cwd = "~" })
 map_fzf('n', '<leader>fo', "oldfiles", function()
   return {
     desc = 'file history (cwd)',
@@ -131,7 +133,7 @@ map_fzf("n", "<leader>fp", "files", {
   desc = "plugin files (packer)",
   prompt = "Plugins❯ ",
   winopts = small_top_big_bottom,
-  cwd = vim.fn.stdpath "data" .. "/site/pack/packer/"
+  cwd = vim.fn.stdpath "data" .. "/lazy"
 })
 
 map_fzf("n", "<c-t>", "workdirs", { desc = "cwd workdirs",
@@ -139,13 +141,5 @@ map_fzf("n", "<c-t>", "workdirs", { desc = "cwd workdirs",
     height = 0.40,
     width  = 0.60,
     row    = 0.40,
-  } })
-
-local _G = {}
-_G.get_scope_lines = function()
-  local scope = require('mini.indentscope').get_scope()
-  if scope.border.indent < 0 then return {} end
-  return vim.api.nvim_buf_get_lines(scope.buf_id, scope.border.top - 1, scope.border.bottom, true)
-end
-return _G
-
+  }
+})

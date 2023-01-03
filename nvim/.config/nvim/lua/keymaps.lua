@@ -3,11 +3,7 @@ local map = vim.keymap.set
 -- Reload the config (including certain plugins)
 vim.api.nvim_create_user_command("NvimRestart",
   function()
-    if not pcall(require, 'nvim-reload') then
-      require('packer').loader('nvim-reload')
-    end
-    require('plugins.nvim-reload')
-    require('nvim-reload').Restart()
+    require("utils").reload_config()
   end,
   { nargs = "*" }
 )
