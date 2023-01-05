@@ -27,7 +27,9 @@ function ds() {
 
 # Same as above, but allows multi selection:
 function drm() {
-  docker ps -a | sed 1d | fzf -q "$1" $FZF_MISC_CMD_OPTS --no-sort -m --tac | awk '{ print $1 }' | xargs -r docker rm
+    container=$(docker ps -a | sed 1d | fzf -q "$1" $FZF_MISC_CMD_OPTS --no-sort -m --tac | awk '{ print $1 }') 
+    docker stop $container
+    docker rm $container
 }
 
 # Select a docker image or images to remove
@@ -45,8 +47,8 @@ function dredis() {
     redis_image_array=($redis_image)
     container_name=$(echo ${redis_image_array[0]} | awk -F'/' '{print $2}')
     echo $container_name
-    echo "docker run -d -p $port:6379 --name $container_name-${redis_image_array[1]} ${redis_image_array[2]}"
-    docker run -d -p $port:6379 --name $container_name-${redis_image_array[1]} ${redis_image_array[2]}
+    echo "docker run -d -p $port:6379 --name $container_name-${redis_image_array[1]}-${port} ${redis_image_array[2]}"
+    docker run -d -p $port:6379 --name $container_name-${redis_image_array[1]}-${port} ${redis_image_array[2]}
 }
 
 function dbash() {
