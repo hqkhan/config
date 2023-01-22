@@ -1,7 +1,7 @@
 local M = {
   "akinsho/bufferline.nvim",
   event = "VeryLazy",
-  dependencies = { 'kyazdani42/nvim-web-devicons' }
+  dependencies = { 'nvim-tree/nvim-web-devicons' }
 }
 
 M.config = function()
@@ -30,10 +30,14 @@ M.config = function()
       max_name_length = 18,
       max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
       tab_size = 18,
-      diagnostics = false, --| "nvim_lsp",
+      diagnostics = "nvim_lsp",
       diagnostics_update_in_insert = false,
       diagnostics_indicator = function(count, level, diagnostics_dict, context)
-        return "("..count..")"
+        if level == "error" then
+          return "("..count..")"
+        else
+          return ""
+        end
       end,
       -- NOTE: this will be called a lot so don't do any heavy processing here
       custom_filter = function(buf)
@@ -69,7 +73,19 @@ M.config = function()
         -- add custom logic
         -- return buffer_a.modified > buffer_b.modified
       -- end
-    }
+    },
+    -- highlights = {
+    --   buffer_visible = {
+    --       fg = '<colour-value-here>',
+    --       bg = '<colour-value-here>'
+    --   },
+    --   buffer_selected = {
+    --       fg = normal_fg,
+    --       bg = '<colour-value-here>',
+    --       bold = true,
+    --       italic = true,
+    --   },
+    -- }
   }
 end
 

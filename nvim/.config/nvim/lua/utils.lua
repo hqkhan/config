@@ -292,11 +292,12 @@ end
 
 M.reload_config = function()
   M.unload_modules({
-    { "^options$", fn = function() require("options") end },
-    { "^au_commands$", fn = function() require("au_commands") end },
+    { "^settings$", fn = function() require("settings") end },
+    { "^autocmd$", fn = function() require("autocmd") end },
     { "^keymaps$", fn = function() require("keymaps") end },
     { "^utils$" },
-    -- { "^workdirs$" },
+    { "^workdirs$" },
+    { mod = "ts%-vimdoc" },
     { mod = "smartyank", fn = function() require("smartyank") end },
     { mod = "fzf%-lua", fn = function() require("plugins.fzf-lua.setup").setup() end },
   })

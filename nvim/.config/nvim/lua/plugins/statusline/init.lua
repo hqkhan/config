@@ -159,49 +159,63 @@ local function setup()
           t      = { "Term  ", "T", { "DiffAdd", "diffAdded" } },
         }
 
-        -- vim.pretty_print(sections.maximum_width(sections.highlight(highlights.filename_bg_fg, builtin.make_responsive_file(140, 90)), 0.40)(vim.))
         local components = {
+          -- Left
           { c.mode { modes = modes, fmt = " %s %s ", icon = "", hl_icon_only = false } },
+          -- Git
           { c.git_branch { fmt = " %s %s ", icon = "", hl = highlights.git_branch_fg } },
           { sections.split, required = true },
+
+          -- Middle
+          -- File path 
           { sections.highlight(highlights.filename_sepr, ("%s"):format(signs.left_sepr))},
           { sections.highlight(highlights.filename_bg_fg, (" "))},
           { c.file_icon { fmt = "%s ", hl_icon = true } },
           { sections.maximum_width(sections.highlight(highlights.filename_bg_fg, builtin.make_responsive_file(140, 90)), 0.40, { highlight = true }), required = true },
           { sections.highlight(highlights.filename_bg_fg, (" "))},
           { sections.highlight(highlights.filename_sepr, ("%s"):format(signs.right_sepr))},
-          { sections.collapse_builtin { { " " }, { builtin.modified_flag } } },
-          { sections.split, required = true },
-          { c.diagnostics {
-            fmt = "[%s]", lsp = true,
-            hl_err = highlights.red_fg,
-            hl_warn = highlights.yellow_fg,
-            hl_info = highlights.green_fg,
-            hl_hint = highlights.magenta_fg,
-            icon_err = ' ', icon_warn = ' ', icon_info = '', icon_hint = ''
-          }
 
-          },
+          -- Modified flag
+          { " " },
+          { sections.highlight (highlights.green_fg, builtin.modified_flag) },
+          { sections.split, required = true },
+
+          -- Right
+          -- LSP Diagnostics
           { sections.highlight(get_darkblue_hl("yellow"), "[") },
-          { c.git_changes_buf {
-            fmt = "%s",
-            icon_insert = "+",
-            icon_change = "~",
-            icon_delete = "-",
-            -- hl_insert = highlights.green_fg,
-            -- hl_change = highlights.yellow_fg,
-            -- hl_delete = highlights.red_fg,
-            hl_insert = get_darkblue_hl("green"),
-            hl_change = get_darkblue_hl("yellow"),
-            hl_delete = get_darkblue_hl("red"),
-          }
+          {
+            c.diagnostics {
+              fmt = "%s", lsp = true,
+              hl_lsp_srv = highlights.yellow_fg,
+              hl_err = highlights.red_fg,
+              hl_warn = highlights.yellow_fg,
+              hl_info = highlights.green_fg,
+              hl_hint = highlights.magenta_fg,
+              icon_err = ' ', icon_warn = ' ', icon_info = '', icon_hint = ''
+            }
           },
+          { sections.highlight(get_darkblue_hl("yellow"), "]") },
+
+          -- Buffer change counts
+          { sections.highlight(get_darkblue_hl("yellow"), "[") },
+          {
+            c.git_changes_buf {
+              fmt = "%s",
+              icon_insert = "+",
+              icon_change = "~",
+              icon_delete = "-",
+              hl_insert = get_darkblue_hl("green"),
+              hl_change = get_darkblue_hl("yellow"),
+              hl_delete = get_darkblue_hl("red"),
+            }
+          },
+
           { sections.highlight(get_darkblue_hl("yellow"), "]") },
           { sections.highlight(get_darkblue_hl("yellow"), "[") },
           { sections.highlight(get_darkblue_hl("yellow"),  builtin.line_with_width(3)) },
-          { ":" },
-          { builtin.column_with_width(2) },
-          { "]" },
+          { sections.highlight(get_darkblue_hl("yellow"), ":") },
+          { sections.highlight(get_darkblue_hl("yellow"),  builtin.column_with_width(2)) },
+          { sections.highlight(get_darkblue_hl("yellow"), "]") },
           {
             sections.collapse_builtin {
               "[",

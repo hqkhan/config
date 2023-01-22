@@ -8,6 +8,7 @@ local workdirs = {
   "/local/home/hqkhan/workspace/search-mainline/src/ElastiCacheSearch",
   "~/Sources/nvim/express_line.nvim",
   vim.fn.stdpath("data") .. "/site/pack/packer",
+  vim.fn.stdpath("data") .. "/lazy",
 }
 
 return workdirs

@@ -53,7 +53,8 @@ map_fzf('n', "<leader>co", "git_branches",      { desc = "Checkout git branches"
 
 -- Grep
 map_fzf('n', "<leader>rg", "grep",              { desc = "Grep" })
-map_fzf('n', "<leader>cW", "grep_cword",        function()
+
+map_fzf('n', "<leader>cW", "grep_cword", function()
   return {
     desc = "Grep current word in project",
     prompt = 'Project❯ ',
@@ -61,6 +62,7 @@ map_fzf('n', "<leader>cW", "grep_cword",        function()
     search = vim.fn.expand("<cword>"),
   }
 end)
+
 map_fzf('n', '<leader>cw', "grep_curbuf", function()
   return {
     desc = 'Live grep current buffer',
@@ -69,6 +71,7 @@ map_fzf('n', '<leader>cw', "grep_curbuf", function()
     search = vim.fn.expand("<cword>"),
   }
 end)
+
 map_fzf('n', "<leader>lG", "live_grep",
     function() return { desc = "Live grep (project)",
     winopts = small_top_big_bottom,
@@ -83,6 +86,10 @@ map_fzf('n', "<leader>bl", "blines", { desc = "buffer lines",
 })
 
 map_fzf('n', "<leader>LG", "live_grep_resume", { desc = "Live grep resume",
+      winopts = small_top_big_bottom,
+})
+
+map_fzf('n', "<leader>fq", "quickfix", { desc = "Quickfix",
       winopts = small_top_big_bottom,
 })
 

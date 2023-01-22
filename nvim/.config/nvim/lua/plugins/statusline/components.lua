@@ -195,10 +195,10 @@ local git_changes_formatter = function(opts)
         count = s[k]
       end
       if count and count > 0 then
-        table.insert(result, set_hl(v.hl, ("%s%d"):format(v.icon, count)))
+        table.insert(result, set_hl(v.hl, ("%s%d, "):format(v.icon, count)))
       end
     end
-    return table.concat(result, ", ")
+    return table.concat(result)
   end
 end
 
@@ -300,6 +300,9 @@ local function diag_formatter(opts)
     end
     local fmt = opts.fmt or "%s"
     local lsp_name = opts.lsp and lsp_srvname()
+    if opts.hl_lsp_srv then
+      lsp_name = set_hl(opts.hl_lsp_srv, ("%s"):format(lsp_name))
+    end
     if not lsp_name and vim.tbl_isempty(items) then
       return ""
     else
