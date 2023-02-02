@@ -86,7 +86,7 @@ __settings['rust_analyzer'] = {
   settings = {
     ["rust-analyzer"] = {
       rustfmt = {
-        extraArgs = { "+nightly", },
+        -- extraArgs = { "+nightly", },
         -- overrideCommand = {
         --   "rustup",
         --   "run",

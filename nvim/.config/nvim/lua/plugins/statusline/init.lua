@@ -65,6 +65,11 @@ local function setup()
             fg = { [hl_yellow] = "fg" },
             bold = true,
           }),
+          cyan_fg = c.extract_hl({
+            bg = { ["Bluebg"] = "bg" },
+            fg = { ["Blackfg"] = "fg" },
+            bold = true,
+          }),
           magenta_fg = c.extract_hl({
             bg = { [hl_statusline] = "bg" },
             fg = { [hl_magenta] = "fg" },
@@ -182,11 +187,10 @@ local function setup()
 
           -- Right
           -- LSP Diagnostics
-          { sections.highlight(get_darkblue_hl("yellow"), "[") },
           {
             c.diagnostics {
-              fmt = "%s", lsp = true,
-              hl_lsp_srv = highlights.yellow_fg,
+              fmt = signs.left_sepr.."%s"..signs.left_sepr, lsp = true,
+              hl_lsp_srv = highlights.cyan_fg,
               hl_err = highlights.red_fg,
               hl_warn = highlights.yellow_fg,
               hl_info = highlights.green_fg,
@@ -194,7 +198,7 @@ local function setup()
               icon_err = ' ', icon_warn = ' ', icon_info = '', icon_hint = ''
             }
           },
-          { sections.highlight(get_darkblue_hl("yellow"), "]") },
+          -- { sections.highlight(get_darkblue_hl("yellow"), "]") },
 
           -- Buffer change counts
           { sections.highlight(get_darkblue_hl("yellow"), "[") },

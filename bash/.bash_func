@@ -109,16 +109,16 @@ _run_test() {
 
     if [[ ! -z "$1" ]]; then
         if [[ $ASAN_BUILD == "yes" ]]; then
-            echo "ASAN_BUILD=yes TEST_PATTERN=$1 bb amztests -j$core_num"
-            ASAN_BUILD=yes TEST_PATTERN=$1 bb amztests -j$core_num
+            echo "ASAN_BUILD=yes TEST_PATTERN=$1 bb amztests"
+            ASAN_BUILD=yes TEST_PATTERN=$1 bb amztests
         else
-            echo "TEST_PATTERN=$1 bb amztests -j$core_num"
-            TEST_PATTERN=$1 bb amztests -j$core_num
+            echo "TEST_PATTERN=$1 bb amztests"
+            TEST_PATTERN=$1 bb amztests
         fi
     fi
 }
 
 _sanity() {
-    echo "bb amztests-sanity -j16"
-    bb amztests-sanity -j16
+    echo "bb amztests-sanity"
+    bb amztests-sanity
 }
