@@ -122,3 +122,30 @@ _sanity() {
     echo "bb amztests-sanity"
     bb amztests-sanity
 }
+
+_ws() {
+  brazil ws --create -name $1 -vs elasticache-redis-release/mainline-development && cd $1
+}
+
+get(){
+  local branch
+  local pkg
+  if [[ -z "$2" ]] ; then
+    branch="mainline"
+  else
+    branch=$2
+  fi
+  
+  if [[ $1 == "search" ]] ; then
+    pkg="ElastiCacheSearch"
+  elif [[ $1 == "redis" ]] ; then
+    pkg="ElastiCacheRedis"
+  elif [[ $1 == "json" ]] ; then
+    pkg="ElastiCacheRedisJSONModule"
+  else
+    echo "Wrong package"
+  fi
+
+  echo "brazil ws use --package $pkg --branch $branch"
+  brazil ws use --package $pkg --branch $branch
+}

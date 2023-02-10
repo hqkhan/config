@@ -8,9 +8,9 @@ require('lsp.handlers')
 
 -- Enable borders for hover/signature help
 vim.lsp.handlers['textDocument/hover'] =
-  vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 vim.lsp.handlers['textDocument/signatureHelp'] =
-  vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
 
 local __settings = {}
 
@@ -39,8 +39,8 @@ __settings['sumneko_lua'] = {
         -- Get the language server to recognize the `vim` global
         globals = {
           'vim',
-          'describe',     -- busted
-          'it'            -- busted
+          'describe', -- busted
+          'it' -- busted
         },
         -- enables formatter warnings
         -- neededFileStatus = { ['codestyle-check'] = "any" }
@@ -87,16 +87,6 @@ __settings['rust_analyzer'] = {
     ["rust-analyzer"] = {
       rustfmt = {
         -- extraArgs = { "+nightly", },
-        -- overrideCommand = {
-        --   "rustup",
-        --   "run",
-        --   "nightly",
-        --   "--",
-        --   "rustfmt",
-        --   "--edition",
-        --   "2021",
-        --   "--",
-        -- },
       },
     }
   }
@@ -139,8 +129,8 @@ local servers = {
 
 local function is_installed(cfg)
   local cmd = cfg.document_config
-    and cfg.document_config.default_config
-    and cfg.document_config.default_config.cmd or nil
+      and cfg.document_config.default_config
+      and cfg.document_config.default_config.cmd or nil
   -- server globally installed?
   if cmd and cmd[1] and vim.fn.executable(cmd[1]) == 1 then
     return true
