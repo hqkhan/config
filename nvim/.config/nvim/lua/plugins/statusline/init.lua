@@ -187,9 +187,10 @@ local function setup()
 
           -- Right
           -- LSP Diagnostics
+          { sections.highlight(get_darkblue_hl("yellow"), signs.left_sepr) },
           {
             c.diagnostics {
-              fmt = signs.left_sepr.."%s"..signs.left_sepr, lsp = true,
+              fmt = "%s", lsp = true,
               hl_lsp_srv = highlights.cyan_fg,
               hl_err = highlights.red_fg,
               hl_warn = highlights.yellow_fg,
@@ -198,6 +199,7 @@ local function setup()
               icon_err = ' ', icon_warn = ' ', icon_info = '', icon_hint = ''
             }
           },
+          { sections.highlight(get_darkblue_hl("yellow"), signs.left_sepr) },
           -- { sections.highlight(get_darkblue_hl("yellow"), "]") },
 
           -- Buffer change counts

@@ -149,3 +149,12 @@ get(){
   echo "brazil ws use --package $pkg --branch $branch"
   brazil ws use --package $pkg --branch $branch
 }
+
+_ev(){
+  # Set redis include dir
+  export ELASTICACHE_REDIS_INCLUDE_DIR=$(brazil-path '[ElastiCacheRedis]pkg.src')/src
+  # Set JSON include dir
+  export JSON_INCLUDE_DIR=$(brazil-path '[ElastiCacheRedisJSONModule]pkg.src')/src/json
+  # Set JSON lib dir
+  export JSON_MODULE_LIB_DIR=$(brazil-path '[ElastiCacheRedisJSONModule]pkg.lib')
+}

@@ -290,9 +290,29 @@ M.osc52printf = function(...)
   M.info(string.format("[OSC52] %d chars copied (%d bytes)", #str, bytes))
 end
 
+M.unload_modules = function(patterns)
+  for _, p in ipairs(patterns) do
+    if not p.mod and type(p[1]) == "string" then
+      p = { mod = p[1], fn = p.fn }
+    end
+    local unloaded = false
+    for m, _ in pairs(package.loaded) do
+      if m:match(p.mod) then
+        unloaded = true
+        package.loaded[m] = nil
+        M.info(string.format("UNLOADED module '%s'", m))
+      end
+    end
+    if unloaded and p.fn then
+      p.fn()
+      M.warn(string.format("RELOADED module '%s'", p.mod))
+    end
+  end
+end
+
 M.reload_config = function()
   M.unload_modules({
-    { "^settings$", fn = function() require("settings") end },
+    { "^options$", fn = function() require("options") end },
     { "^autocmd$", fn = function() require("autocmd") end },
     { "^keymaps$", fn = function() require("keymaps") end },
     { "^utils$" },
