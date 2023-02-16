@@ -4,10 +4,14 @@ install_tmux() {
     echo "==================================="
     echo "INSTALLING TMUX "
     echo "==================================="
+    cd $HOME
+    sudo yum install libevent-devel
+    sudo yum install ncurses-devel
     git clone https://github.com/tmux/tmux.git
     cd tmux
     sh autogen.sh
     ./configure && make
+    sudo cp ./tmux /usr/local/bin
 
     echo "==================================="
     echo "INSTALLING TPM"
@@ -23,6 +27,7 @@ install_bash() {
 
     ln -sf $HOME/config/bash/.bashrc $HOME/
     ln -sf $HOME/config/bash/.bash_func $HOME/
+    cp $HOME/config/bash/.inputrc $HOME/.inputrc
 }
 
 install_font() {
@@ -44,6 +49,7 @@ install_z() {
 
 install_cargo() {
     curl https://sh.rustup.rs -sSf | sh
+    source "$HOME/.cargo/env"
 }
 
 install_nvim() {
@@ -80,16 +86,24 @@ install_cargo_tools() {
   cargo install --locked bat
 }
 
+install_cmake() {
+  cd $HOME
+  wget https://github.com/Kitware/CMake/releases/download/v3.25.2/cmake-3.25.2-linux-x86_64.sh
+  chmod u+x cmake-3.25.2-linux-x86_64.sh
+  ./cmake-3.25.2-linux-x86_64.sh
+}
+
 install_packages() {
-    install_cargo
-    install_git_conf
+    install_cmake
+    #install_cargo
+    #install_git_conf
     install_tmux
-    install_nvim
-    install_fzf
-    install_z
-    install_cargo_tools
-    install_bash
+    #install_nvim
+    #install_fzf
+    #install_z
+    #install_cargo_tools
+    #install_bash
     # install_font
 }
 
-install_packages()
+install_packages
