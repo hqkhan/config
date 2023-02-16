@@ -295,20 +295,20 @@ local function diag_formatter(opts)
     for _, k in ipairs({ "errors", "warnings", "infos", "hints" }) do
       if counts[k] > 0 then
         table.insert(items,
-          set_hl(icons[k][2], ("%s:%s"):format(icons[k][1], counts[k])))
+          set_hl(icons[k][2], ("%s:%s "):format(icons[k][1], counts[k])))
       end
     end
     local fmt = opts.fmt or "%s"
     local lsp_name = opts.lsp and lsp_srvname()
     if opts.hl_lsp_srv then
-      lsp_name = set_hl(opts.hl_lsp_srv, ("%s"):format(lsp_name))
+      lsp_name = set_hl(opts.hl_lsp_srv, ("%s "):format(lsp_name))
     end
     if not lsp_name and vim.tbl_isempty(items) then
       return ""
     else
       local contents = lsp_name
       if not vim.tbl_isempty(items) then
-        contents = ("%s %s"):format(lsp_name, table.concat(items, " "))
+        contents = ("%s%s"):format(lsp_name, table.concat(items, ""))
       end
       return fmt:format(contents)
     end

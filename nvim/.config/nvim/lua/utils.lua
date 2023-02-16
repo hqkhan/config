@@ -319,6 +319,7 @@ M.reload_config = function()
     { "^workdirs$" },
     { mod = "ts%-vimdoc" },
     { mod = "smartyank", fn = function() require("smartyank") end },
+    { mod = "statusline", fn = function() require("plugins.statusline") end },
     { mod = "fzf%-lua", fn = function() require("plugins.fzf-lua.setup").setup() end },
   })
   -- re-source all language specific settings, scans all runtime files under

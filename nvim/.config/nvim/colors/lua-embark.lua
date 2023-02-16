@@ -143,9 +143,14 @@ hl.syntax = {
   StatusLineFileName ={ fg = colors.magenta, bg = colors.statusline},
   Blackfg =           { fg = colors.black },
   Greenbg =           { bg = colors.green },
+  Greenfg =           { fg = colors.green },
   Darkblue_tmux_bg =  { bg = colors.darkblue_tmux },
+  Darkblue_tmux_fg =  { fg = colors.darkblue_tmux },
   Magenta =           { fg = colors.magenta },
+  Purplebg =          { bg = colors.purple },
+  Purplefg =          { fg = colors.purple },
   Bluebg =            { bg = colors.blue },
+  DarkYellowfg =      { fg = colors.dark_yellow },
 }
 
 -- TS highlights

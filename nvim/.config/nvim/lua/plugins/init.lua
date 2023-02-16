@@ -7,7 +7,7 @@ return {
   {
     "ibhagwan/smartyank.nvim",
     config = function()
-      require("smartyank").setup({ highlight = { timeout = 200 } })
+      require("smartyank").setup({ highlight = { timeout = 100 } })
     end,
     event = "VeryLazy",
     dev = require("utils").is_dev("smartyank.nvim")

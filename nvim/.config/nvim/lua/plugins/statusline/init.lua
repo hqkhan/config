@@ -51,8 +51,13 @@ local function setup()
 
         local highlights = {
           red_fg = c.extract_hl({
-            bg = { [hl_statusline] = "bg" },
+            bg = { ["Darkblue_tmux_bg"] = "bg" },
             fg = { [hl_red] = "fg" },
+            bold = true,
+          }),
+          green_tmux_fg = c.extract_hl({
+            bg = { ["Darkblue_tmux_bg"] = "bg" },
+            fg = { [hl_green] = "fg" },
             bold = true,
           }),
           green_fg = c.extract_hl({
@@ -61,14 +66,22 @@ local function setup()
             bold = true,
           }),
           yellow_fg = c.extract_hl({
-            bg = { [hl_statusline] = "bg" },
+            bg = { ["Darkblue_tmux_bg"] = "bg" },
             fg = { [hl_yellow] = "fg" },
             bold = true,
           }),
-          cyan_fg = c.extract_hl({
-            bg = { ["Bluebg"] = "bg" },
+          purple_bg = c.extract_hl({
+            bg = { ["Purplebg"] = "bg" },
             fg = { ["Blackfg"] = "fg" },
             bold = true,
+          }),
+          purple_fg = c.extract_hl({
+            bg = { [hl_statusline] = "bg" },
+            fg = { ["Purplefg"] = "fg" },
+          }),
+          darkblue_tmux_fg = c.extract_hl({
+            bg = { [hl_statusline] = "bg" },
+            fg = { ["Darkblue_tmux_fg"] = "fg" },
           }),
           magenta_fg = c.extract_hl({
             bg = { [hl_statusline] = "bg" },
@@ -85,6 +98,11 @@ local function setup()
           git_branch_fg = c.extract_hl({
             bg = { ["Greenbg"] = "bg" },
             fg = { ["Blackfg"] = "fg" },
+            bold = true,
+          }),
+          git_branch_bg = c.extract_hl({
+            bg = { [hl_statusline] = "bg" },
+            fg = { ["Greenfg"] = "fg" },
             bold = true,
           }),
           rhs_misc_bg_fg = c.extract_hl({
@@ -109,6 +127,11 @@ local function setup()
           filetype = c.extract_hl({
             bg = { ["Darkblue_tmux_bg"] = "bg" },
             fg = { ["blue"] = "fg" },
+            bold = true,
+          }),
+          lsp_srv = c.extract_hl({
+            bg = { ["Darkblue_tmux_bg"] = "bg" },
+            fg = { ["DarkYellowfg"] = "fg" },
             bold = true,
           }),
 
@@ -169,6 +192,7 @@ local function setup()
           { c.mode { modes = modes, fmt = " %s %s ", icon = "", hl_icon_only = false } },
           -- Git
           { c.git_branch { fmt = " %s %s ", icon = "", hl = highlights.git_branch_fg } },
+          { sections.highlight(highlights.git_branch_bg, ("%s"):format(signs.right_sepr)) },
           { sections.split, required = true },
 
           -- Middle
@@ -182,19 +206,19 @@ local function setup()
 
           -- Modified flag
           { " " },
-          { sections.highlight (highlights.green_fg, builtin.modified_flag) },
+          { sections.highlight(highlights.green_fg, builtin.modified_flag) },
           { sections.split, required = true },
 
           -- Right
           -- LSP Diagnostics
-          { sections.highlight(get_darkblue_hl("yellow"), signs.left_sepr) },
+          { sections.highlight(highlights.darkblue_tmux_fg, ("%s"):format(signs.left_sepr))},
           {
             c.diagnostics {
               fmt = "%s", lsp = true,
-              hl_lsp_srv = highlights.cyan_fg,
+              hl_lsp_srv = highlights.lsp_srv,
               hl_err = highlights.red_fg,
               hl_warn = highlights.yellow_fg,
-              hl_info = highlights.green_fg,
+              hl_info = highlights.green_tmux_fg,
               hl_hint = highlights.magenta_fg,
               icon_err = ' ', icon_warn = ' ', icon_info = '', icon_hint = ''
             }
@@ -217,6 +241,7 @@ local function setup()
           },
 
           { sections.highlight(get_darkblue_hl("yellow"), "]") },
+
           { sections.highlight(get_darkblue_hl("yellow"), "[") },
           { sections.highlight(get_darkblue_hl("yellow"),  builtin.line_with_width(3)) },
           { sections.highlight(get_darkblue_hl("yellow"), ":") },
