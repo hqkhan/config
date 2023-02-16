@@ -33,10 +33,6 @@ install_font() {
     ./install.sh JetBrainsMono
 }
 
-install_rg() {
-    cargo install ripgrep
-}
-
 install_fzf() {
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     yes | ~/.fzf/install
@@ -73,22 +69,25 @@ install_git_conf() {
     ln -sf $HOME/config/git_prompt/.git-prompt.sh $HOME/.git-prompt.sh 
 }
 
-install_fd() {
-}
-
-install_bat() {
+install_cargo_tools() {
+  echo "INSTALLING git-delta"
+  cargo install git-delta
+  echo "INSTALLING fd-find"
+  cargo install fd-find
+  echo "INSTALLING Ripgrep"
+  cargo install ripgrep
+  echo "INSTALLING bat"
+  cargo install --locked bat
 }
 
 install_packages() {
     install_cargo
     install_git_conf
     install_tmux
-    install_rg
+    install_nvim
     install_fzf
     install_z
-    install_nvim
-    install_font
-    install_bat
-    install_fd
+    install_cargo_tools
     install_bash
+    # install_font
 }
