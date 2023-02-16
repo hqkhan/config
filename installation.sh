@@ -91,3 +91,5 @@ install_packages() {
     install_bash
     # install_font
 }
+
+install_packages()
