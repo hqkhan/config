@@ -153,8 +153,8 @@ Slack_Hotkey
     end)
 
 -- Chrome
-local Chrome_Hotkey = hs.window.filter.new("Google Chrome")
-Chrome_Hotkey
+local Firefox = hs.window.filter.new("Firefox")
+Firefox
     :subscribe(hs.window.filter.windowFocused, function()
         select_all:enable()
         copy:enable()
