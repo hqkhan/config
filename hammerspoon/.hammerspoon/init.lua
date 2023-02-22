@@ -44,7 +44,7 @@ spoon.ReloadConfiguration:bindHotkeys({ reloadConfiguration = { {"cmd","ctrl"}, 
 -- test
 -- Browser
 hs.hotkey.bind({"cmd"}, "b", function()
-    hs.application.launchOrFocus("Google Chrome")
+    hs.application.launchOrFocus("Firefox")
 end)
 
 -- Terminal
@@ -77,20 +77,6 @@ end)
 hs.hotkey.bind({"cmd"}, "h", function()
     hs.application.launchOrFocus("Amazon Chime")
 end)
-
--- Quip
--- hs.hotkey.bind({"cmd"}, "p", function()
---     hs.application.launchOrFocus("Quip")
--- end)
-
--- hs.hotkey.bind({"cmd"}, "p", function()
---     local win = hs.window.focusedWindow()
---     if win ~= hs.window.desktop() then
---         local desk = hs.window.desktop()
---         desk:focus()
---         desk:maximize()
---     end
--- end)
 
 -- Dismiss outlook events
 local DismissHotkey = hs.hotkey.bind({ "cmd", "ctrl" }, "d", function()
@@ -155,21 +141,13 @@ local Slack_Hotkey = hs.window.filter.new("Slack")
 Slack_Hotkey
     :subscribe(hs.window.filter.windowFocused, function()
         slack_k:enable()
-        select_all:enable()
-        copy:enable()
-        paste:enable()
         undo:enable()
-        cut:enable()
         find:enable()
         delete:enable()
     end)
     :subscribe(hs.window.filter.windowUnfocused, function()
         slack_k:disable()
-        select_all:disable()
-        copy:disable()
         delete:disable()
-        paste:disable()
-        cut:disable()
         undo:disable()
         find:disable()
     end)
@@ -210,31 +188,3 @@ Iterm_Hotkey
         paste:disable()
         find:disable()
     end)
-
-
--- local search_doc = hs.hotkey.new({"ctrl"}, "k", nil, function() hs.eventtap.keyStroke({"cmd"}, "j") end)
-
--- local Quip_Hotkey = hs.window.filter.new("Quip")
--- Quip_Hotkey
---     :subscribe(hs.window.filter.windowFocused, function()
---         select_all:enable()
---         copy:enable()
---         paste:enable()
---         undo:enable()
---         find:enable()
---         cut:enable()
---         up:enable()
---         down:enable()
---         search_doc:enable()
---     end)
---     :subscribe(hs.window.filter.windowUnfocused, function()
---         search_doc:disable()
---         select_all:disable()
---         copy:disable()
---         paste:disable()
---         undo:disable()
---         find:disable()
---         cut:disable()
---         up:disable()
---         down:disable()
---     end)
