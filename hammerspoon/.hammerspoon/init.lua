@@ -49,13 +49,7 @@ end)
 
 -- Terminal
 hs.hotkey.bind({"cmd"}, "m", function()
-    hs.application.launchOrFocus("iTerm")
-end)
-
-hs.hotkey.bind({"cmd"}, "return", function()
-    hs.application.launchOrFocus("iTerm")
-    -- local win = hs.window.focusedWindow()
-    -- hs.eventtap.keyStroke({"cmd"}, "n")
+    hs.application.launchOrFocus("Alacritty")
 end)
 
 -- Slack
@@ -112,7 +106,7 @@ local calendarHotkey = hs.hotkey.new({ "cmd", "ctrl" }, "c", function()
     hs.eventtap.leftClick(calendarLoc)
 end)
 
-local InboxHotkey = hs.hotkey.new({ "cmd", "ctrl" }, "m", function()
+local InboxHotkey = hs.hotkey.new({ "cmd", "ctrl" }, "i", function()
     local InboxLoc = {}
     InboxLoc['y'] = 1060
     InboxLoc['x'] = 30
@@ -176,15 +170,4 @@ Firefox
         cut:disable()
         up:disable()
         down:disable()
-    end)
-
--- iTerm
-local Iterm_Hotkey = hs.window.filter.new("iTerm")
-Iterm_Hotkey
-    :subscribe(hs.window.filter.windowFocused, function()
-        paste:enable()
-    end)
-    :subscribe(hs.window.filter.windowUnfocused, function()
-        paste:disable()
-        find:disable()
     end)
