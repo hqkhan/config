@@ -1,29 +1,18 @@
 # config
 My own config.
 
-## Programs to install
-`pacman -Sy fzf fd rg stow tmux`
-
-### Stow
-`stow */` to grab all folders
-`stow <folder_name>` to grab specific piece
-
-### Install `neovim`
-`pacman -Sy neovim`
-
 ### Fonts
 Using [JetBrainsMono](https://www.jetbrains.com/lp/mono/) font.
 
 Use `fc-cache` after placing font in `~/.local/share/fonts/`
 
+### MacOS stuff
+Monitoring perf - https://github.com/exelban/stats
+
 ### PS1
 https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 
 Place in `~/` for this to read git branch
-
-### Colorscheme
-Embark theme from ibhagwan's repo
-Tmux colorscheme in `hqkhan/tmux-onedark-theme`
 
 ### VIMIUM
 ```
