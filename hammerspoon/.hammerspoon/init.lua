@@ -48,19 +48,38 @@ hs.hotkey.bind({"cmd"}, "b", function()
 end)
 
 -- Terminal
-hs.hotkey.bind({"cmd"}, "m", function()
-    hs.application.launchOrFocus("Alacritty")
-end)
+-- hs.hotkey.bind({"cmd"}, "m", function()
+--     hs.application.launchOrFocus("Alacritty")
+-- end)
+hs.hotkey.bindSpec({ { "Cmd" }, "m" },
+  function() 
+    hs.appfinder.appFromName("Alacritty"):activate() 
+  end)
+
+hs.hotkey.bindSpec({ { "Cmd" }, "s" },
+  function() 
+    hs.appfinder.appFromName("Slack"):activate() 
+  end)
+
+hs.hotkey.bindSpec({ { "Cmd" }, "o" },
+  function() 
+    hs.appfinder.appFromName("Microsoft Outlook"):activate() 
+  end)
+
+hs.hotkey.bindSpec({ { "Cmd" }, "h" },
+  function() 
+    hs.appfinder.appFromName("Amazon Chime"):activate() 
+  end)
 
 -- Slack
-hs.hotkey.bind({"cmd"}, "s", function()
-    hs.application.launchOrFocus("Slack")
-end)
+-- hs.hotkey.bind({"cmd"}, "s", function()
+--     hs.application.launchOrFocus("Slack")
+-- end)
 
 -- Outlook
-hs.hotkey.bind({"cmd"}, "o", function()
-    hs.application.launchOrFocus("Microsoft Outlook")
-end)
+-- hs.hotkey.bind({"cmd"}, "o", function()
+--     hs.application.launchOrFocus("Microsoft Outlook")
+-- end)
 
 -- Snapshot
 hs.hotkey.bind({"cmd", "ctrl"}, "m", function()
@@ -68,15 +87,15 @@ hs.hotkey.bind({"cmd", "ctrl"}, "m", function()
 end)
 
 -- Chime
-hs.hotkey.bind({"cmd"}, "h", function()
-    hs.application.launchOrFocus("Amazon Chime")
-end)
+-- hs.hotkey.bind({"cmd"}, "h", function()
+--     hs.application.launchOrFocus("Amazon Chime")
+-- end)
 
 -- Dismiss outlook events
 local DismissHotkey = hs.hotkey.bind({ "cmd", "ctrl" }, "d", function()
     local DismissLoc = {}
     DismissLoc['y'] = 1100
-    DismissLoc['x'] = 1650
+    DismissLoc['x'] = 1750
     hs.eventtap.leftClick(DismissLoc)
 end)
 
@@ -134,40 +153,8 @@ local Slack_Hotkey = hs.window.filter.new("Slack")
 
 Slack_Hotkey
     :subscribe(hs.window.filter.windowFocused, function()
-        slack_k:enable()
-        undo:enable()
-        find:enable()
         delete:enable()
     end)
     :subscribe(hs.window.filter.windowUnfocused, function()
-        slack_k:disable()
         delete:disable()
-        undo:disable()
-        find:disable()
-    end)
-
--- Chrome
-local Firefox = hs.window.filter.new("Firefox")
-Firefox
-    :subscribe(hs.window.filter.windowFocused, function()
-        select_all:enable()
-        copy:enable()
-        paste:enable()
-        undo:enable()
-        find:enable()
-        cut:enable()
-        up:enable()
-        down:enable()
-        delete:enable()
-    end)
-    :subscribe(hs.window.filter.windowUnfocused, function()
-        select_all:disable()
-        delete:disable()
-        copy:disable()
-        paste:disable()
-        undo:disable()
-        find:disable()
-        cut:disable()
-        up:disable()
-        down:disable()
     end)
