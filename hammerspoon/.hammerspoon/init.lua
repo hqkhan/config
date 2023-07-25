@@ -41,37 +41,6 @@ hs.loadSpoon("ReloadConfiguration")
 -- spoon.ReloadConfiguration:start()
 spoon.ReloadConfiguration:bindHotkeys({ reloadConfiguration = { {"cmd","ctrl"}, "r"} })
 
--- test
--- Browser
---[[ hs.hotkey.bind({"cmd"}, "b", function()
-    hs.application.launchOrFocus("Firefox")
-end) ]]
-
--- Terminal
---[[ hs.hotkey.bind({"cmd"}, "m", function()
-    hs.application.launchOrFocus("Alacritty")
-end) ]]
-
--- Slack
---[[ hs.hotkey.bind({"cmd"}, "s", function()
-    hs.application.launchOrFocus("Slack")
-end) ]]
-
--- Outlook
---[[ hs.hotkey.bind({"cmd"}, "o", function()
-    hs.application.launchOrFocus("Microsoft Outlook")
-end) ]]
-
--- Snapshot
---[[ hs.hotkey.bind({"cmd", "ctrl"}, "m", function()
-    hs.eventtap.keyStroke({"cmd", "shift"}, "4") 
-end) ]]
-
--- Chime
---[[ hs.hotkey.bind({"cmd"}, "h", function()
-    hs.application.launchOrFocus("Amazon Chime")
-end) ]]
-
 -- Dismiss outlook events
 local DismissHotkey = hs.hotkey.bind({ "cmd", "ctrl" }, "d", function()
     local DismissLoc = {}
